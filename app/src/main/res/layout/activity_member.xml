@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_with_logo"
+    android:orientation="vertical"
+    tools:context=".MemberActivity">
+
+    <include layout="@layout/toolbar"/>
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical" >
+
+    <TextView
+        style="@style/TextViewHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DEPENDENT" />
+
+    <TextView
+        style="@style/TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Relationship Type" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/CustomRadioTheme"
+        android:id="@+id/radioReltype">
+
+        <RadioButton
+            android:paddingLeft="10dp"
+            style="@style/Radiostyle"
+            android:buttonTint="@color/white"
+            android:background="@drawable/gray_button"
+            android:textColor="@color/pioneer_blue"
+            android:id="@+id/radioSpouse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SPOUSE" ></RadioButton>
+        <RadioButton
+            android:paddingLeft="10dp"
+            style="@style/Radiostyle"
+            android:buttonTint="@color/white"
+            android:id="@+id/radioChild"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gray_button"
+            android:textColor="@color/pioneer_blue"
+            android:text="CHILD"></RadioButton>
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/child_div"
+        android:orientation="vertical">
+    </LinearLayout>
+    <TextView
+            style="@style/TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="STATUS" />
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/CustomRadioTheme"
+                android:id="@+id/statusRadio">
+
+                <RadioButton
+                    android:paddingLeft="10dp"
+                    style="@style/Radiostyle"
+                    android:buttonTint="@color/white"
+                    android:background="@drawable/blue_button"
+                    android:id="@+id/statusNew"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="NEW" ></RadioButton>
+                <RadioButton
+                    android:paddingLeft="10dp"
+                    style="@style/Radiostyle"
+                    android:buttonTint="@color/white"
+                    android:id="@+id/statusRenewal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/gray_button"
+                    android:textColor="@color/pioneer_blue"
+                    android:text="RENEWAL"></RadioButton>
+            </RadioGroup>
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/member_searchInsured"
+        style="@style/TextView"
+        android:height="50dp"
+        android:paddingRight="10dp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Search from existing"
+        android:drawableRight="@drawable/baseline_person_search_24"/>
+
+
+    <TextView
+        style="@style/TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="First Name *" />
+
+    <EditText
+        android:id="@+id/member_firstname"
+        style="@style/EditTextstyle"
+        android:layout_width="match_parent"
+        android:hint="FIRST NAME"
+        android:maxLength="50"
+        ></EditText>
+
+    <TextView
+        style="@style/TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Middle Initial" />
+
+    <EditText
+        android:id="@+id/member_middlename"
+        style="@style/EditTextstyle"
+        android:layout_width="match_parent"
+        android:hint="MIDDLE INITIAL"
+        android:maxLength="5"
+        ></EditText>
+
+
+    <TextView
+        style="@style/TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Last Name *" />
+
+    <EditText
+        android:id="@+id/member_lastname"
+        style="@style/EditTextstyle"
+        android:layout_width="match_parent"
+        android:hint="LAST NAME"
+        android:maxLength="50"
+        ></EditText>
+
+    <TextView
+        style="@style/TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Suffix" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+        <AutoCompleteTextView
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:textSize="25dp"
+            android:background="@drawable/blue_border"
+            android:textColor="@color/pioneer_blue"
+            android:id="@+id/member_suffix"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <TextView
+        android:visibility="gone"
+        style="@style/TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cellfone Number" />
+
+    <EditText
+        android:visibility="gone"
+        android:id="@+id/member_mobileNo"
+        style="@style/EditTextstyle"
+        android:layout_width="match_parent"
+        android:hint="MOBILE NUMBER *"
+        ></EditText>
+
+
+    <TextView
+        style="@style/TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Kapanganakan *" />
+    <TextView
+        android:gravity="center_vertical"
+        style="@style/TextViewEntry"
+        android:id="@+id/member_dob"
+        android:layout_width="match_parent"
+        android:background="@drawable/blue_border"
+        android:drawableEnd="@drawable/baseline_calendar_month_24"
+        android:paddingRight="20dp"
+        android:textColor="@android:color/black"  />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spouse_div"
+            android:orientation="vertical">
+            <TextView
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MEMBERSHIP" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/CustomRadioTheme"
+                android:id="@+id/membershipRadio">
+
+                <RadioButton
+                    android:paddingLeft="10dp"
+                    style="@style/Radiostyle"
+                    android:buttonTint="@color/white"
+                    android:background="@drawable/gray_button"
+                    android:textColor="@color/pioneer_blue"
+                    android:id="@+id/membershipYes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="YES" ></RadioButton>
+                <RadioButton
+                    android:paddingLeft="10dp"
+                    style="@style/Radiostyle"
+                    android:buttonTint="@color/white"
+                    android:id="@+id/membershipNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/gray_button"
+                    android:textColor="@color/pioneer_blue"
+                    android:text="NO"></RadioButton>
+            </RadioGroup>
+
+        </LinearLayout>
+        <TextView
+            style="@style/TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GENDER" />
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/CustomRadioTheme"
+            android:id="@+id/genderRadio">
+
+            <RadioButton
+                android:paddingLeft="10dp"
+                style="@style/Radiostyle"
+                android:buttonTint="@color/white"
+                android:background="@drawable/blue_button"
+                android:id="@+id/genderLalaki"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Lalaki"></RadioButton>
+            <RadioButton
+                android:paddingLeft="10dp"
+                style="@style/Radiostyle"
+                android:buttonTint="@color/white"
+                android:id="@+id/genderBabae"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/gray_button"
+                android:textColor="@color/pioneer_blue"
+                android:text="Babae"></RadioButton>
+        </RadioGroup>
+
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/addMember"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary"
+            android:textColor="@color/white"
+            android:paddingStart="20dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingEnd="20dp"
+            android:text="Save"
+            app:cornerRadius="10dp" />
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+</ScrollView>
+</LinearLayout>

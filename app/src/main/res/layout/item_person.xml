@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/name"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        tools:text="Juan de la Cruz"/>
+
+    <LinearLayout
+        android:id="@+id/dates"
+        android:layout_below="@id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/dob"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/black"
+            android:textSize="10dp"
+            tools:text="DOB : 01/01/1990"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/effdate"
+            android:textColor="@color/black"
+            android:layout_below="@id/name"
+            android:layout_toEndOf="@id/dob"
+            android:textSize="10dp"
+            tools:text="Effectivity : 05/01/2023"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/productdetail"
+        android:layout_below="@id/dates"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/product"
+            android:layout_marginRight="10dp"
+            android:layout_below="@id/dob"
+            android:textColor="@color/black"
+            android:textSize="10dp"
+            tools:text="Product : Sagip Individual"/>
+        <TextView
+            android:layout_marginTop="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/pocno"
+            android:textColor="@color/black"
+            android:layout_toEndOf="@id/product"
+            android:textSize="10dp"
+            tools:text="POC : 123456789"/>`
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_below="@id/productdetail"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="2dp"
+        android:background="#DAD8D8"/>
+
+
+
+
+
+
+</RelativeLayout>

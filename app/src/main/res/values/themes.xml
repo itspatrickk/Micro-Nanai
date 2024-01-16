@@ -1,0 +1,99 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Tatai" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/pioneer_blue</item>
+        <item name="colorPrimaryVariant">@color/pioneer_green</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <!-- SplashScreen -->
+    <style name="SplashScreen" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="NoTitleBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="MyEditTextstyle">
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:background">@drawable/blue_border</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+    <style name="PrefixTextAppearance" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">25dp</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:background">@drawable/blue_border</item>
+    </style>
+    <style name="TextLabel" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">25dp</item>
+    </style>
+
+
+    <style name="SearchView">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/blue_button</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+    <style name="EditTextstyle">
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:background">@drawable/blue_border</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:textSize">25dp</item>
+    </style>
+
+
+    <style name="TextView">
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+
+    <style name="TextViewEntry">
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textSize">25dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:radius">10dp</item>
+    </style>
+
+
+    <style name="TextViewHeader">
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="fontWeight">600</item>
+        <item name="android:textSize">22dp</item>
+    </style>
+
+    <style name="Radiostyle">
+        <item name="android:textSize">18dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+    </style>
+
+    <style name="CustomRadioTheme" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:colorControlNormal">#7a7a7a</item>
+        <item name="android:colorControlActivated">#FF9800</item>
+        <item name="android:colorControlHighlight">#FF9800</item>
+    </style>
+
+    <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/pioneer_blue</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+</resources>
