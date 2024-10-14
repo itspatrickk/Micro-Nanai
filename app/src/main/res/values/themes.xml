@@ -71,6 +71,14 @@
         <item name="android:paddingLeft">20dp</item>
         <item name="android:radius">10dp</item>
     </style>
+    <style name="TextViewEntrySpinner">
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textSize">25dp</item>
+<!--        <item name="android:layout_marginBottom">5dp</item>-->
+<!--        <item name="android:layout_height">50dp</item>-->
+<!--        <item name="android:paddingLeft">20dp</item>-->
+<!--        <item name="android:radius">10dp</item>-->
+    </style>
 
 
     <style name="TextViewHeader">

@@ -15,7 +15,7 @@
             android:layout_marginStart="16dp"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:text="NAN.AI"/>
+            android:text="MIA"/>
 
 
         <ImageView

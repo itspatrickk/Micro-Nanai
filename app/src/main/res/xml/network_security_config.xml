@@ -2,6 +2,24 @@
 <network-security-config>
     <domain-config>
         <domain includeSubdomains="true">api2.pioneer.com.ph</domain>
+        <domain-config cleartextTrafficPermitted="true">
+            <domain includeSubdomains="true">localhost</domain>
+        </domain-config>
+        <domain-config cleartextTrafficPermitted="true">
+            <domain includeSubdomains="true">192.168.1.6</domain>
+        </domain-config>
+        <domain-config cleartextTrafficPermitted="true">
+            <domain includeSubdomains="true">0.0.0.0</domain>
+        </domain-config>
+        <domain-config cleartextTrafficPermitted="true">
+            <domain includeSubdomains="true">127.0.0.1</domain>
+        </domain-config>
+        <domain-config cleartextTrafficPermitted="true">
+            <domain includeSubdomains="true">10.0.2.2</domain>
+        </domain-config>
+        <domain-config cleartextTrafficPermitted="true">
+            <domain includeSubdomains="true">192.168.1.22</domain>
+        </domain-config>
         <trust-anchors>
             <certificates src="@raw/certificate" />
         </trust-anchors>

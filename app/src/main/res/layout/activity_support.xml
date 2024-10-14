@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_with_logo"
+    android:background="@drawable/background_plain"
     android:orientation="vertical"
     tools:context=".SupportActivity">
 
@@ -38,7 +38,7 @@
                 <ImageView
                     android:layout_width="200dp"
                     android:layout_height="200dp"
-                    android:src="@drawable/app_icon"
+                    android:src="@drawable/app_icon_hmo"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.497"
@@ -53,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="NAN.AI"
+                android:text="MIA"
                 android:textStyle="bold"
                 android:textAlignment="center"
                 android:textColor="@color/pioneer_blue"
@@ -63,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Version 3.0"
+                android:text="Version 1.0"
                 android:textStyle="bold"
                 android:textAlignment="center"
                 android:textColor="@color/pioneer_blue"

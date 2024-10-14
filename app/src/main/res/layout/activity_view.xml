@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_with_logo"
+    android:background="@drawable/background_plain"
     android:orientation="vertical"
     tools:context=".ViewActivity">
 
@@ -32,7 +32,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="10dp"
                 android:textSize="15dp"
-                android:text="POC NO:" />
+                android:text="POM NO:" />
 
             <TextView
                 style="@style/TextView"
@@ -101,7 +101,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="10dp"
                 android:textSize="15dp"
-                android:text="PAYMENT MODE:" />
+                android:text="PAYMENT:" />
 
             <TextView
                 style="@style/TextView"
@@ -260,7 +260,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="10dp"
                 android:textSize="15dp"
-                android:text="DOB:" />
+                android:text="KAPANGANAKAN:" />
 
             <TextView
                 style="@style/TextView"
@@ -284,7 +284,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="10dp"
                 android:textSize="15dp"
-                android:text="GENDER:" />
+                android:text="KASARIAN:" />
 
             <TextView
                 style="@style/TextView"
@@ -308,7 +308,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="10dp"
                 android:textSize="15dp"
-                android:text="MOBILE NO.:" />
+                android:text="CELLPHONE NO.:" />
 
             <TextView
                 style="@style/TextView"
@@ -376,29 +376,29 @@
 
         </LinearLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:orientation="horizontal">
+<!--        <FrameLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:gravity="center"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:layout_marginRight="20dp"-->
+<!--            android:orientation="horizontal">-->
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/renewButton"
-                android:textColor="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/primary"
-                android:paddingStart="20dp"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
-                android:paddingEnd="20dp"
-                android:text="RENEW POLICY"
-                app:cornerRadius="10dp" />
-        </FrameLayout>
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/renewButton"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:backgroundTint="@color/primary"-->
+<!--                android:paddingStart="20dp"-->
+<!--                android:paddingTop="15dp"-->
+<!--                android:paddingBottom="15dp"-->
+<!--                android:paddingEnd="20dp"-->
+<!--                android:text="RENEW POLICY"-->
+<!--                app:cornerRadius="10dp" />-->
+<!--        </FrameLayout>-->
 
 
         <LinearLayout

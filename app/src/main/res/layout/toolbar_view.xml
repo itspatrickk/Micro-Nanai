@@ -26,7 +26,7 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             android:gravity="right"
-            android:text="Policy Details"/>
+            android:text="Membership Details"/>
 
 
         <ImageView

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_with_logo"
+    android:background="@drawable/background_plain"
     android:orientation="vertical"
     tools:context=".RegisterActivity">
 
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
 
             <TextView
@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="IMPORMASYON NG PRINSIPAL" />
+                android:text="IMPORMASYON NG PRINCIPAL" />
 
 
             <TextView
@@ -37,31 +37,34 @@
                 android:text="Status" />
 
             <RadioGroup
+                android:id="@+id/radioStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/CustomRadioTheme"
-                android:id="@+id/radioStatus">
+                android:theme="@style/CustomRadioTheme">
 
                 <RadioButton
-                    android:paddingLeft="10dp"
-                    style="@style/Radiostyle"
-                    android:buttonTint="@color/white"
                     android:id="@+id/radioStatusNew"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/gray_button"
-                    android:textColor="@color/pioneer_blue"
-                    android:text="NEW" ></RadioButton>
-                <RadioButton
-                    android:paddingLeft="10dp"
                     style="@style/Radiostyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/blue_button"
                     android:buttonTint="@color/white"
+                    android:checked="true"
+                    android:paddingLeft="10dp"
+                    android:text="NEW"
+                    android:textColor="@color/white" />
+
+                <RadioButton
                     android:id="@+id/radioStatusRenewal"
+                    style="@style/Radiostyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/gray_button"
-                    android:textColor="@color/pioneer_blue"
-                    android:text="RENEWAL"></RadioButton>
+                    android:buttonTint="@color/white"
+
+                    android:paddingLeft="10dp"
+                    android:text="RENEWAL"
+                    android:textColor="@color/pioneer_blue" />
             </RadioGroup>
 
 
@@ -69,64 +72,149 @@
                 style="@style/TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mode of Payment *" />
+                android:text="Payment *" />
+
             <RadioGroup
+                android:id="@+id/radioPaymentMode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/CustomRadioTheme"
-                android:id="@+id/radioPaymentMode">
+                android:theme="@style/CustomRadioTheme">
 
                 <!--                    android:background="@drawable/blue_button"-->
                 <!--                    android:textColor="@color/white"-->
                 <RadioButton
-                    android:paddingLeft="10dp"
-                    style="@style/Radiostyle"
-                    android:buttonTint="@color/white"
-                    android:background="@drawable/gray_button"
-                    android:textColor="@color/pioneer_blue"
                     android:id="@+id/radioPaymentModeCash"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="CASH"></RadioButton>
-                <RadioButton
-                    android:paddingLeft="10dp"
                     style="@style/Radiostyle"
-                    android:buttonTint="@color/white"
-                    android:id="@+id/radioPaymentModeLoan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/gray_button"
-                    android:textColor="@color/pioneer_blue"
-                    android:text="LOAN" ></RadioButton>
+                    android:buttonTint="@color/white"
+                    android:paddingLeft="10dp"
+                    android:text="CASH"
+                    android:textColor="@color/pioneer_blue" />
+
+                <RadioButton
+                    android:id="@+id/radioPaymentModeLoan"
+                    style="@style/Radiostyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/blue_button"
+                    android:buttonTint="@color/white"
+                    android:checked="true"
+                    android:paddingLeft="10dp"
+                    android:text="LOAN"
+                    android:textColor="@color/white" />
             </RadioGroup>
 
+            <TextView
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Membership *" />
 
+            <RadioGroup
+                android:id="@+id/radioGroupClientType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/CustomRadioTheme">
+
+                <RadioButton
+                    android:id="@+id/radioCardPrincipal"
+                    style="@style/Radiostyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/gray_button"
+                    android:buttonTint="@color/white"
+                    android:paddingLeft="10dp"
+                    android:text="1-CARD PRINCIPAL"
+                    android:textColor="@color/pioneer_blue" />
+
+                <RadioButton
+                    android:id="@+id/radioNonCardPrincipal"
+                    style="@style/Radiostyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/gray_button"
+                    android:buttonTint="@color/white"
+                    android:paddingLeft="10dp"
+                    android:text="2-NON CARD PRINCIPAL"
+                    android:textColor="@color/pioneer_blue" />
+
+                <RadioButton
+                    android:id="@+id/radioNonCardSpouse"
+                    style="@style/Radiostyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/gray_button"
+                    android:buttonTint="@color/white"
+                    android:paddingLeft="10dp"
+                    android:text="3-NON CARD SPOUSE"
+                    android:textColor="@color/pioneer_blue" />
+
+                <RadioButton
+                    android:id="@+id/radioCardChild"
+                    style="@style/Radiostyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/gray_button"
+                    android:buttonTint="@color/white"
+                    android:paddingLeft="10dp"
+                    android:text="4-NON CARD CHILD"
+                    android:textColor="@color/pioneer_blue" />
+
+
+            </RadioGroup>
+            <TextView
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Institution *" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/institution"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/blue_border"
+                    android:inputType="none"
+                    android:paddingTop="0dp"
+                    android:paddingBottom="0dp"
+                    android:textColor="@color/pioneer_blue"
+                    android:textSize="25dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
             <TextView
                 style="@style/TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Effectivity Date *" />
+
             <TextView
-                android:gravity="center_vertical"
-                style="@style/TextViewEntry"
                 android:id="@+id/effectivityDate"
+                style="@style/TextViewEntry"
                 android:layout_width="match_parent"
                 android:background="@drawable/blue_border"
                 android:drawableEnd="@drawable/baseline_calendar_month_24"
+                android:gravity="center_vertical"
                 android:paddingRight="20dp"
-                android:textColor="@android:color/black"  />
+                android:textColor="@android:color/black"
+
+                />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/serchInsured"
                 style="@style/TextView"
-                android:height="50dp"
-                android:paddingRight="10dp"
-                android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:height="50dp"
+                android:drawableRight="@drawable/baseline_person_search_24"
+                android:gravity="center_vertical"
+                android:paddingRight="10dp"
                 android:text="Search from existing"
-                android:drawableRight="@drawable/baseline_person_search_24"/>
+                android:visibility="gone" />
 
 
             <TextView
@@ -139,9 +227,9 @@
                 android:id="@+id/firstname"
                 style="@style/EditTextstyle"
                 android:layout_width="match_parent"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzñÑ.- "
                 android:hint="FIRST NAME"
-                android:maxLength="50"
-                ></EditText>
+                android:maxLength="50"></EditText>
 
             <TextView
                 style="@style/TextView"
@@ -153,9 +241,9 @@
                 android:id="@+id/middlename"
                 style="@style/EditTextstyle"
                 android:layout_width="match_parent"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzñÑ.- "
                 android:hint="MIDDLE INITIAL"
-                android:maxLength="5"
-                ></EditText>
+                android:maxLength="5"></EditText>
 
 
             <TextView
@@ -168,9 +256,10 @@
                 android:id="@+id/lastname"
                 style="@style/EditTextstyle"
                 android:layout_width="match_parent"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzñÑ.- "
                 android:hint="LAST NAME"
-                android:maxLength="50"
-                ></EditText>
+                android:maxLength="50"></EditText>
+
 
             <TextView
                 style="@style/TextView"
@@ -178,202 +267,351 @@
                 android:layout_height="wrap_content"
                 android:text="Suffix" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-
-                <AutoCompleteTextView
-                    android:paddingTop="0dp"
-                    android:paddingBottom="0dp"
-                    android:textSize="25dp"
-                    android:background="@drawable/blue_border"
-                    android:textColor="@color/pioneer_blue"
-                    android:id="@+id/suffix"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="wrap_content">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/suffix"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/blue_border"
+                        android:inputType="none"
+                        android:paddingTop="0dp"
+                        android:paddingBottom="0dp"
+                        android:textColor="@color/pioneer_blue"
+                        android:textSize="25dp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
 
             <TextView
                 style="@style/TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cellphone Number *" />
+                android:text="Cellphone No. *" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/mobilePrefix"
                 style="@style/PrefixTextAppearance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:id="@+id/mobilePrefix"
                 android:textSize="25dp"
                 app:prefixText="09"
-                app:prefixTextColor="@color/pioneer_blue"
-                >
+                app:prefixTextColor="@color/pioneer_blue">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
                     android:id="@+id/mobileNo"
-                    android:textColor="@color/pioneer_blue"
-                    android:background="@drawable/blue_border"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="phone"
-                    android:textSize="25dp"
-                    android:maxLength="9">
+                    android:background="@drawable/blue_border"
+                    android:inputType="number"
+                    android:maxLength="9"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/pioneer_blue"
+                    android:textSize="25dp">
 
                 </com.google.android.material.textfield.TextInputEditText>
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Email " />
+
             <EditText
-                android:visibility="gone"
+                android:id="@+id/email"
+                style="@style/EditTextstyle"
+                android:layout_width="match_parent"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzñÑ.- 1234567890@"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:maxLength="50" />
+
+            <EditText
                 android:id="@+id/mobileNox"
                 style="@style/EditTextstyle"
                 android:layout_width="match_parent"
                 android:hint="CELLPHONE NUMBER"
                 android:inputType="number"
                 android:maxLength="11"
-                ></EditText>
+                android:visibility="gone" />
 
             <TextView
                 style="@style/TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Kapanganakan *" />
+
             <TextView
-                android:gravity="center_vertical"
-                style="@style/TextViewEntry"
                 android:id="@+id/dob"
+                style="@style/TextViewEntry"
                 android:layout_width="match_parent"
                 android:background="@drawable/blue_border"
                 android:drawableEnd="@drawable/baseline_calendar_month_24"
+                android:gravity="center_vertical"
                 android:paddingRight="20dp"
-                android:textColor="@android:color/black"  />
+                android:textColor="@android:color/black" />
 
             <TextView
                 style="@style/TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="AGE" />
+                android:text="Place of Birth *" />
+
+            <EditText
+                android:id="@+id/placeOfBirth"
+                style="@style/EditTextstyle"
+                android:layout_width="match_parent"
+
+                android:hint="Place Of Birth"
+                android:maxLength="100" />
+
             <TextView
-                android:gravity="center_vertical"
-                style="@style/TextViewEntry"
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nationality *" />
+
+            <EditText
+                android:id="@+id/nationality"
+                style="@style/EditTextstyle"
+                android:layout_width="match_parent"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzñÑ -."
+                android:hint="Nationality"
+                android:maxLength="100"
+                android:text="FILIPINO"
+                />
+
+            <TextView
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Age" />
+
+            <TextView
                 android:id="@+id/age"
+                style="@style/TextViewEntry"
                 android:layout_width="match_parent"
                 android:background="@drawable/blue_border"
-                android:textColor="@android:color/black"  />
+                android:gravity="center_vertical"
+                android:textColor="@android:color/black" />
 
+
+            <!--            <TextView-->
+            <!--                style="@style/TextView"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="MEMBERSHIP" />-->
+
+            <!--            <RadioGroup-->
+            <!--                android:id="@+id/membershipRadioPrincipal"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:theme="@style/CustomRadioTheme">-->
+
+            <!--                <RadioButton-->
+            <!--                    android:id="@+id/membershipYesPrincipal"-->
+            <!--                    style="@style/Radiostyle"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:background="@drawable/gray_button"-->
+            <!--                    android:buttonTint="@color/white"-->
+            <!--                    android:paddingLeft="10dp"-->
+            <!--                    android:text="YES"-->
+            <!--                    android:textColor="@color/pioneer_blue"></RadioButton>-->
+
+            <!--                <RadioButton-->
+            <!--                    android:id="@+id/membershipNoPrincipal"-->
+            <!--                    style="@style/Radiostyle"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:background="@drawable/gray_button"-->
+            <!--                    android:buttonTint="@color/white"-->
+            <!--                    android:paddingLeft="10dp"-->
+            <!--                    android:text="NO"-->
+            <!--                    android:textColor="@color/pioneer_blue"></RadioButton>-->
+            <!--            </RadioGroup>-->
 
             <TextView
                 style="@style/TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="MEMBERSHIP" />
+                android:text="Kasarian *" />
 
             <RadioGroup
+                android:id="@+id/genderRadioPrincipal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/CustomRadioTheme"
-                android:id="@+id/membershipRadioPrincipal">
+                android:theme="@style/CustomRadioTheme">
 
                 <RadioButton
-                    android:paddingLeft="10dp"
-                    style="@style/Radiostyle"
-                    android:buttonTint="@color/white"
-                    android:background="@drawable/gray_button"
-                    android:textColor="@color/pioneer_blue"
-                    android:id="@+id/membershipYesPrincipal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="YES" ></RadioButton>
-                <RadioButton
-                    android:paddingLeft="10dp"
-                    style="@style/Radiostyle"
-                    android:buttonTint="@color/white"
-                    android:id="@+id/membershipNoPrincipal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/gray_button"
-                    android:textColor="@color/pioneer_blue"
-                    android:text="NO"></RadioButton>
-            </RadioGroup>
-
-            <TextView
-                style="@style/TextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="GENDER" />
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/CustomRadioTheme"
-                android:id="@+id/genderRadioPrincipal">
-
-                <RadioButton
-                    android:paddingLeft="10dp"
-                    style="@style/Radiostyle"
-                    android:buttonTint="@color/white"
                     android:id="@+id/genderLalakiPrincipal"
+                    style="@style/Radiostyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/gray_button"
-                    android:textColor="@color/pioneer_blue"
-                    android:text="Lalaki" ></RadioButton>
-                <RadioButton
-                    android:paddingLeft="10dp"
-                    style="@style/Radiostyle"
                     android:buttonTint="@color/white"
+                    android:paddingLeft="10dp"
+                    android:text="Lalaki"
+                    android:textColor="@color/pioneer_blue" />
+
+                <RadioButton
                     android:id="@+id/genderBabaePrincipal"
+                    style="@style/Radiostyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/blue_button"
-                    android:textColor="@color/white"
-                    android:text="Babae"  android:checked="true"></RadioButton>
+                    android:buttonTint="@color/white"
+                    android:checked="true"
+                    android:paddingLeft="10dp"
+                    android:text="Babae"
+                    android:textColor="@color/white" />
             </RadioGroup>
 
             <TextView
                 style="@style/TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Civil Status" />
+                android:text="Civil Status *" />
+
             <RadioGroup
+                android:id="@+id/civilstatRadioPrincipal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/CustomRadioTheme"
-                android:id="@+id/civilstatRadioPrincipal">
+                android:theme="@style/CustomRadioTheme">
 
                 <RadioButton
                     android:id="@+id/civilstatSingle"
-                    android:paddingLeft="10dp"
                     style="@style/Radiostyle"
-                    android:background="@drawable/gray_button"
-                    android:buttonTint="@color/white"
-                    android:textColor="@color/pioneer_blue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Single"></RadioButton>
+                    android:background="@drawable/gray_button"
+                    android:buttonTint="@color/white"
+                    android:paddingLeft="10dp"
+                    android:text="Single"
+                    android:textColor="@color/pioneer_blue"></RadioButton>
+
                 <RadioButton
                     android:id="@+id/civilstatMarried"
-                    android:paddingLeft="10dp"
                     style="@style/Radiostyle"
-                    android:background="@drawable/gray_button"
-                    android:buttonTint="@color/white"
-                    android:textColor="@color/pioneer_blue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Married"></RadioButton>
+                    android:background="@drawable/gray_button"
+                    android:buttonTint="@color/white"
+                    android:paddingLeft="10dp"
+                    android:text="Married"
+                    android:textColor="@color/pioneer_blue"></RadioButton>
             </RadioGroup>
+
+            <TextView
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Province*" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/province"
+                    style="@style/EditTextstyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/blue_border"
+                    android:paddingTop="0dp"
+                    android:paddingBottom="0dp"
+                    android:textColor="@color/pioneer_blue"
+                    android:textSize="25dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Municipality*" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/city"
+                    style="@style/EditTextstyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/blue_border"
+                    android:paddingTop="0dp"
+                    android:paddingBottom="0dp"
+                    android:textColor="@color/pioneer_blue"
+                    android:textSize="25dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Barangay*" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/brgy"
+                    style="@style/EditTextstyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/blue_border"
+                    android:paddingTop="0dp"
+                    android:paddingBottom="0dp"
+                    android:textColor="@color/pioneer_blue"
+                    android:textSize="25dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Street *" />
+
+            <EditText
+                android:id="@+id/edtStreet"
+                style="@style/EditTextstyle"
+                android:layout_width="match_parent"
+                android:hint="Enter Street"
+                android:inputType="textPersonName"
+                android:maxLength="200"
+                android:singleLine="true"
+
+
+                />
+
+
+            <!--            <Spinner-->
+            <!--                android:id="@+id/province"-->
+            <!--                style="@style/TextViewEntry"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="50dp"-->
+            <!--                android:background="@drawable/blue_border"-->
+            <!--                android:spinnerMode="dropdown"-->
+            <!--                android:textColor="@color/pioneer_blue"-->
+            <!--                 />-->
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <View
                     android:layout_width="0dp"
@@ -384,10 +622,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Products"
+                    android:padding="8dp"
+                    android:text="Other Informations"
                     android:textColor="@color/pioneer_blue"
-                    android:textSize="20sp"
-                    android:padding="8dp" />
+                    android:textSize="20sp" />
 
                 <View
                     android:layout_width="0dp"
@@ -397,168 +635,322 @@
 
             </LinearLayout>
 
+            <TextView
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Account Officer *" />
+
+            <EditText
+                android:id="@+id/edtAccountOfficer"
+                style="@style/EditTextstyle"
+                android:layout_width="match_parent"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzñÑ.- "
+                android:hint="ACCOUNT OFFICER"
+                android:inputType="textPersonName"
+                android:maxLength="200"
+                android:singleLine="true"
+
+
+                />
 
             <TextView
                 style="@style/TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Combo Products" />
+                android:text="Unit Manager *" />
 
-            <CheckBox
-                android:id="@+id/checkCardCare"
-                style="@style/Radiostyle"
-                android:textColor="@color/pioneer_blue"
-                android:buttonTint="@color/white"
-                android:background="@drawable/gray_button"
+            <EditText
+                android:id="@+id/edtUnitManager"
+                style="@style/EditTextstyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:text="CARD CARE PLUS">
-            </CheckBox>
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzñÑ.- "
+                android:hint="UNIT MANAGER"
+                android:inputType="textPersonName"
+                android:maxLength="200"
+                android:singleLine="true"
 
-            <CheckBox
-                android:visibility="gone"
-                android:id="@+id/checkCardCarex"
-                style="@style/Radiostyle"
-                android:textColor="@color/pioneer_blue"
-                android:buttonTint="@color/white"
-                android:background="@drawable/gray_button"
-                android:layout_width="match_parent"
-                android:checked="false"
-                android:layout_height="wrap_content" android:text="CARD CARE PLUS">
-            </CheckBox>
+                />
 
-            <CheckBox
-                android:id="@+id/checkKabuklod"
-                style="@style/Radiostyle"
-                android:textColor="@color/pioneer_blue"
-                android:buttonTint="@color/white"
-                android:background="@drawable/gray_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:text="KABUKLOD PLAN">
-            </CheckBox>
-
-            <CheckBox
-                android:visibility="gone"
-                android:id="@+id/checkKabuklodx"
-                style="@style/Radiostyle"
-                android:textColor="@color/pioneer_blue"
-                android:buttonTint="@color/white"
-                android:background="@drawable/gray_button"
-                android:layout_width="match_parent"
-                android:checked="false"
-                android:layout_height="wrap_content" android:text="KABUKLOD PLAN">
-            </CheckBox>
-
-            <CheckBox
-                android:id="@+id/checkSagip"
-                style="@style/Radiostyle"
-                android:textColor="@color/pioneer_blue"
-                android:buttonTint="@color/white"
-                android:background="@drawable/gray_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:text="SAGIP PLAN">
-            </CheckBox>
-
-            <CheckBox
-                android:visibility="gone"
-                android:id="@+id/checkSagipx"
-                style="@style/Radiostyle"
-                android:textColor="@color/pioneer_blue"
-                android:buttonTint="@color/white"
-                android:background="@drawable/gray_button"
-                android:layout_width="match_parent"
-                android:checked="false"
-                android:layout_height="wrap_content" android:text="SAGIP PLAN">
-            </CheckBox>
-
-            <LinearLayout
-                android:id="@+id/sagipDiv"
+            <TextView
+                style="@style/TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:theme="@style/CustomRadioTheme"
-                    android:id="@+id/radioSagip">
+                android:text="Center *" />
 
-                    <RadioButton
-                        android:paddingLeft="10dp"
-                        style="@style/Radiostyle"
-                        android:buttonTint="@color/white"
-                        android:id="@+id/radioSagipIndividual"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/gray_button"
-                        android:textColor="@color/pioneer_blue"
-                        android:text="SAGIP PLAN INDIVIDUAL" >
-                    </RadioButton>
-                    <RadioButton
-                        android:paddingLeft="10dp"
-                        style="@style/Radiostyle"
-                        android:buttonTint="@color/white"
-                        android:id="@+id/radioSagipFamily"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/gray_button"
-                        android:textColor="@color/pioneer_blue"
-                        android:text="SAGIP PLAN FAMILY">
-                    </RadioButton>
+            <EditText
+                android:id="@+id/edtCenter"
+                style="@style/EditTextstyle"
+                android:layout_width="match_parent"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzñÑ.- "
+                android:hint="CENTER"
+                android:inputType="textPersonName"
+                android:maxLength="200"
+                android:singleLine="true"
 
-                    <RadioButton
-                        android:paddingLeft="10dp"
-                        style="@style/Radiostyle"
-                        android:buttonTint="@color/white"
-                        android:id="@+id/radioSagipPlatinum"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/gray_button"
-                        android:textColor="@color/pioneer_blue"
-                        android:text="SAGIP PLAN PLATINUM">
-                    </RadioButton>
-                </RadioGroup>
-                <LinearLayout
-                    android:layout_width="match_parent"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_weight="1"
+                    android:background="@color/pioneer_blue" />
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/dependentLinearLayout">
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_marginLeft="30dp"
-                    android:layout_below="@+id/simpleSearchView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/recyclerview"
-                    tools:listitem="@layout/item_member"/>
-                </LinearLayout>
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/addDependent"
-                    android:textColor="@color/white"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/primary"
-                    android:paddingStart="20dp"
-                    android:paddingTop="20dp"
-                    android:paddingBottom="20dp"
-                    android:paddingEnd="20dp"
-                    android:layout_marginLeft="30dp"
-                    android:text="Add Dependents"
-                    app:cornerRadius="10dp" />
+                    android:padding="8dp"
+                    android:text="Relationship"
+                    android:textColor="@color/pioneer_blue"
+                    android:textSize="20sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_weight="1"
+                    android:background="@color/pioneer_blue" />
+
             </LinearLayout>
 
             <TextView
-                android:textColor="@color/pioneer_blue"
-                style="@style/TextViewEntry"
+                style="@style/TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/totalPremium"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
+                android:text="Authorized Representative *" />
+
+            <EditText
+                android:id="@+id/edtAuthRelative"
+                style="@style/EditTextstyle"
+                android:layout_width="match_parent"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzñÑ.- "
+                android:hint="Authorized Representative"
+                android:inputType="textPersonName"
+                android:maxLength="50"
+                android:singleLine="true"
+
                 />
+
+            <TextView
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Relationship to Member *" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/relToMember"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/blue_border"
+                    android:inputType="none"
+                    android:paddingTop="0dp"
+                    android:paddingBottom="0dp"
+                    android:textColor="@color/pioneer_blue"
+                    android:textSize="25dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:orientation="horizontal"-->
+            <!--                android:gravity="center_vertical">-->
+
+            <!--                <View-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="2dp"-->
+            <!--                    android:layout_weight="1"-->
+            <!--                    android:background="@color/pioneer_blue" />-->
+
+            <!--                <TextView-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:text="Products"-->
+            <!--                    android:textColor="@color/pioneer_blue"-->
+            <!--                    android:textSize="20sp"-->
+            <!--                    android:padding="8dp" />-->
+
+            <!--                <View-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="2dp"-->
+            <!--                    android:layout_weight="1"-->
+            <!--                    android:background="@color/pioneer_blue" />-->
+
+            <!--            </LinearLayout>-->
+
+
+            <!--            <TextView-->
+            <!--                style="@style/TextView"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="Combo Products" />-->
+
+            <!--            <CheckBox-->
+            <!--                android:id="@+id/checkCardCare"-->
+            <!--                style="@style/Radiostyle"-->
+            <!--                android:textColor="@color/pioneer_blue"-->
+            <!--                android:buttonTint="@color/white"-->
+            <!--                android:background="@drawable/gray_button"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content" android:text="CARD CARE PLUS">-->
+            <!--            </CheckBox>-->
+
+            <!--            <CheckBox-->
+            <!--                android:visibility="gone"-->
+            <!--                android:id="@+id/checkCardCarex"-->
+            <!--                style="@style/Radiostyle"-->
+            <!--                android:textColor="@color/pioneer_blue"-->
+            <!--                android:buttonTint="@color/white"-->
+            <!--                android:background="@drawable/gray_button"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:checked="false"-->
+            <!--                android:layout_height="wrap_content" android:text="CARD CARE PLUS">-->
+            <!--            </CheckBox>-->
+
+            <!--            <CheckBox-->
+            <!--                android:id="@+id/checkKabuklod"-->
+            <!--                style="@style/Radiostyle"-->
+            <!--                android:textColor="@color/pioneer_blue"-->
+            <!--                android:buttonTint="@color/white"-->
+            <!--                android:background="@drawable/gray_button"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content" android:text="KABUKLOD PLAN">-->
+            <!--            </CheckBox>-->
+
+            <!--            <CheckBox-->
+            <!--                android:visibility="gone"-->
+            <!--                android:id="@+id/checkKabuklodx"-->
+            <!--                style="@style/Radiostyle"-->
+            <!--                android:textColor="@color/pioneer_blue"-->
+            <!--                android:buttonTint="@color/white"-->
+            <!--                android:background="@drawable/gray_button"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:checked="false"-->
+            <!--                android:layout_height="wrap_content" android:text="KABUKLOD PLAN">-->
+            <!--            </CheckBox>-->
+
+            <!--            <CheckBox-->
+            <!--                android:id="@+id/checkSagip"-->
+            <!--                style="@style/Radiostyle"-->
+            <!--                android:textColor="@color/pioneer_blue"-->
+            <!--                android:buttonTint="@color/white"-->
+            <!--                android:background="@drawable/gray_button"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content" android:text="SAGIP PLAN">-->
+            <!--            </CheckBox>-->
+
+            <!--            <CheckBox-->
+            <!--                android:visibility="gone"-->
+            <!--                android:id="@+id/checkSagipx"-->
+            <!--                style="@style/Radiostyle"-->
+            <!--                android:textColor="@color/pioneer_blue"-->
+            <!--                android:buttonTint="@color/white"-->
+            <!--                android:background="@drawable/gray_button"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:checked="false"-->
+            <!--                android:layout_height="wrap_content" android:text="SAGIP PLAN">-->
+            <!--            </CheckBox>-->
+
+            <!--            <LinearLayout-->
+            <!--                android:id="@+id/sagipDiv"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:orientation="vertical">-->
+            <!--                <RadioGroup-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_marginLeft="30dp"-->
+            <!--                    android:theme="@style/CustomRadioTheme"-->
+            <!--                    android:id="@+id/radioSagip">-->
+
+            <!--                    <RadioButton-->
+            <!--                        android:paddingLeft="10dp"-->
+            <!--                        style="@style/Radiostyle"-->
+            <!--                        android:buttonTint="@color/white"-->
+            <!--                        android:id="@+id/radioSagipIndividual"-->
+            <!--                        android:layout_width="match_parent"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:background="@drawable/gray_button"-->
+            <!--                        android:textColor="@color/pioneer_blue"-->
+            <!--                        android:text="SAGIP PLAN INDIVIDUAL" >-->
+            <!--                    </RadioButton>-->
+            <!--                    <RadioButton-->
+            <!--                        android:paddingLeft="10dp"-->
+            <!--                        style="@style/Radiostyle"-->
+            <!--                        android:buttonTint="@color/white"-->
+            <!--                        android:id="@+id/radioSagipFamily"-->
+            <!--                        android:layout_width="match_parent"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:background="@drawable/gray_button"-->
+            <!--                        android:textColor="@color/pioneer_blue"-->
+            <!--                        android:text="SAGIP PLAN FAMILY">-->
+            <!--                    </RadioButton>-->
+
+            <!--                    <RadioButton-->
+            <!--                        android:paddingLeft="10dp"-->
+            <!--                        style="@style/Radiostyle"-->
+            <!--                        android:buttonTint="@color/white"-->
+            <!--                        android:id="@+id/radioSagipPlatinum"-->
+            <!--                        android:layout_width="match_parent"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:background="@drawable/gray_button"-->
+            <!--                        android:textColor="@color/pioneer_blue"-->
+            <!--                        android:text="SAGIP PLAN PLATINUM">-->
+            <!--                    </RadioButton>-->
+            <!--                </RadioGroup>-->
+            <!--                <LinearLayout-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:id="@+id/dependentLinearLayout">-->
+            <!--                <androidx.recyclerview.widget.RecyclerView-->
+            <!--                    android:layout_marginLeft="30dp"-->
+            <!--                    android:layout_below="@+id/simpleSearchView"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:id="@+id/recyclerview"-->
+            <!--                    tools:listitem="@layout/item_member"/>-->
+            <!--                </LinearLayout>-->
+            <!--                <com.google.android.material.button.MaterialButton-->
+            <!--                    android:id="@+id/addDependent"-->
+            <!--                    android:textColor="@color/white"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:backgroundTint="@color/primary"-->
+            <!--                    android:paddingStart="20dp"-->
+            <!--                    android:paddingTop="20dp"-->
+            <!--                    android:paddingBottom="20dp"-->
+            <!--                    android:paddingEnd="20dp"-->
+            <!--                    android:layout_marginLeft="30dp"-->
+            <!--                    android:text="Add Dependents"-->
+            <!--                    app:cornerRadius="10dp" />-->
+            <!--            </LinearLayout>-->
+
+            <!--            <TextView-->
+            <!--                android:textColor="@color/pioneer_blue"-->
+            <!--                style="@style/TextViewEntry"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:id="@+id/totalPremium"-->
+            <!--                android:focusable="true"-->
+            <!--                android:focusableInTouchMode="true"-->
+            <!--                />-->
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -566,109 +958,110 @@
                     android:id="@+id/page1Camera_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:backgroundTint="@color/primary"
                     android:paddingStart="20dp"
                     android:paddingTop="20dp"
                     android:paddingEnd="20dp"
                     android:paddingBottom="20dp"
                     android:text="Capture Return Stub #1"
+                    android:textColor="@color/white"
                     app:cornerRadius="10dp" />
             </FrameLayout>
+
             <TextView
                 style="@style/TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Captured POC No from RS#1" />
+                android:text="Captured POM No from RS#1" />
 
             <TextView
                 android:id="@+id/capturedRS1"
                 style="@style/EditTextstyle"
-                android:layout_width="match_parent"
-                ></TextView>
+                android:layout_width="match_parent"></TextView>
 
             <!-- add ImageView to display the captured image -->
-<!--            <ImageView-->
-<!--                android:id="@+id/page1_image"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="450dp"-->
-<!--                android:layout_marginBottom="10dp" android:visibility="gone" />-->
+            <!--            <ImageView-->
+            <!--                android:id="@+id/page1_image"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="450dp"-->
+            <!--                android:layout_marginBottom="10dp" android:visibility="gone" />-->
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center_vertical"
-                android:gravity="center"
-                android:orientation="horizontal">
+            <!--            <FrameLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="10dp"-->
+            <!--                android:layout_gravity="center_vertical"-->
+            <!--                android:gravity="center"-->
+            <!--                android:orientation="horizontal">-->
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/page2Camera_button"
-                    android:textColor="@color/white"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/primary"
-                    android:paddingStart="20dp"
-                    android:paddingTop="20dp"
-                    android:paddingBottom="20dp"
-                    android:paddingEnd="20dp"
-                    android:text="Capture Return Stub #2"
-                    app:cornerRadius="10dp" />
-            </FrameLayout>
-            <TextView
-                style="@style/TextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Captured POC No from RS#2" />
+            <!--                <com.google.android.material.button.MaterialButton-->
+            <!--                    android:id="@+id/page2Camera_button"-->
+            <!--                    android:textColor="@color/white"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:backgroundTint="@color/primary"-->
+            <!--                    android:paddingStart="20dp"-->
+            <!--                    android:paddingTop="20dp"-->
+            <!--                    android:paddingBottom="20dp"-->
+            <!--                    android:paddingEnd="20dp"-->
+            <!--                    android:text="Capture Return Stub #2"-->
+            <!--                    app:cornerRadius="10dp" />-->
+            <!--            </FrameLayout>-->
+            <!--            <TextView-->
+            <!--                style="@style/TextView"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="Captured POC No from RS#2" />-->
 
-            <TextView
-                android:id="@+id/capturedRS2"
-                style="@style/EditTextstyle"
-                android:layout_width="match_parent"
-                ></TextView>
+            <!--            <TextView-->
+            <!--                android:id="@+id/capturedRS2"-->
+            <!--                style="@style/EditTextstyle"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                ></TextView>-->
             <!-- add ImageView to display the captured image -->
-<!--            <ImageView-->
-<!--                android:id="@+id/page2_image"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="450dp"-->
-<!--                android:layout_marginBottom="10dp" />-->
+            <!--            <ImageView-->
+            <!--                android:id="@+id/page2_image"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="450dp"-->
+            <!--                android:layout_marginBottom="10dp" />-->
 
             <androidx.camera.view.PreviewView
                 android:id="@+id/previewView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"  android:visibility="gone"/>
+                android:layout_height="match_parent"
+                android:visibility="gone" />
 
 
             <TextView
-                android:textColor="@color/red"
-                style="@style/TextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/textView"
-                />
-
-            <TextView
-                android:textColor="@color/pioneer_blue"
                 style="@style/TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                tools:text="TEST" />
+
+            <TextView
                 android:id="@+id/textView2"
-                />
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/pioneer_blue" />
+
             <CheckBox
                 android:id="@+id/pocMatched"
                 style="@style/Radiostyle"
-                android:textColor="@color/pioneer_blue"
-                android:buttonTint="@color/white"
-                android:background="@drawable/gray_button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:text="Reference number is correct">
-            </CheckBox>
+                android:layout_height="wrap_content"
+                android:background="@drawable/gray_button"
+                android:buttonTint="@color/white"
+                android:text="Reference No is correct"
+                android:textColor="@color/pioneer_blue"></CheckBox>
 
             <TextView
                 style="@style/TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="REFERENCE NO. *" />
+                android:text="Reference No. *" />
 
             <EditText
                 android:id="@+id/poc_number"
@@ -676,45 +1069,44 @@
                 android:layout_width="match_parent"
                 android:hint="POC NUMBER"
                 android:inputType="number"
-                android:maxLength="7"
-                ></EditText>
+                android:maxLength="7"></EditText>
 
 
             <CheckBox
                 android:id="@+id/dpaTag"
                 style="@style/Radiostyle"
-                android:textColor="@color/pioneer_blue"
-                android:buttonTint="@color/white"
-                android:background="@drawable/gray_button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:text="DATA PRIVACY CONSENT">
-            </CheckBox>
+                android:layout_height="wrap_content"
+                android:background="@drawable/gray_button"
+                android:buttonTint="@color/white"
+                android:text="DATA PRIVACY CONSENT"
+                android:textColor="@color/pioneer_blue"></CheckBox>
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/savePolicy"
-                    android:textColor="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/primary"
                     android:paddingStart="20dp"
                     android:paddingTop="20dp"
-                    android:paddingBottom="20dp"
                     android:paddingEnd="20dp"
+                    android:paddingBottom="20dp"
                     android:text="SAVE TRANSACTION"
+                    android:textColor="@color/white"
                     app:cornerRadius="10dp" />
             </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"/>
+                android:layout_height="100dp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </ScrollView>
