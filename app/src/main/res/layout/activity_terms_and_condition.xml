@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_terms_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Terms and Conditions"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/tv_terms_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+            android:textSize="14sp"
+            android:paddingBottom="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Mauris egestas erat in metus elementum, non pulvinar nulla tincidunt. Aenean tincidunt nisi erat, vel sollicitudin nibh imperdiet sit amet. Vivamus at erat nec sem placerat maximus. Nullam vehicula neque ut turpis pharetra dapibus."
+            android:textSize="14sp"
+            android:paddingBottom="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Donec posuere libero vel massa bibendum dapibus. Etiam faucibus nisi sed turpis consequat, nec malesuada lorem dapibus. Aliquam fringilla orci urna, a tempus orci aliquam eget. Curabitur euismod arcu vel lacus elementum, vitae tincidunt lacus hendrerit. Donec sed tellus eget sapien interdum fermentum ut et eros. Nam fermentum, felis sit amet sodales tincidunt, elit est fermentum urna, vel laoreet purus metus ac nunc."
+            android:textSize="14sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Mauris egestas erat in metus elementum, non pulvinar nulla tincidunt. Aenean tincidunt nisi erat, vel sollicitudin nibh imperdiet sit amet. Vivamus at erat nec sem placerat maximus. Nullam vehicula neque ut turpis pharetra dapibus."
+            android:textSize="14sp"
+            android:paddingBottom="8dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Mauris egestas erat in metus elementum, non pulvinar nulla tincidunt. Aenean tincidunt nisi erat, vel sollicitudin nibh imperdiet sit amet. Vivamus at erat nec sem placerat maximus. Nullam vehicula neque ut turpis pharetra dapibus."
+            android:textSize="14sp"
+            android:paddingBottom="8dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Mauris egestas erat in metus elementum, non pulvinar nulla tincidunt. Aenean tincidunt nisi erat, vel sollicitudin nibh imperdiet sit amet. Vivamus at erat nec sem placerat maximus. Nullam vehicula neque ut turpis pharetra dapibus."
+            android:textSize="14sp"
+            android:paddingBottom="8dp" />
+
+    </LinearLayout>
+</ScrollView>
