@@ -101,6 +101,29 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="10dp"
                 android:textSize="15dp"
+                android:text="INCENTIVE:" />
+
+            <TextView
+                style="@style/TextView"
+                android:id="@+id/view_incentives"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:text="75.00 PHP" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/TextView"
+                android:layout_weight="1"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:textSize="15dp"
                 android:text="PAYMENT:" />
 
             <TextView

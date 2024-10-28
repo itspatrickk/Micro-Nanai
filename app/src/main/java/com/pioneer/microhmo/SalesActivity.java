@@ -40,7 +40,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SalesActivity extends AppCompatActivity implements RecyclerViewInterface {
+public class SalesActivity extends BaseActivity implements RecyclerViewInterface {
 
 
 

@@ -321,7 +321,7 @@
                 style="@style/TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Email " />
+                android:text="Email Address" />
 
             <EditText
                 android:id="@+id/email"
@@ -345,7 +345,7 @@
                 style="@style/TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Kapanganakan *" />
+                android:text="Kapanganakan: *" />
 
             <TextView
                 android:id="@+id/dob"
@@ -972,7 +972,7 @@
                 style="@style/TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Captured POM No from RS#1" />
+                android:text="Captured POM No. from RS#1" />
 
             <TextView
                 android:id="@+id/capturedRS1"
@@ -1054,7 +1054,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/gray_button"
                 android:buttonTint="@color/white"
-                android:text="Reference No is correct"
+                android:text="Reference No. is correct"
                 android:textColor="@color/pioneer_blue"></CheckBox>
 
             <TextView
@@ -1067,7 +1067,7 @@
                 android:id="@+id/poc_number"
                 style="@style/EditTextstyle"
                 android:layout_width="match_parent"
-                android:hint="POC NUMBER"
+                android:hint="POM NO."
                 android:inputType="number"
                 android:maxLength="7"></EditText>
 

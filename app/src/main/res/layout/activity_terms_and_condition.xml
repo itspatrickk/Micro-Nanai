@@ -13,7 +13,7 @@
             android:id="@+id/tv_terms_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Terms and Conditions"
+            android:text="Data Privacy Notice"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_gravity="center_horizontal"
@@ -23,9 +23,10 @@
             android:id="@+id/tv_terms_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+            android:text="Our Privacy Commitment"
+            android:textStyle="bold"
             android:textSize="14sp"
-            android:paddingBottom="8dp"/>
+            android:paddingBottom="11dp"/>
 
         <TextView
             android:layout_width="match_parent"

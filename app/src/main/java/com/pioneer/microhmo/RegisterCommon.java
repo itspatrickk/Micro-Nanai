@@ -51,7 +51,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
-public class RegisterCommon extends AppCompatActivity{
+public class RegisterCommon extends BaseActivity{
 
     private String filename = "SampleFile.txt";
     private String filepath = "MyFileStorage";
@@ -69,7 +69,7 @@ public class RegisterCommon extends AppCompatActivity{
     TextView capturedRS2 ;
     public static String suffixlist[] = {"", "SR", "JR", "II", "III", "IV", "V"};
     public static String relList[] = {"SPOUSE","CHILD" , "PARENTS" , "GRANDPARENTS" , "OTHERS"};
-    public static String institution[] = {"CARD BANK INC." , "CARD SME BANK INC." , "CARD RIZAL BANK"};
+    public static String institution[] = {"CARD BANK INC." , "CARD SME BANK INC." , "CARD RIZAL BANK INC." , "CARD INC."};
     AutoCompleteTextView suffix , province , city , brgy , relToMemberX , institutions;
     RadioGroup radioStatus ;
     RadioGroup radioPaymentMode,gender, civilstatus, cardmember , radioGroupClientType;

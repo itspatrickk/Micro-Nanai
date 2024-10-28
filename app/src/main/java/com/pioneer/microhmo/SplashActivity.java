@@ -22,6 +22,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +50,13 @@ public class SplashActivity extends AppCompatActivity {
         handlerThread.start();
         Handler handler = new Handler(handlerThread.getLooper());
 
+
+        if (isRootedDevice()) {
+            // Show alert dialog or toast
+            Toast.makeText(SplashActivity.this, "This app does not run on rooted devices.", Toast.LENGTH_LONG).show();
+            // Optionally, exit the app
+            System.exit(0);
+        }
         handler.post(() -> {
             Log.d("TAG", "onCreate: dumaan");
             List<String> addressList = null;
@@ -82,7 +92,7 @@ public class SplashActivity extends AppCompatActivity {
             }
             List<String> provinces = databaseHelper.getAllProvinces();
             Log.d("provinces", ""+provinces.size());
-            Toast.makeText(this, "UAT VERSION 1.8", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "UAT VERSION 1.11", Toast.LENGTH_LONG).show();
             //Toast.makeText(this, "TOTAL PROV SIZE " + provinces.size(), Toast.LENGTH_SHORT).show();
         });
 
@@ -110,5 +120,51 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, 3000);
 
+    }
+
+
+    public boolean isRootedDevice() {
+        return isDeviceRooted() || canExecuteSu() || isRunningTestKeys();
+    }
+    public boolean isDeviceRooted() {
+        String[] paths = {
+                "/system/app/Superuser.apk",
+                "/sbin/su",
+                "/system/bin/su",
+                "/system/xbin/su",
+                "/data/local/xbin/su",
+                "/data/local/bin/su",
+                "/system/sd/xbin/su",
+                "/system/bin/failsafe/su",
+                "/data/local/su"
+        };
+
+        for (String path : paths) {
+            if (new File(path).exists()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean canExecuteSu() {
+        Process process = null;
+        try {
+            process = Runtime.getRuntime().exec("which su");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            return reader.readLine() != null;
+        } catch (Exception e) {
+            return false;
+        } finally {
+            if (process != null) {
+                process.destroy();
+            }
+        }
+    }
+
+    // Check if the device is running with test keys
+    public boolean isRunningTestKeys() {
+        String buildTags = android.os.Build.TAGS;
+        return buildTags != null && buildTags.contains("test-keys");
     }
 }

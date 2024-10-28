@@ -1393,14 +1393,9 @@ public class RegisterActivity extends  RegisterCommon implements RecyclerViewInt
         }
         //TOdo add the following Nationality province municipality barangay Street
 
-
-
-
-
-
-
-
-
+        if(!isImage1Valid){
+            return "Image for RS1 is invalid";
+        }
 
         if (policy.getPoc().isEmpty() || policy.getPoc().length() < 7){
             capturedRS1.setError("Siguraduhin na ilagay ang Reference No. ng Member.");
@@ -1408,15 +1403,15 @@ public class RegisterActivity extends  RegisterCommon implements RecyclerViewInt
             return "Siguraduhin na ilagay ang Reference No. ng Member.";
         }
 
-//        if ((capturedRS1.getText().toString().equalsIgnoreCase(capturedRS1.getText().toString())
-//                && !capturedRS1.getText().toString().equalsIgnoreCase(pocNumber.getText().toString()))){
-//            pocNumber.setError("Siguraduhin na magkaparehas ang reference number at capture poc from RS#1");
-//            pocNumber.requestFocus();
-//            capturedRS1.setError("Siguraduhin na magkaparehas ang reference number at capture poc from RS#1");
-//            capturedRS1.requestFocus();
-//           // return "Siguraduhing tignang mabuti ang Reference Number kung tama.";
-//            return "Siguraduhin na magkaparehas ang reference number at capture poc from RS#1";
-//        }
+        if (pocMatched.isChecked() && !capturedRS1.getText().toString().equalsIgnoreCase(pocNumber.getText().toString())) {
+            pocNumber.setError("Siguraduhin na magkaparehas ang reference number at capture poc from RS#1");
+            pocNumber.requestFocus();
+            capturedRS1.setError("Siguraduhin na magkaparehas ang reference number at capture poc from RS#1");
+            capturedRS1.requestFocus();
+
+            return "Siguraduhin na magkaparehas ang reference number at capture poc from RS#1";
+        }
+
 
         if (policy.getProduct1() == null && policy.getProduct2() == null &&policy.getProduct3() == null ){
             //checkKabuklod.requestFocus();
@@ -1440,10 +1435,13 @@ public class RegisterActivity extends  RegisterCommon implements RecyclerViewInt
                 return "Image for RS1 is invalid";
             }
         }
+
 //        if (policy.getPoc() != capturedRS1.getText().toString()){
 //            return "Siguraduhin na magkaparehas ang reference number at capture .";
 //        }
 
+
+        //DELETE THIS IF THEY want is ref no is not the same with the captured pom
         if (!pocMatched.isChecked()){
             return "Siguraduhing may check ang Reference No. is correct.";
         }
