@@ -154,7 +154,16 @@ public class AccountActivity extends AppCompatActivity {
                     Intent intent = new Intent(AccountActivity.this, MenuActivity.class);
                     startActivity(intent);
                 }else{
-                    showAlert( "Please check your PIN");
+                    int attempt = SharedPreferencesUtility.getAttemptCount(sharedPreferences);
+                  Log.d("+++++ATEMPT: ", "onClick: " + attempt);
+                    if (attempt > 2){
+                        showAlert1("Account locked, please reset your account");
+                    }
+                    else{
+                        showAlert( "Please check your PIN");
+                        SharedPreferencesUtility.addAttemptCount(sharedPreferences);
+                    }
+
                 }
             }
         });
@@ -354,5 +363,13 @@ public class AccountActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
 
+    }
+
+    public void showAlert1(String message) {
+        new AlertDialog.Builder(this)
+                .setMessage(message)
+                .setPositiveButton("OK", (dialog, which) -> forgotPin.performClick())
+                .create()
+                .show();
     }
 }

@@ -19,18 +19,17 @@ public class Statics {
     public static String BASE_URL =
             //prod
         // "https://apiprod.pioneer.com.ph/hodu/nan.ai/v1.0";
-    //uat
-            //  "https://api2.pioneer.com.ph/dev-microhmo/2.0";
+
 
     //LOCALHOST not working in office check in ipconfig <CMD>
-   //"http://192.168.1.6:8000";
+   //"http://192.168.1.3:8000";
 
     //server
     //"http://172.21.1.145:7000";
 
     "https://api2.pioneer.com.ph/dev-microhmo/2.0";
 
-    //"https://73b1dfa2-5f88-47e1-a46f-c4a3b288afb7-prod.e1-us-east-azure.choreoapis.dev/hodu/nan.ai/v1";
+
     public static String CRED_URL =
     //"https://api.asgardeo.io/t/pioneer/oauth2/token?grant_type=client_credentials";
     "https://api2.pioneer.com.ph/token?grant_type=client_credentials";

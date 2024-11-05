@@ -16,6 +16,7 @@ import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -33,9 +34,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.pioneer.microhmo.util.SharedPreferencesUtility;
 import com.pioneer.microhmo.util.TermsAndCondition;
+import com.pioneer.microhmo.util.TimerViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     WebView mywebView;
 
     String deviceId = "";
+    private TimerViewModel timerViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         terms = findViewById(R.id.terms);
         mywebView= findViewById(R.id.webview);
+
+        //timerViewModel = new ViewModelProvider(this).get(TimerViewModel.class);
 
         SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.SHARED_PREFERENCE_ID, Context.MODE_PRIVATE);
 
@@ -101,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
         btnActivate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(MainActivity.this, ActivateActivity.class);
                 startActivity(intent);
             }

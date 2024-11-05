@@ -1280,23 +1280,23 @@ public class RegisterActivity extends  RegisterCommon implements RecyclerViewInt
             return "Siguraduhin na ilagay ang Kapanganakan ng Member.";
         }
 
-        if (principal.getPlaceOfBirth().isEmpty()){
-            placeofBirth.setError("Siguraduhin na ilagay ang Place of Birth ng Member");
-            placeofBirth.requestFocus();
-            return "Siguraduhin na ilagay ang Place of Birth ng Member";
-        }
+//        if (principal.getPlaceOfBirth().isEmpty()){
+//            placeofBirth.setError("Siguraduhin na ilagay ang Place of Birth ng Member");
+//            placeofBirth.requestFocus();
+//            return "Siguraduhin na ilagay ang Place of Birth ng Member";
+//        }
 
-        if(principal.getNationality().isEmpty()){
-            nationality.setError("Siguraduhin na ilagay ang Nationality ng Member");
-            nationality.requestFocus();
-            return "Siguraduhin na ilagay ang Nationality ng Member";
-        }
-        if (principal.getNationality().startsWith("-")||principal.getNationality().startsWith(".") ||
-                principal.getNationality().endsWith("-") || principal.getNationality().endsWith(".")) {
-            unitManager.setError("Ang Nationality ay hindi maaaring magsimula o magtapos sa '-' o '.'");
-            unitManager.requestFocus();
-            return "Ang Nationality ay hindi maaaring magsimula o magtapos sa '-' o '.'";
-        }
+//        if(principal.getNationality().isEmpty()){
+//            nationality.setError("Siguraduhin na ilagay ang Nationality ng Member");
+//            nationality.requestFocus();
+//            return "Siguraduhin na ilagay ang Nationality ng Member";
+//        }
+//        if (principal.getNationality().startsWith("-")||principal.getNationality().startsWith(".") ||
+//                principal.getNationality().endsWith("-") || principal.getNationality().endsWith(".")) {
+//            unitManager.setError("Ang Nationality ay hindi maaaring magsimula o magtapos sa '-' o '.'");
+//            unitManager.requestFocus();
+//            return "Ang Nationality ay hindi maaaring magsimula o magtapos sa '-' o '.'";
+//        }
 
         if (principal.getCivilstat().isEmpty() || principal.getCivilstat() == null){
             civilstatusMarried.setError("Siguraduhin na ilagay ang Civil Status ng Member");
@@ -1322,11 +1322,11 @@ public class RegisterActivity extends  RegisterCommon implements RecyclerViewInt
             brgy.requestFocus();
             return "Siguraduhin na ilagay ang Barangay ng Member";
         }
-        if (principal.getStreet().isEmpty()){
-            edtStreet.setError("Siguraduhin na ilagay ang Street ng Member");
-            edtStreet.requestFocus();
-            return "Siguraduhin na ilagay ang Street ng Member";
-        }
+//        if (principal.getStreet().isEmpty()){
+//            edtStreet.setError("Siguraduhin na ilagay ang Street ng Member");
+//            edtStreet.requestFocus();
+//            return "Siguraduhin na ilagay ang Street ng Member";
+//        }
 
 
         if (accountOfficer.isEmpty()){

@@ -2,20 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/pioneer_blue"
+    android:background="@color/pioneer_green"
     >
 
     <RelativeLayout
+        android:id="@+id/relativeLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:text="MIA"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            android:text="MIA"/>
+            android:textSize="20sp" />
 
 
         <ImageView
@@ -25,9 +27,23 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:src="@drawable/baseline_menu_24"
-            android:visibility="gone"
-            />
+            android:visibility="gone" />
 
     </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/logout_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="280dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="17dp"
+        android:layout_toEndOf="@+id/relativeLayout2"
+        android:clickable="true"
+        android:contentDescription="Logout"
+        android:focusable="true"
+        android:src="@drawable/baseline_logout_24" />
 
 </RelativeLayout>

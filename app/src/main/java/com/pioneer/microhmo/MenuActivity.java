@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -39,6 +40,8 @@ import java.util.Map;
 public class MenuActivity extends BaseActivity {
 
     ImageButton enrollButton, supportButton, salesButton, syncButton;
+
+    ImageView logoutBtn;
 
 
     SharedPreferences sharedPreferences;
@@ -70,6 +73,7 @@ public class MenuActivity extends BaseActivity {
         supportButton = findViewById(R.id.supportButton);
         salesButton = findViewById(R.id.salesButton);
         syncButton = findViewById(R.id.syncButton);
+        logoutBtn = findViewById(R.id.logout_icon);
 
         enrollButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,15 +109,23 @@ public class MenuActivity extends BaseActivity {
             }
         });
 
-        Button btnLogout = findViewById(R.id.btnLogout);
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MenuActivity.this, AccountActivity.class);
+                Intent intent = new Intent(MenuActivity.this,AccountActivity.class);
                 startActivity(intent);
             }
         });
+//        Button btnLogout = findViewById(R.id.btnLogout);
+//
+//        btnLogout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MenuActivity.this, AccountActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     public void updateLimits(){

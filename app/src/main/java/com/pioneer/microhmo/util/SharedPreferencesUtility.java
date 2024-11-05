@@ -17,6 +17,7 @@ public class SharedPreferencesUtility {
     private static final String AGENT_OTP_CHANGE = "AGENT_OTP_CHANGE";
     private static final String MOBILENO = "MOBILENO";
     private static final String CENTERS = "CENTERS";
+    private static final String LOGIN_ATTEMPTS = "LOGIN_ATTEMPTS";
     private static SharedPreferences sharedPreferences;
 
     public static void setInitialValues(SharedPreferences sharedPreferences){
@@ -123,7 +124,20 @@ public class SharedPreferencesUtility {
 
     public static void saveOtp(SharedPreferences sharedPreferences,  String reference) {
         saveString(sharedPreferences, AGENT_OTP,reference);
+        saveInt(sharedPreferences , LOGIN_ATTEMPTS , 0);
     }
+
+    public static void addAttemptCount(SharedPreferences sharedPreferences) {
+        int count = getAttemptCount(sharedPreferences);
+        saveInt(sharedPreferences,LOGIN_ATTEMPTS,count+1);
+    }
+
+    public static  int getAttemptCount(SharedPreferences sharedPreferences){
+        int counts = getInt(sharedPreferences , LOGIN_ATTEMPTS,0);
+        return counts;
+    }
+
+
     public static String getOtp(SharedPreferences sharedPreferences) {
         return getString(sharedPreferences, AGENT_OTP, null);
     }

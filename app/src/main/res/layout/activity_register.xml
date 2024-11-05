@@ -345,7 +345,7 @@
                 style="@style/TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Kapanganakan: *" />
+                android:text="Kapanganakan *" />
 
             <TextView
                 android:id="@+id/dob"
@@ -361,7 +361,7 @@
                 style="@style/TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Place of Birth *" />
+                android:text="Place of Birth " />
 
             <EditText
                 android:id="@+id/placeOfBirth"
@@ -375,7 +375,7 @@
                 style="@style/TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nationality *" />
+                android:text="Nationality " />
 
             <EditText
                 android:id="@+id/nationality"
@@ -535,7 +535,7 @@
                 style="@style/TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Municipality*" />
+                android:text="City/Municipality*" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
@@ -581,7 +581,7 @@
                 style="@style/TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Street *" />
+                android:text="Street " />
 
             <EditText
                 android:id="@+id/edtStreet"

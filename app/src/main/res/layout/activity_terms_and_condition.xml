@@ -9,55 +9,143 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- Title -->
         <TextView
             android:id="@+id/tv_terms_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Data Privacy Notice"
+            android:text="Agreement to Terms"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_gravity="center_horizontal"
             android:paddingBottom="16dp"/>
 
+        <!-- Content Section Headers and Paragraphs -->
         <TextView
-            android:id="@+id/tv_terms_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Our Privacy Commitment"
-            android:textStyle="bold"
+            android:text="Please read the Terms and Conditions (Terms) carefully before accessing and using the MIA Application (App) developed and operated by MI Healthcare Inc (MHI)."
             android:textSize="14sp"
             android:paddingBottom="11dp"/>
 
+        <!-- Usage Agreement -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Mauris egestas erat in metus elementum, non pulvinar nulla tincidunt. Aenean tincidunt nisi erat, vel sollicitudin nibh imperdiet sit amet. Vivamus at erat nec sem placerat maximus. Nullam vehicula neque ut turpis pharetra dapibus."
+            android:text="These Terms constitute a legally binding agreement between you and MHI. By accessing or using the services, you agree to be bound by these Terms. If you disagree with any parts of the Terms, you may neither access nor use the App."
+            android:textSize="14sp"
+            android:paddingBottom="8dp"/>
+
+        <!-- Permissions Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Subject to your agreement and compliance with the Terms, you are granted an exclusive, non-transferable, revocable, limited access to use the MIA App solely in connection with MHI-related transactions."
+            android:textSize="14sp"
+            android:paddingBottom="8dp"/>
+
+        <!-- Termination Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Termination"
+            android:textStyle="bold"
             android:textSize="14sp"
             android:paddingBottom="8dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Donec posuere libero vel massa bibendum dapibus. Etiam faucibus nisi sed turpis consequat, nec malesuada lorem dapibus. Aliquam fringilla orci urna, a tempus orci aliquam eget. Curabitur euismod arcu vel lacus elementum, vitae tincidunt lacus hendrerit. Donec sed tellus eget sapien interdum fermentum ut et eros. Nam fermentum, felis sit amet sodales tincidunt, elit est fermentum urna, vel laoreet purus metus ac nunc."
-            android:textSize="14sp" />
+            android:text="If you breach any of the Terms, MHI reserves the right, in its sole discretion, to terminate access or use of the App. MHI is not responsible for any loss, damage, or harm related to your inability to access or use the App based on such termination."
+            android:textSize="14sp"
+            android:paddingBottom="8dp"/>
+
+        <!-- Limitation of Liability Section -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Mauris egestas erat in metus elementum, non pulvinar nulla tincidunt. Aenean tincidunt nisi erat, vel sollicitudin nibh imperdiet sit amet. Vivamus at erat nec sem placerat maximus. Nullam vehicula neque ut turpis pharetra dapibus."
+            android:text="Limitation of Liability"
+            android:textStyle="bold"
             android:textSize="14sp"
-            android:paddingBottom="8dp" />
+            android:paddingBottom="8dp"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Mauris egestas erat in metus elementum, non pulvinar nulla tincidunt. Aenean tincidunt nisi erat, vel sollicitudin nibh imperdiet sit amet. Vivamus at erat nec sem placerat maximus. Nullam vehicula neque ut turpis pharetra dapibus."
+            android:text="MHI will not be liable for any indirect, incidental, special, consequential, punitive, or multiple damages, or any loss of profits or revenues, whether incurred directly or indirectly."
             android:textSize="14sp"
-            android:paddingBottom="8dp" />
+            android:paddingBottom="8dp"/>
+
+        <!-- Governing Law Section -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Mauris egestas erat in metus elementum, non pulvinar nulla tincidunt. Aenean tincidunt nisi erat, vel sollicitudin nibh imperdiet sit amet. Vivamus at erat nec sem placerat maximus. Nullam vehicula neque ut turpis pharetra dapibus."
+            android:text="Governing Law"
+            android:textStyle="bold"
             android:textSize="14sp"
-            android:paddingBottom="8dp" />
+            android:paddingBottom="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="The laws of the Republic of the Philippines shall govern the Terms and any claims and disputes arising out of or relating to these terms."
+            android:textSize="14sp"
+            android:paddingBottom="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Changes"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:paddingBottom="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MHI reserves the right, in its sole discretion, to modify the Terms at any time. If MHI makes changes, it will post the amended Terms within the App and update the “Last Updated” data above. MHI shall notify users allowed to access the App by sending a memo through MHI personnel or by sending a message through text to the mobile number you indicated during account set-up.Amendments to the Terms shall be effective immediately"
+            android:textSize="14sp"
+            android:paddingBottom="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CONTACT US "
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:paddingBottom="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MHI welcomes comments, questions, concerns, or suggestions. You may reach us through the following: "
+            android:textSize="14sp"
+            android:paddingBottom="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:text="Telephone:   +632 8812 7777 loc. 295 "
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:text="Mobile:  09478949574 "
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:text="Email: mihealthcare@pioneer.com.ph  "
+            />
+
+
 
     </LinearLayout>
 </ScrollView>

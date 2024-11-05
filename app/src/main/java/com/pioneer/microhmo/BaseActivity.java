@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class BaseActivity extends AppCompatActivity {
 
-     private static final long TIMEOUT = 5 * 60 * 1000; // 5 minutes
+    private static final long TIMEOUT = 15 * 60 * 1000; // 15 minutes in milliseconds
     // For testing purposes, you can use the following line for 5 seconds timeout
     //private static final long TIMEOUT = 5 * 60 * 100; // 5 seconds
     private Handler handler = new Handler();

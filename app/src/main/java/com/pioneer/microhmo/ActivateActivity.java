@@ -1,6 +1,7 @@
 package com.pioneer.microhmo;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -10,6 +11,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.PersistableBundle;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -25,8 +28,10 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -38,12 +43,21 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.hcaptcha.sdk.HCaptcha;
+import com.hcaptcha.sdk.HCaptchaConfig;
+import com.hcaptcha.sdk.HCaptchaException;
+import com.hcaptcha.sdk.HCaptchaSize;
+import com.hcaptcha.sdk.HCaptchaTheme;
+import com.hcaptcha.sdk.HCaptchaTokenResponse;
+import com.hcaptcha.sdk.tasks.OnFailureListener;
+import com.hcaptcha.sdk.tasks.OnSuccessListener;
 import com.pioneer.microhmo.objects.AgentInfo;
 import com.pioneer.microhmo.objects.Matrix;
 import com.pioneer.microhmo.objects.MemberInfo;
 import com.pioneer.microhmo.objects.PolicyInfo;
 import com.pioneer.microhmo.util.SharedPreferencesUtility;
 import com.pioneer.microhmo.util.Statics;
+import com.pioneer.microhmo.util.TimerViewModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,9 +74,12 @@ public class ActivateActivity extends AppCompatActivity {
 
     EditText otp, mobileNumber,onetimepin, onetimepin2;
     TextView messageView, messageView1;
-
+    private TimerViewModel timerViewModel;
 
     DatabaseHelper databaseHelper;
+
+    private CountDownTimer countDownTimer;
+    private long millisUntilFinished = 120000;
 
     String deviceId = "";
 
@@ -81,6 +98,7 @@ public class ActivateActivity extends AppCompatActivity {
         }
     });
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,6 +137,18 @@ public class ActivateActivity extends AppCompatActivity {
         imm.showSoftInput(mobileNumber, InputMethodManager.SHOW_IMPLICIT);
         syncMatrix();
 
+
+//        timerViewModel = new ViewModelProvider(this).get(TimerViewModel.class);
+//
+//        timerViewModel.getRemainingTime().observe(this, remainingTime -> {
+//            if (remainingTime > 0) {
+//                btnActivate.setText("Wait " + remainingTime / 1000 + " seconds");
+//            } else {
+//                btnActivate.setEnabled(true);
+//                btnActivate.setText("Activate");
+//            }
+//        });
+
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             activityResultLauncher.launch(Manifest.permission.READ_PHONE_STATE);
         }
@@ -145,8 +175,8 @@ public class ActivateActivity extends AppCompatActivity {
                  mobile = mobileNumber.getText().toString();
                  if (mobile.length() == 9){
                      mobile = "639"+mobile;//.substring(mobile.length()-10);
-                     //Toast.makeText(ActivateActivity.this, mobile,Toast.LENGTH_LONG).show();
                      activateAccount( mobile);
+
                  }else{
                      btnActivate.setVisibility(View.VISIBLE);
                      showAlert("Please check your mobile number.");
@@ -190,6 +220,44 @@ public class ActivateActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+       //TODO CAPTCHA QUIZ
+
+        final HCaptcha hCaptcha = HCaptcha.getClient(this);
+
+        Log.d("----HCATPCHA" , "hCaptcha is now visible");
+
+        hCaptcha
+                .addOnSuccessListener(new OnSuccessListener<HCaptchaTokenResponse>() {
+            @Override
+            public void onSuccess(HCaptchaTokenResponse hCaptchaTokenResponse) {
+                String userResponseTOken = hCaptchaTokenResponse.getTokenResult();
+
+                Log.d("-----HCATPCHA " , "hCatpcha success token: " + userResponseTOken);
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(HCaptchaException e) {
+                        Log.d("hCaptcha", "hCaptcha failed: " + e.getMessage() + "(" + e.getStatusCode() + ")");
+                    }
+                });
+
+        hCaptcha.setup();
+        hCaptcha.verifyWithHCaptcha();
+        final String SITE_KEY = "45f604dc-36b6-4e52-a1ca-27fcd504ed58";
+
+        hCaptcha.setup(SITE_KEY).verifyWithHCaptcha();
+
+        final HCaptchaConfig hCaptchaConfig = HCaptchaConfig.builder()
+                .siteKey(SITE_KEY)
+                .size(HCaptchaSize.NORMAL)
+                .theme(HCaptchaTheme.LIGHT)
+                .build();
+
+        hCaptcha.setup(hCaptchaConfig).verifyWithHCaptcha();
+
     }
 
     public void validateOTP(final String mobileNo){
@@ -419,6 +487,24 @@ public class ActivateActivity extends AppCompatActivity {
         dialog.show();
 
     }
+
+    public void showAlert1(String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("Please check error");
+        builder.setMessage(message);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Handle positive button click
+                // ...
+                startButtonCooldown();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
 //
 //    public void validateOTPs(Context context, final  String otp){
 //
@@ -471,6 +557,39 @@ public class ActivateActivity extends AppCompatActivity {
 //    }
 
 
+
+
+    private void startTimer(long remainingTime) {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+
+        btnActivate.setEnabled(false);
+        countDownTimer = new CountDownTimer(remainingTime, 1000) {
+            public void onTick(long millisUntilFinished) {
+                timerViewModel.setRemainingTime(millisUntilFinished); // Update remaining time in ViewModel
+            }
+
+            public void onFinish() {
+                btnActivate.setEnabled(true);
+                btnActivate.setText("Activate");
+                timerViewModel.setRemainingTime(0); // Reset time in ViewModel
+            }
+        }.start();
+    }
+
+
+
+//    @Override
+//    protected void onDestroy() {
+//        Log.d("__GETTOME" , countDownTimer.toString());
+//        if (countDownTimer != null) {
+//            countDownTimer.cancel(); // Cancel the timer to avoid memory leaks
+//        }
+//
+//        super.onDestroy();
+//    }
+
     public void activateAccount(final String mobileNo){
         Log.d("mobileNo", mobileNo);
         SharedPreferencesUtility.saveMobileNo(sharedPreferences, mobileNo);
@@ -484,6 +603,9 @@ public class ActivateActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         try {
                             JSONObject json = new JSONObject(response);
+
+
+
                             accessToken = json.getString("access_token");
 
 
@@ -507,7 +629,9 @@ public class ActivateActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 //                        Toast.makeText(context, error.getMessage(),Toast.LENGTH_LONG).show();
+
                         showAlert("Siguraduhing may internet connection wifi/mobile data bago mag activate sa app.");
+
                         btnActivate.setVisibility(View.VISIBLE);
                     }
 
@@ -552,6 +676,10 @@ public class ActivateActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
+                            JSONObject jsonResponse = new JSONObject(response);
+
+                            // Check if OTP limit is exceeded
+
                             Gson gson = new Gson();
                             AgentInfo agent = gson.fromJson(response, AgentInfo.class);
                             String message = "Magandang araw "+agent.getFullname()+
@@ -588,10 +716,30 @@ public class ActivateActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //Toast.makeText(context, error.getMessage(),Toast.LENGTH_LONG).show();
+                        if (error.networkResponse != null) {
+                            int statusCode = error.networkResponse.statusCode;
+                            String errorData = new String(error.networkResponse.data);  // Capture the raw error response data
+
+                            Log.d("ERROR-------", "Status Code: " + statusCode);
+                            Log.d("ERROR-------", "Error Data: " + errorData);
+
+                            if (statusCode == 429) {
+                                showAlert1("OTP request limit exceeded. Please try again in 2 minutes.");
+
+                            } else {
+                                showAlert("An error occurred. Please try again later.");
+                                btnActivate.setVisibility(View.VISIBLE);
+                            }
+                        } else {
+                            Log.d("ERROR-------", "onErrorResponse: Network response is null");
+                            showAlert("Siguraduhing may internet connection wifi/mobile data bago mag activate sa app.");
+                            btnActivate.setVisibility(View.VISIBLE);
+                        }
+
                         activateDiv.setVisibility(View.VISIBLE);
-                        btnActivate.setVisibility(View.VISIBLE);
                     }
+
+
                 })  {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
@@ -606,6 +754,26 @@ public class ActivateActivity extends AppCompatActivity {
 
         queue.add(stringRequest);
     }
+
+    private void startButtonCooldown() {
+        btnActivate.setEnabled(false);  // Disable the button
+        btnActivate.setVisibility(View.VISIBLE);  // Make sure it's visible
+
+        new CountDownTimer(120000, 1000) {
+
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onTick(long millisUntilFinished) {
+                btnActivate.setText("Try Again in " + millisUntilFinished / 1000 + " seconds");
+            }
+
+            @Override
+            public void onFinish() {
+                btnActivate.setEnabled(true);
+            }
+        }.start();
+    }
+
 
     public void syncMatrix(){
         Context context = getApplicationContext();
