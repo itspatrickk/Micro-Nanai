@@ -18,6 +18,7 @@ public class SharedPreferencesUtility {
     private static final String MOBILENO = "MOBILENO";
     private static final String CENTERS = "CENTERS";
     private static final String LOGIN_ATTEMPTS = "LOGIN_ATTEMPTS";
+    public static final String STATUS = "STATUS";
     private static SharedPreferences sharedPreferences;
 
     public static void setInitialValues(SharedPreferences sharedPreferences){
@@ -231,5 +232,13 @@ public class SharedPreferencesUtility {
     }
     public static String getCenters(SharedPreferences sharedPreferences) {
         return getString(sharedPreferences, CENTERS, "");
+    }
+
+    public static void saveStatus(SharedPreferences sharedPreferences, String reference) {
+        saveString(sharedPreferences, STATUS,reference);
+    }
+
+    public static String getStatus(SharedPreferences sharedPreferences) {
+        return getString(sharedPreferences, STATUS, "");
     }
 }

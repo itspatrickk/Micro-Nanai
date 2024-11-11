@@ -956,4 +956,18 @@ public void addAddressList(List<Address_> addressList ) {
         }
         return list;
     }
+
+    public void  deleteAllData(){
+        SQLiteDatabase myDatabase = this.getWritableDatabase();
+
+        myDatabase.beginTransaction();
+        try {
+            myDatabase.delete(TABLE_POLICY,null,null);
+            myDatabase.delete(TABLE_MEMBERS, null,null);
+            myDatabase.setTransactionSuccessful();
+        }finally {
+            myDatabase.endTransaction();
+            myDatabase.close();
+        }
+    }
 }

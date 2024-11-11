@@ -268,6 +268,8 @@ public class MenuActivity extends BaseActivity {
                             Gson gson = new Gson();
                             AgentInfo agent = gson.fromJson(response, AgentInfo.class);
                             Log.d("agent.getCenters()", agent.getCenters());
+
+                            Log.d("----status", "onResponse: " + agent.getStatus());
                             SharedPreferencesUtility.saveCenters(sharedPreferences, agent.getCenters());
                         } catch (Exception e) {
                             e.printStackTrace();

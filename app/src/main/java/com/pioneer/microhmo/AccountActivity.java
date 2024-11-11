@@ -60,6 +60,8 @@ public class AccountActivity extends AppCompatActivity {
     String deviceId = "";
 
     EditText pin;
+
+    private DatabaseHelper databaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +91,7 @@ public class AccountActivity extends AppCompatActivity {
         validatePin.setVisibility(View.GONE);
         startDiv.setVisibility(View.GONE);
 
+        databaseHelper = new DatabaseHelper(this);
 
         try{
             TelephonyManager telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
@@ -143,6 +146,13 @@ public class AccountActivity extends AppCompatActivity {
 //                if (pinText.equalsIgnoreCase("0000") || savedPin.equalsIgnoreCase(pinText)){
 
                 String mobile = SharedPreferencesUtility.getMobileNo(sharedPreferences);
+
+                String status = SharedPreferencesUtility.getStatus(sharedPreferences);
+
+                if (status.equalsIgnoreCase("INACTIVE")){
+                    showAlert3("Access has been revoked.");
+                    return;
+                }
                     //TODO to delete this after update
                 //String mobile="0998821111";
                 Log.d("mobilemobilemobilemobile", mobile);
@@ -151,6 +161,8 @@ public class AccountActivity extends AppCompatActivity {
                     updateLimits();
                     if (mobile != null && mobile.length() > 10)
                         getAgentUpdate(mobile);
+
+                  //Toast.makeText(AccountActivity.this, "YOUR STATUS IS " + status, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(AccountActivity.this, MenuActivity.class);
                     startActivity(intent);
                 }else{
@@ -330,7 +342,10 @@ public class AccountActivity extends AppCompatActivity {
                         try {
                             Gson gson = new Gson();
                             AgentInfo agent = gson.fromJson(response, AgentInfo.class);
+
+                            Log.d("---Status" , "STATUS: " + agent.getStatus());
                             SharedPreferencesUtility.saveCenters(sharedPreferences, agent.getCenters());
+                            SharedPreferencesUtility.saveStatus(sharedPreferences, agent.getStatus());
                         } catch (Exception e) {
                         }
                     }
@@ -358,6 +373,21 @@ public class AccountActivity extends AppCompatActivity {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+    public void showAlert3(String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                databaseHelper.deleteAllData();
+                Log.d("ALL DATA DELETED", "onClick: deleted all data to this");
             }
         });
         AlertDialog dialog = builder.create();

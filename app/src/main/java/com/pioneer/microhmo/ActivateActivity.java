@@ -224,39 +224,39 @@ public class ActivateActivity extends AppCompatActivity {
 
        //TODO CAPTCHA QUIZ
 
-        final HCaptcha hCaptcha = HCaptcha.getClient(this);
-
-        Log.d("----HCATPCHA" , "hCaptcha is now visible");
-
-        hCaptcha
-                .addOnSuccessListener(new OnSuccessListener<HCaptchaTokenResponse>() {
-            @Override
-            public void onSuccess(HCaptchaTokenResponse hCaptchaTokenResponse) {
-                String userResponseTOken = hCaptchaTokenResponse.getTokenResult();
-
-                Log.d("-----HCATPCHA " , "hCatpcha success token: " + userResponseTOken);
-            }
-        })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(HCaptchaException e) {
-                        Log.d("hCaptcha", "hCaptcha failed: " + e.getMessage() + "(" + e.getStatusCode() + ")");
-                    }
-                });
-
-        hCaptcha.setup();
-        hCaptcha.verifyWithHCaptcha();
-        final String SITE_KEY = "45f604dc-36b6-4e52-a1ca-27fcd504ed58";
-
-        hCaptcha.setup(SITE_KEY).verifyWithHCaptcha();
-
-        final HCaptchaConfig hCaptchaConfig = HCaptchaConfig.builder()
-                .siteKey(SITE_KEY)
-                .size(HCaptchaSize.NORMAL)
-                .theme(HCaptchaTheme.LIGHT)
-                .build();
-
-        hCaptcha.setup(hCaptchaConfig).verifyWithHCaptcha();
+//        final HCaptcha hCaptcha = HCaptcha.getClient(this);
+//
+//        Log.d("----HCATPCHA" , "hCaptcha is now visible");
+//
+//        hCaptcha
+//                .addOnSuccessListener(new OnSuccessListener<HCaptchaTokenResponse>() {
+//            @Override
+//            public void onSuccess(HCaptchaTokenResponse hCaptchaTokenResponse) {
+//                String userResponseTOken = hCaptchaTokenResponse.getTokenResult();
+//
+//                Log.d("-----HCATPCHA " , "hCatpcha success token: " + userResponseTOken);
+//            }
+//        })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(HCaptchaException e) {
+//                        Log.d("hCaptcha", "hCaptcha failed: " + e.getMessage() + "(" + e.getStatusCode() + ")");
+//                    }
+//                });
+//
+//        hCaptcha.setup();
+//        hCaptcha.verifyWithHCaptcha();
+//        final String SITE_KEY = "45f604dc-36b6-4e52-a1ca-27fcd504ed58";
+//
+//        hCaptcha.setup(SITE_KEY).verifyWithHCaptcha();
+//
+//        final HCaptchaConfig hCaptchaConfig = HCaptchaConfig.builder()
+//                .siteKey(SITE_KEY)
+//                .size(HCaptchaSize.NORMAL)
+//                .theme(HCaptchaTheme.LIGHT)
+//                .build();
+//
+//        hCaptcha.setup(hCaptchaConfig).verifyWithHCaptcha();
 
     }
 
@@ -682,6 +682,8 @@ public class ActivateActivity extends AppCompatActivity {
 
                             Gson gson = new Gson();
                             AgentInfo agent = gson.fromJson(response, AgentInfo.class);
+
+                            Log.d("-----STATUS" , "status: " + agent.getStatus());
                             String message = "Magandang araw "+agent.getFullname()+
                                     ", ilagay ang OTP na pinadala sa iyong numero";
 
@@ -694,6 +696,7 @@ public class ActivateActivity extends AppCompatActivity {
                             SharedPreferencesUtility.saveAgentId(sharedPreferences, agent.getKyid());
                             SharedPreferencesUtility.saveAgentSeqno(sharedPreferences, agent.getId());
                             SharedPreferencesUtility.saveCenters(sharedPreferences, agent.getCenters());
+                            SharedPreferencesUtility.saveStatus(sharedPreferences , agent.getStatus());
 
                             activateDiv.setVisibility(View.GONE);
                             validateDiv.setVisibility(View.VISIBLE);

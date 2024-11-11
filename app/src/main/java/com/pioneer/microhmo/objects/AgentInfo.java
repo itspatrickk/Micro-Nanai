@@ -4,6 +4,8 @@ public class AgentInfo {
 
     private String centers;
 
+    private String status;
+
     public String getCenters() {
         return centers;
     }
@@ -13,12 +15,13 @@ public class AgentInfo {
 
     public AgentInfo() {}
 
-    public AgentInfo(String kyid, String mobileno, String fullname, String id) {
+    public AgentInfo(String kyid, String mobileno, String fullname, String id , String status) {
         super();
         this.kyid = kyid;
         this.mobileno = mobileno;
         this.fullname = fullname;
         this.id = id;
+        this.status = status;
     }
 
 
@@ -61,4 +64,11 @@ public class AgentInfo {
     private String fullname;
 
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
