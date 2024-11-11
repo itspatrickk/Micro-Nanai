@@ -387,7 +387,7 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 databaseHelper.deleteAllData();
-                Log.d("ALL DATA DELETED", "onClick: deleted all data to this");
+                Log.d("ALL DATA DELETED", "deleted all data to this");
             }
         });
         AlertDialog dialog = builder.create();

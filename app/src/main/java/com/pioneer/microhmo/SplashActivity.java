@@ -4,10 +4,16 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -102,16 +108,27 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
 //                startActivity(new Intent(SplashActivity.this, CameraActivity.class));
                 Boolean isUserExist = false;
+                String status = "";
 
                 try {
                     SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.SHARED_PREFERENCE_ID, Context.MODE_PRIVATE);
                     isUserExist = SharedPreferencesUtility.isUserExist(sharedPreferences);
+                    status = SharedPreferencesUtility.getStatus(sharedPreferences);
+
+                    Log.d("AGENT STATUS" , "statss: " + status);
+
                 }catch (Exception e){
                     isUserExist = false;
                 }
                //startActivity(new Intent(SplashActivity.this, AccountActivity.class));//MainActivity.class))
 
+
+
                 if (isUserExist){
+                    if (status.equalsIgnoreCase("INACTIVE")){
+                        showAlert3("Access has been revoked.");
+                        return;
+                    }
                     startActivity(new Intent(SplashActivity.this, AccountActivity.class));//MainActivity.class))
                 }else {
                     startActivity(new Intent(SplashActivity.this, MainActivity.class));//MainActivity.class));
@@ -120,6 +137,15 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, 3000);
 
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
+            activityResultLauncher.launch(Manifest.permission.READ_SMS);
+        }
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.BROADCAST_SMS) != PackageManager.PERMISSION_GRANTED) {
+            activityResultLauncher.launch(Manifest.permission.BROADCAST_SMS);
+        }
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
+            activityResultLauncher.launch(Manifest.permission.RECEIVE_SMS);
+        }
     }
 
 
@@ -164,7 +190,25 @@ public class SplashActivity extends AppCompatActivity {
 
     // Check if the device is running with test keys
     public boolean isRunningTestKeys() {
-        String buildTags = android.os.Build.TAGS;
+        String buildTags = Build.TAGS;
         return buildTags != null && buildTags.contains("test-keys");
     }
+
+    public void showAlert3(String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                databaseHelper.deleteAllData();
+                Log.d("ALL DATA DELETED", "deleted all data to this");
+                finishAffinity();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
 }
