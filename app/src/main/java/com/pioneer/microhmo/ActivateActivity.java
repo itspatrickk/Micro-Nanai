@@ -70,7 +70,7 @@ public class ActivateActivity extends AppCompatActivity {
 
     LinearLayout validateDiv, activateDiv,setPinDiv;
 
-    Button btnActivate, validatePin,setPinBtn;
+    Button btnActivate, validatePin,setPinBtn , resendOTP;
 
     EditText otp, mobileNumber,onetimepin, onetimepin2;
     TextView messageView, messageView1;
@@ -125,6 +125,7 @@ public class ActivateActivity extends AppCompatActivity {
         btnActivate = findViewById(R.id.btnActivate);
         validatePin = findViewById(R.id.validatePin);
         setPinBtn = findViewById(R.id.setPin);
+        resendOTP = findViewById(R.id.resendOTP);
 
 //        progressBar.setVisibility(View.GONE);
 
@@ -171,7 +172,7 @@ public class ActivateActivity extends AppCompatActivity {
         btnActivate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnActivate.setVisibility(View.INVISIBLE);
+               // btnActivate.setVisibility(View.INVISIBLE);
                  mobile = mobileNumber.getText().toString();
                  if (mobile.length() == 9){
                      mobile = "639"+mobile;//.substring(mobile.length()-10);
@@ -183,6 +184,23 @@ public class ActivateActivity extends AppCompatActivity {
                  }
             }
         });
+
+        resendOTP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                resendOTP.setVisibility(View.INVISIBLE);
+                mobile = mobileNumber.getText().toString();
+                if (mobile.length() == 9){
+                    mobile = "639"+mobile;//.substring(mobile.length()-10);
+                    resendOTPRequests( mobile);
+
+                }else{
+                    btnActivate.setVisibility(View.VISIBLE);
+                    showAlert("Please check your mobile number.");
+                }
+            }
+        });
+
 
         validatePin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -224,39 +242,52 @@ public class ActivateActivity extends AppCompatActivity {
 
        //TODO CAPTCHA QUIZ
 
-//        final HCaptcha hCaptcha = HCaptcha.getClient(this);
-//
-//        Log.d("----HCATPCHA" , "hCaptcha is now visible");
-//
-//        hCaptcha
-//                .addOnSuccessListener(new OnSuccessListener<HCaptchaTokenResponse>() {
-//            @Override
-//            public void onSuccess(HCaptchaTokenResponse hCaptchaTokenResponse) {
-//                String userResponseTOken = hCaptchaTokenResponse.getTokenResult();
-//
-//                Log.d("-----HCATPCHA " , "hCatpcha success token: " + userResponseTOken);
-//            }
-//        })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(HCaptchaException e) {
-//                        Log.d("hCaptcha", "hCaptcha failed: " + e.getMessage() + "(" + e.getStatusCode() + ")");
-//                    }
-//                });
-//
-//        hCaptcha.setup();
-//        hCaptcha.verifyWithHCaptcha();
-//        final String SITE_KEY = "45f604dc-36b6-4e52-a1ca-27fcd504ed58";
-//
-//        hCaptcha.setup(SITE_KEY).verifyWithHCaptcha();
-//
-//        final HCaptchaConfig hCaptchaConfig = HCaptchaConfig.builder()
-//                .siteKey(SITE_KEY)
-//                .size(HCaptchaSize.NORMAL)
-//                .theme(HCaptchaTheme.LIGHT)
-//                .build();
-//
-//        hCaptcha.setup(hCaptchaConfig).verifyWithHCaptcha();
+
+        final HCaptcha hCaptcha = HCaptcha.getClient(this);
+
+
+        final String SITE_KEY = "45f604dc-36b6-4e52-a1ca-27fcd504ed58";
+
+
+        final HCaptchaConfig hCaptchaConfig = HCaptchaConfig.builder()
+                .siteKey(SITE_KEY)
+                .size(HCaptchaSize.NORMAL) // Compact size for smaller UI, use NORMAL if preferred
+                .theme(HCaptchaTheme.LIGHT) // Light theme, change to DARK if needed
+                .build();
+
+
+        hCaptcha.setup(hCaptchaConfig)
+                .addOnSuccessListener(new OnSuccessListener<HCaptchaTokenResponse>() {
+                    @Override
+                    public void onSuccess(HCaptchaTokenResponse hCaptchaTokenResponse) {
+                        // Retrieve the token upon success
+                        String userResponseToken = hCaptchaTokenResponse.getTokenResult();
+                        Log.d("HCAPTCHA", "hCaptcha success token: " + userResponseToken);
+
+                        // Proceed with verification or further actions using the token
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(HCaptchaException e) {
+                        // Log failure reasons for debugging
+                        Log.d("HCAPTCHA", "hCaptcha failed: " + e.getMessage() + " (" + e.getStatusCode() + ")");
+                        Intent intent = new Intent(ActivateActivity.this , MainActivity.class);
+                        startActivity(intent);
+//                        if (e.getStatusCode() == 30 || e.getStatusCode() == 15) { // 30 corresponds to "Challenge Closed"
+//                            Log.d("HCAPTCHA", "CAPTCHA dismissed by user. Retrying...");
+//                            Intent intent = new Intent(ActivateActivity.this , MainActivity.class);
+//                            startActivity(intent);
+//                        }
+//                        else {
+//                            Log.d("HCAPTCHA", "hCaptcha failed: " + e.getMessage() + " (" + e.getStatusCode() + ")");
+//                        }
+
+                    }
+                });
+
+        hCaptcha.verifyWithHCaptcha();
+
 
     }
 
@@ -505,90 +536,25 @@ public class ActivateActivity extends AppCompatActivity {
         dialog.show();
 
     }
-//
-//    public void validateOTPs(Context context, final  String otp){
-//
-//        progressBar.setVisibility(View.VISIBLE);
-//        RequestQueue queue = Volley.newRequestQueue(context);
-//        StringRequest stringRequest = new StringRequest(Request.Method.POST, VALIDATE_URL,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        try {
-//                            try {
-//                                JSONObject json = new JSONObject(response);
-//                                Boolean success = json.getBoolean("success");
-//                                if (success) {
-//                                    SharedPreferencesUtility.saveOtp(sharedPreferences, otp);
-//
-//                                    Intent intent = new Intent(ActivateActivity.this, AccountActivity.class);
-//
-//                                    intent.putExtra("otp", otp);
-//
-//                                    startActivity(intent);
-//                                }
-//
-//                            } catch (Exception e) {
-//                                throw new RuntimeException(e);
-//                            }
-//
-//                        } catch (Exception e) {
-//                            throw new RuntimeException(e);
-//                        }
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Toast.makeText(context, error.getMessage(),Toast.LENGTH_LONG).show();
-//                    }
-//                })  {
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError {
-//                Map<String, String> headers = new HashMap<String, String>();
-//
-//                String accessToken = SharedPreferencesUtility.getToken(sharedPreferences);
-//                headers.put("Authorization", "Bearer "+accessToken);
-//                return headers;
-//            }
-//        };
-//
-//        queue.add(stringRequest);
-//    }
 
+    public void showAlertResend(String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("Please check error");
+        builder.setMessage(message);
 
-
-
-    private void startTimer(long remainingTime) {
-        if (countDownTimer != null) {
-            countDownTimer.cancel();
-        }
-
-        btnActivate.setEnabled(false);
-        countDownTimer = new CountDownTimer(remainingTime, 1000) {
-            public void onTick(long millisUntilFinished) {
-                timerViewModel.setRemainingTime(millisUntilFinished); // Update remaining time in ViewModel
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Handle positive button click
+                // ...
+                startButtonCooldowns();
             }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
 
-            public void onFinish() {
-                btnActivate.setEnabled(true);
-                btnActivate.setText("Activate");
-                timerViewModel.setRemainingTime(0); // Reset time in ViewModel
-            }
-        }.start();
     }
 
-
-
-//    @Override
-//    protected void onDestroy() {
-//        Log.d("__GETTOME" , countDownTimer.toString());
-//        if (countDownTimer != null) {
-//            countDownTimer.cancel(); // Cancel the timer to avoid memory leaks
-//        }
-//
-//        super.onDestroy();
-//    }
 
     public void activateAccount(final String mobileNo){
         Log.d("mobileNo", mobileNo);
@@ -667,7 +633,84 @@ public class ActivateActivity extends AppCompatActivity {
         queue.add(stringRequest);
     }
 
-    public void activateMobileno(String mobileNo){
+    public void resendOTPRequests(final String mobileNo){
+        Log.d("mobileNo", mobileNo);
+        SharedPreferencesUtility.saveMobileNo(sharedPreferences, mobileNo);
+        Context context = getApplicationContext();
+//        progressBar.setVisibility(View.VISIBLE);
+        RequestQueue queue = Volley.newRequestQueue(context);
+        Log.d("Statics.CRED_URL", Statics.CRED_URL);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Statics.CRED_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject json = new JSONObject(response);
+
+
+
+                            accessToken = json.getString("access_token");
+
+
+                            Log.d("accessToken", accessToken);
+
+                            SharedPreferencesUtility.saveToken(sharedPreferences, accessToken);
+
+
+                            resendOTPRequest(mobileNo);
+
+//                            syncMatrix();
+
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+
+//                        progressBar.setVisibility(View.GONE);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+//                        Toast.makeText(context, error.getMessage(),Toast.LENGTH_LONG).show();
+
+                        showAlert("Siguraduhing may internet connection wifi/mobile data bago mag activate sa app.");
+
+                        btnActivate.setVisibility(View.VISIBLE);
+                    }
+
+                }) {
+            @Override
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                // Calculate the progress based on the response data
+                long contentLength = response.data.length;
+                long transferredBytes = 0;
+
+                // Update your progress bar with the calculated progress value
+                int progress = (int) ((transferredBytes / (float) contentLength) * 100);
+//                progressBar.setProgress(progress);
+
+                // Return the response to be delivered
+                return super.parseNetworkResponse(response);
+            }
+
+            @Override
+            protected void deliverResponse(String response) {
+                // Handle the response
+                super.deliverResponse(response);
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<String, String>();
+                headers.put("Authorization", Statics.headerValue);
+                return headers;
+            }
+        };
+
+        queue.add(stringRequest);
+    }
+
+    public void resendOTPRequest(String mobileNo){
         Context context = getApplicationContext();
 
         RequestQueue queue = Volley.newRequestQueue(context);
@@ -684,6 +727,12 @@ public class ActivateActivity extends AppCompatActivity {
                             AgentInfo agent = gson.fromJson(response, AgentInfo.class);
 
                             Log.d("-----STATUS" , "status: " + agent.getStatus());
+
+
+
+
+
+
                             String message = "Magandang araw "+agent.getFullname()+
                                     ", ilagay ang OTP na pinadala sa iyong numero";
 
@@ -708,7 +757,116 @@ public class ActivateActivity extends AppCompatActivity {
                             imm.showSoftInput(otp, InputMethodManager.SHOW_IMPLICIT);
 
                         } catch (Exception e) {
-                            showAlert("Ang Mobile Number na iyong binigay ay wala sa aming records. Siguraduhin na ikaw ay isang authorized MIA user. Makipag-ugnayan sa iyong PRO kung hindi makapag activate.");
+
+                            if (response.equalsIgnoreCase("AGENT STATUS INACTIVE")){
+                                showInactiveUserDialog();
+                            }else {
+                                showAlert("Ang Mobile Number na iyong binigay ay wala sa aming records. Siguraduhin na ikaw ay isang authorized MIA user. Makipag-ugnayan sa iyong PRO kung hindi makapag activate.");
+
+                            }
+
+//                            activateDiv.setVisibility(View.VISIBLE);
+//                            btnActivate.setVisibility(View.VISIBLE);
+//                            throw new RuntimeException(e);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        if (error.networkResponse != null) {
+                            int statusCode = error.networkResponse.statusCode;
+                            String errorData = new String(error.networkResponse.data);  // Capture the raw error response data
+
+                            Log.d("ERROR-------", "Status Code: " + statusCode);
+                            Log.d("ERROR-------", "Error Data: " + errorData);
+
+                            if (statusCode == 429) {
+                                showAlertResend("OTP request limit exceeded. Please try again in 2 minutes.");
+
+                            } else {
+                                showAlert("An error occurred. Please try again later.");
+                                btnActivate.setVisibility(View.VISIBLE);
+                            }
+                        } else {
+                            Log.d("ERROR-------", "onErrorResponse: Network response is null");
+                            showAlert("Siguraduhing may internet connection wifi/mobile data bago mag activate sa app.");
+                            btnActivate.setVisibility(View.VISIBLE);
+                        }
+
+                      //  activateDiv.setVisibility(View.VISIBLE);
+                    }
+
+
+                })  {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+
+                //ToDo CHANGE TO OTP TO PROD UAT OR DEV TESTING
+                Map<String, String> headers = new HashMap<String, String>();
+                headers.put("Authorization", "Bearer "+accessToken);
+                // headers.put("Authorization", Statics.API_KEY_TEST);
+                return headers;
+            }
+        };
+
+        queue.add(stringRequest);
+    }
+
+    public void activateMobileno(String mobileNo){
+        Context context = getApplicationContext();
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Statics.OTP_URL+mobileNo,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+
+                            // Check if OTP limit is exceeded
+
+                            Gson gson = new Gson();
+                            AgentInfo agent = gson.fromJson(response, AgentInfo.class);
+
+                            Log.d("-----STATUS" , "status: " + agent.getStatus());
+
+
+
+
+
+
+                            String message = "Magandang araw "+agent.getFullname()+
+                                    ", ilagay ang OTP na pinadala sa iyong numero";
+
+                            messageView.setText(message);
+                            messageView1.setText("");
+
+
+                            SharedPreferencesUtility.saveAgentName(sharedPreferences, agent.getFullname());
+                            SharedPreferencesUtility.saveReference(sharedPreferences, agent.getReference());
+                            SharedPreferencesUtility.saveAgentId(sharedPreferences, agent.getKyid());
+                            SharedPreferencesUtility.saveAgentSeqno(sharedPreferences, agent.getId());
+                            SharedPreferencesUtility.saveCenters(sharedPreferences, agent.getCenters());
+                            SharedPreferencesUtility.saveStatus(sharedPreferences , agent.getStatus());
+
+                            activateDiv.setVisibility(View.GONE);
+                            validateDiv.setVisibility(View.VISIBLE);
+
+                            otp.requestFocus();
+
+
+                            InputMethodManager imm = getSystemService(InputMethodManager.class);
+                            imm.showSoftInput(otp, InputMethodManager.SHOW_IMPLICIT);
+
+                        } catch (Exception e) {
+
+                            if (response.equalsIgnoreCase("AGENT STATUS INACTIVE")){
+                                showInactiveUserDialog();
+                            }else {
+                                showAlert("Ang Mobile Number na iyong binigay ay wala sa aming records. Siguraduhin na ikaw ay isang authorized MIA user. Makipag-ugnayan sa iyong PRO kung hindi makapag activate.");
+
+                            }
 
                             activateDiv.setVisibility(View.VISIBLE);
                             btnActivate.setVisibility(View.VISIBLE);
@@ -768,11 +926,35 @@ public class ActivateActivity extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 btnActivate.setText("Try Again in " + millisUntilFinished / 1000 + " seconds");
+
             }
 
             @Override
             public void onFinish() {
                 btnActivate.setEnabled(true);
+
+            }
+        }.start();
+    }
+
+    private void startButtonCooldowns() {
+ // Make sure it's visible
+        resendOTP.setEnabled(false);
+        resendOTP.setVisibility(View.VISIBLE);
+        validatePin.setVisibility(View.GONE);
+        new CountDownTimer(120000, 1000) {
+
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+                resendOTP.setText("Try Again in " + millisUntilFinished / 1000 + " seconds");
+            }
+
+            @Override
+            public void onFinish() {
+
+                resendOTP.setEnabled(true);
             }
         }.start();
     }
@@ -960,6 +1142,18 @@ public class ActivateActivity extends AppCompatActivity {
         };
 
         queue.add(stringRequest);
+    }
+
+    private void showInactiveUserDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Account Restricted")
+                .setMessage("Your account is inactive or resigned. Please contact support.")
+                .setCancelable(false)
+                .setPositiveButton("OK", (dialog, id) -> {
+                    databaseHelper.deleteAllData();
+                    Log.d("ALL DATA DELETED", "deleted all data to this");
+                })
+                .show();
     }
 
 

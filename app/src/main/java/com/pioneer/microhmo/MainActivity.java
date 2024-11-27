@@ -3,11 +3,14 @@ package com.pioneer.microhmo;
 import static android.graphics.Color.BLACK;
 import static android.graphics.Color.WHITE;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
@@ -32,8 +35,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.pioneer.microhmo.util.SharedPreferencesUtility;
@@ -54,7 +61,14 @@ public class MainActivity extends AppCompatActivity {
 
     String deviceId = "";
     private TimerViewModel timerViewModel;
-
+    private final ActivityResultLauncher<String> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
+        @Override
+        public void onActivityResult(Boolean result) {
+            if (result) {
+                Toast.makeText(MainActivity.this, "Permission granted.",Toast.LENGTH_LONG).show();
+            }
+        }
+    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +82,12 @@ public class MainActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         terms = findViewById(R.id.terms);
         mywebView= findViewById(R.id.webview);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                activityResultLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+            }
+        }
 
         //timerViewModel = new ViewModelProvider(this).get(TimerViewModel.class);
 

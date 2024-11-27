@@ -4,16 +4,17 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
+<!--    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />-->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.CAMERA" />
-
-
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
     <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_REMOTE_MESSAGING"/>
 
 
     <application
@@ -27,7 +28,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Tatai"
-        tools:targetApi="33">
+        tools:targetApi="33"
+        tools:ignore="ForegroundServicePermission">
         <activity
             android:name=".util.TermsAndCondition"
             android:exported="false" />
@@ -41,11 +43,23 @@
         <meta-data android:name="com.hcaptcha.sdk.site-key"
             android:value="45f604dc-36b6-4e52-a1ca-27fcd504ed58" />
 
-        <receiver android:name=".util.SmsReceiver" android:exported="true" android:permission="android.permission.BROADCAST_SMS">
+        <receiver
+            android:name=".util.SmsReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BROADCAST_SMS" >
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
+
+        <service
+            android:name=".SmsService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="remoteMessaging">
+
+        </service>
 
         <activity
             android:name=".TransactionsActivity"
@@ -97,6 +111,7 @@
         <activity
             android:name=".MenuActivity"
             android:exported="false"
+            android:theme="@style/Theme.Tatai.NoActionBar"
             android:screenOrientation="portrait" />
         <activity
             android:name=".AccountActivity"

@@ -38,6 +38,33 @@ public class MemberInfo {
     private String poc;
     private String clientType;
     private String institution;
+    private String authRepFName;
+    private String authRepMName;
+    private String authRepLName;
+
+    public String getAuthRepFName() {
+        return authRepFName;
+    }
+
+    public void setAuthRepFName(String authRepFName) {
+        this.authRepFName = authRepFName;
+    }
+
+    public String getAuthRepMName() {
+        return authRepMName;
+    }
+
+    public void setAuthRepMName(String authRepMName) {
+        this.authRepMName = authRepMName;
+    }
+
+    public String getAuthRepLName() {
+        return authRepLName;
+    }
+
+    public void setAuthRepLName(String authRepLName) {
+        this.authRepLName = authRepLName;
+    }
 
     public String getInstitution() {
         return institution;
@@ -106,7 +133,7 @@ public class MemberInfo {
                       String gender, String civilstat, String mobileno,  String cardmember,
                       String prov , String city , String brgy, String street ,
                       String poc , String status , String areltype , String acctOfficer , String unitManager ,
-                      String center , String authRepresentative , String relToMember , String email , String placeOfBirth , String nationality  , String clientType, String institution) {
+                      String center , String authRepresentative , String relToMember , String email , String placeOfBirth , String nationality  , String clientType, String institution ,String authRepFName , String authRepMName , String authRepLName) {
         super();
         this.id = id;
         this.pertype = pertype;
@@ -136,7 +163,9 @@ public class MemberInfo {
         this.nationality = nationality;
         this.clientType = clientType;
         this.institution = institution;
-
+        this.authRepFName = authRepFName;
+        this.authRepMName = authRepMName;
+        this.authRepLName=authRepLName;
     }
 
 

@@ -235,6 +235,26 @@
                     android:text="VALIDATE PIN"
                     app:cornerRadius="20dp" />
             </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/resendOTP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/primary"
+                    android:paddingStart="20dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="20dp"
+                    android:textColor="@color/white"
+                    android:text="Resend OTP"
+                    app:cornerRadius="20dp" />
+            </FrameLayout>
 
         </LinearLayout>
 

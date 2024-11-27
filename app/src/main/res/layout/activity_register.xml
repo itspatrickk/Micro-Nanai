@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="IMPORMASYON NG PRINCIPAL" />
+                android:text="IMPORMASYON NG MIYEMBRO" />
 
 
             <TextView
@@ -164,11 +164,13 @@
 
 
             </RadioGroup>
+
             <TextView
                 style="@style/TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Institution *" />
+
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
@@ -186,6 +188,7 @@
                     android:textSize="25dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
             <TextView
                 style="@style/TextView"
                 android:layout_width="match_parent"
@@ -267,22 +270,22 @@
                 android:layout_height="wrap_content"
                 android:text="Suffix" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                    <AutoCompleteTextView
-                        android:id="@+id/suffix"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/blue_border"
-                        android:inputType="none"
-                        android:paddingTop="0dp"
-                        android:paddingBottom="0dp"
-                        android:textColor="@color/pioneer_blue"
-                        android:textSize="25dp" />
-                </com.google.android.material.textfield.TextInputLayout>
+                <AutoCompleteTextView
+                    android:id="@+id/suffix"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/blue_border"
+                    android:inputType="none"
+                    android:paddingTop="0dp"
+                    android:paddingBottom="0dp"
+                    android:textColor="@color/pioneer_blue"
+                    android:textSize="25dp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
             <TextView
@@ -383,9 +386,8 @@
                 android:layout_width="match_parent"
                 android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzñÑ -."
                 android:hint="Nationality"
-                android:maxLength="100"
-                android:text="FILIPINO"
-                />
+                android:maxLength="50"
+                android:text="FILIPINO" />
 
             <TextView
                 style="@style/TextView"
@@ -589,7 +591,7 @@
                 android:layout_width="match_parent"
                 android:hint="Enter Street"
                 android:inputType="textPersonName"
-                android:maxLength="200"
+                android:maxLength="100"
                 android:singleLine="true"
 
 
@@ -682,7 +684,7 @@
                 android:id="@+id/edtCenter"
                 style="@style/EditTextstyle"
                 android:layout_width="match_parent"
-                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzñÑ.- "
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzñÑ.- 1234567890"
                 android:hint="CENTER"
                 android:inputType="textPersonName"
                 android:maxLength="200"
@@ -722,10 +724,46 @@
                 style="@style/TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Authorized Representative *" />
+                android:text="Authorized Representative First Name *" />
 
             <EditText
-                android:id="@+id/edtAuthRelative"
+                android:id="@+id/edtAuthRelativeFname"
+                style="@style/EditTextstyle"
+                android:layout_width="match_parent"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzñÑ.- "
+                android:hint="Authorized Representative"
+                android:inputType="textPersonName"
+                android:maxLength="50"
+                android:singleLine="true"
+
+                />
+
+            <TextView
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Authorized Representative Middle Name" />
+
+            <EditText
+                android:id="@+id/edtAuthRelativeMname"
+                style="@style/EditTextstyle"
+                android:layout_width="match_parent"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzñÑ.- "
+                android:hint="Authorized Representative"
+                android:inputType="textPersonName"
+                android:maxLength="50"
+                android:singleLine="true"
+
+                />
+
+            <TextView
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Authorized Representative Last Name *" />
+
+            <EditText
+                android:id="@+id/edtAuthRelativeLName"
                 style="@style/EditTextstyle"
                 android:layout_width="match_parent"
                 android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzñÑ.- "

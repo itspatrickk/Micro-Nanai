@@ -58,7 +58,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         MyDatabase.execSQL("create Table " + TABLE_MEMBERS + "(GENID INTEGER PRIMARY KEY AUTOINCREMENT, id TEXT, pertype TEXT, fname TEXT, mname TEXT, " +
                 "lname TEXT, suffix TEXT, dob TEXT, gender TEXT, civilstat TEXT, mobileno TEXT, cardmember TEXT, ACCOUNT_OFFICER TEXT , UNIT_MANAGER TEXT , CENTER TEXT ,AUTH_REP TEXT ,REL_TO_MEMBER TEXT , " +
-                " poc TEXT, status TEXT, transtat TEXT, sendtag TEXT, reltype TEXT , PROVINCE TEXT ,CITY TEXT , BRGY TEXT , STREET TEXT , EMAIL TEXT , PLACEOFBIRTH TEXT ,NATIONALITY TEXT , CLIENTTYPE TEXT , INSTITUTION TEXT)");
+                " poc TEXT, status TEXT, transtat TEXT, sendtag TEXT, reltype TEXT , PROVINCE TEXT ,CITY TEXT , BRGY TEXT , STREET TEXT , EMAIL TEXT , PLACEOFBIRTH TEXT ,NATIONALITY TEXT , CLIENTTYPE TEXT , INSTITUTION TEXT , AUTH_REP_FIRST_NAME TEXT , AUTH_REP_LNAME TEXT , AUTH_REP_MNAME TEXT)");
 //PROVINCE TEXT ,CITY TEXT , BRGY TEXT , STREET TEXT , EMAIL TEXT , PLACEOFBIRTH TEXT ,NATIONALITY TEXT,
 //        MyDatabase.execSQL("create Table " + TABLE_ADDRESS + "(GENID INTEGER PRIMARY KEY AUTOINCREMENT, province TEXT, city TEXT, barangay TEXT)");
 
@@ -316,9 +316,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+
+    //,  a.AUTH_REP_FIRST_NAME  , a.AUTH_REP_MNAME ,a.AUTH_REP_LNAME
     public Boolean addMember(MemberInfo member, String transtat){
 
         //deleteMemberById(member.getId());
+
+
 
         SQLiteDatabase MyDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -351,6 +355,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("NATIONALITY",member.getNationality());
         contentValues.put("CLIENTTYPE" , member.getClientType());
         contentValues.put("INSTITUTION" , member.getInstitution());
+        contentValues.put("AUTH_REP_FIRST_NAME" , member.getAuthRepFName());
+        contentValues.put("AUTH_REP_MNAME" , member.getAuthRepMName());
+        contentValues.put("AUTH_REP_LNAME" , member.getAuthRepLName());
 
         long result = MyDatabase.insert(TABLE_MEMBERS, null, contentValues);
         MyDatabase.close();
@@ -462,11 +469,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //                MyDB.execSQL("ALTER TABLE " + TABLE_MEMBERS + " ADD COLUMN PLACEOFBIRTH TEXT;");
 //                MyDB.execSQL("ALTER TABLE " + TABLE_MEMBERS + " ADD COLUMN NATIONALITY TEXT;");
 
+    //AUTH_REP_FIRST_NAME TEXT , AUTH_REP_LNAME TEXT , AUTH_REP_MNAME TEXT
+
     public List<MemberInfo> getMembersId(String id) {
         List<MemberInfo> contactList = new ArrayList<>();
         // Select All Query
         String selectQuery = "SELECT  id , pertype , fname , mname , lname , suffix , dob , gender ," +
-                " civilstat , mobileno , cardmember, PROVINCE , CITY , brgy,street , poc, status, reltype  , ACCOUNT_OFFICER , UNIT_MANAGER , CENTER, AUTH_REP ,REL_TO_MEMBER  , EMAIL , PLACEOFBIRTH , NATIONALITY , CLIENTTYPE , INSTITUTION from "+TABLE_MEMBERS + " where id = ?";
+                " civilstat , mobileno , cardmember, PROVINCE , CITY , brgy,street , poc, status, reltype  , ACCOUNT_OFFICER , UNIT_MANAGER , CENTER, AUTH_REP ,REL_TO_MEMBER  , EMAIL , PLACEOFBIRTH , NATIONALITY , CLIENTTYPE , INSTITUTION , AUTH_REP_FIRST_NAME  , AUTH_REP_MNAME ,AUTH_REP_LNAME from "+TABLE_MEMBERS + " where id = ?";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, new String[]{id});
@@ -528,7 +537,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         cursor.getString(24), // PLACEOFBIRTH
                         cursor.getString(25),  // NATIONALITY
                         cursor.getString(26),
-                        cursor.getString(27)
+                        cursor.getString(27),
+                        cursor.getString(28),
+                        cursor.getString(29),
+                        cursor.getString(30)
                 );
 
                 // Adding contact to list
@@ -549,19 +561,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //                MyDB.execSQL("ALTER TABLE " + TABLE_MEMBERS + " ADD COLUMN PLACEOFBIRTH TEXT;");
 //                MyDB.execSQL("ALTER TABLE " + TABLE_MEMBERS + " ADD COLUMN NATIONALITY TEXT;");
 
+
+
         public List<MemberInfo> getMembers(String transtat) {
         List<MemberInfo> contactList = new ArrayList<>();
         // Select All Query
         String selectQuery = "SELECT  a.id , a.pertype , a.fname , a.mname , a.lname ," +
                 " a.suffix , a.dob , a.gender , a.civilstat , a.mobileno , a.cardmember, b.poc," +
-                " b.product, a.status, b.timestamp, b.product1,b.product2,b.product3, a.reltype, b.premium,b.effdate,b.currentstatus, b.transtat ,  A.ACCOUNT_OFFICER , A.UNIT_MANAGER , A.CENTER, A.AUTH_REP ,A.REL_TO_MEMBER , a.province , a.city , a.brgy , a.street , a.EMAIL , a.PLACEOFBIRTH , a.NATIONALITY , a.CLIENTTYPE , a.INSTITUTION from "+TABLE_MEMBERS + " a , " + TABLE_POLICY +
+                " b.product, a.status, b.timestamp, b.product1,b.product2,b.product3, a.reltype, b.premium,b.effdate,b.currentstatus, b.transtat ,  A.ACCOUNT_OFFICER , A.UNIT_MANAGER , A.CENTER, A.AUTH_REP ,A.REL_TO_MEMBER , a.province , a.city , a.brgy , a.street , a.EMAIL , a.PLACEOFBIRTH , a.NATIONALITY , a.CLIENTTYPE , a.INSTITUTION  ,  a.AUTH_REP_FIRST_NAME  , a.AUTH_REP_MNAME ,a.AUTH_REP_LNAME from "+TABLE_MEMBERS + " a , " + TABLE_POLICY +
                 " b where a.id = b.id and b.transtat = '"+transtat+"' and a.pertype = 'PRINCIPAL' " +
                 " order by b.timestamp desc";
 
         if (transtat.equalsIgnoreCase("N")){
             selectQuery = "SELECT  a.id , a.pertype , a.fname , a.mname , a.lname ," +
                     " a.suffix , a.dob , a.gender , a.civilstat , a.mobileno , a.cardmember, b.poc," +
-                    " b.product, a.status, b.timestamp, b.product1,b.product2,b.product3, a.reltype, b.premium,b.effdate,b.currentstatus, b.transtat ,  A.ACCOUNT_OFFICER , A.UNIT_MANAGER , A.CENTER, A.AUTH_REP ,A.REL_TO_MEMBER , a.province , a.city , a.brgy , a.street , a.EMAIL , a.PLACEOFBIRTH , a.NATIONALITY , a.CLIENTTYPE , a.INSTITUTION from "+TABLE_MEMBERS + " a , " + TABLE_POLICY +
+                    " b.product, a.status, b.timestamp, b.product1,b.product2,b.product3, a.reltype, b.premium,b.effdate,b.currentstatus, b.transtat ,  A.ACCOUNT_OFFICER , A.UNIT_MANAGER , A.CENTER, A.AUTH_REP ,A.REL_TO_MEMBER , a.province , a.city , a.brgy , a.street , a.EMAIL , a.PLACEOFBIRTH , a.NATIONALITY , a.CLIENTTYPE , a.INSTITUTION  ,  a.AUTH_REP_FIRST_NAME  , a.AUTH_REP_MNAME ,a.AUTH_REP_LNAME from "+TABLE_MEMBERS + " a , " + TABLE_POLICY +
                     " b where a.id = b.id and b.transtat = '"+transtat+"' and a.pertype = 'PRINCIPAL' " +
                     " order by b.timestamp desc";
         }
@@ -599,7 +613,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         cursor.getString(33),
                         cursor.getString(34),
                         cursor.getString(35),
-                        cursor.getString(36)
+                        cursor.getString(36),
+                        cursor.getString(37),
+                        cursor.getString(38),
+                        cursor.getString(39)
                 );
                 contact.setProduct(cursor.getString(12));
                 contact.setProduct1(cursor.getString(15));

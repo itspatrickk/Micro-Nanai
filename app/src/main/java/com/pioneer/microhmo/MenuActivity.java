@@ -3,6 +3,7 @@ package com.pioneer.microhmo;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -11,8 +12,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -110,13 +114,13 @@ public class MenuActivity extends BaseActivity {
         });
 
 
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MenuActivity.this,AccountActivity.class);
-                startActivity(intent);
-            }
-        });
+//        logoutBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MenuActivity.this,AccountActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 //        Button btnLogout = findViewById(R.id.btnLogout);
 //
 //        btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -297,4 +301,24 @@ public class MenuActivity extends BaseActivity {
         // Remove the super.onBackPressed() line to disable the back button completely
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menuButton){
+            Intent intent = new Intent(MenuActivity.this , AccountActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_resourse , menu);
+        return true;
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        recreate();
+    }
 }

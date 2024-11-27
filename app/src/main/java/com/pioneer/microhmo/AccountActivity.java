@@ -150,7 +150,8 @@ public class AccountActivity extends AppCompatActivity {
                 String status = SharedPreferencesUtility.getStatus(sharedPreferences);
 
                 if (status.equalsIgnoreCase("INACTIVE")){
-                    showAlert3("Access has been revoked.");
+//                    showAlert3("Access has been revoked.");
+                    showInactiveUserDialog();
                     return;
                 }
                     //TODO to delete this after update
@@ -393,6 +394,18 @@ public class AccountActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
 
+    }
+
+    private void showInactiveUserDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Account Restricted")
+                .setMessage("Your account is inactive or resigned. Please contact support.")
+                .setCancelable(false)
+                .setPositiveButton("OK", (dialog, id) -> {
+                    databaseHelper.deleteAllData();
+                    Log.d("ALL DATA DELETED", "deleted all data to this");
+                })
+                .show();
     }
 
     public void showAlert1(String message) {

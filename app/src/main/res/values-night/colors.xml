@@ -14,7 +14,8 @@
     <color name="pioneer_blue">#004B8D</color>
     <color name="pioneer_green">#00956E</color>
     <color name="pioneer_grey">#EEEEEE</color>
-    <color name="pioneer_green_dark">#005500</color>
+<!--    <color name="pioneer_green">#005500</color> &lt;!&ndash; Dark green for night mode &ndash;&gt;-->
     <color name="status_bar_green">#004400</color>
+
 
 </resources>

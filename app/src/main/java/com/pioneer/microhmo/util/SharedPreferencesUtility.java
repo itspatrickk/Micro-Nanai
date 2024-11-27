@@ -19,7 +19,6 @@ public class SharedPreferencesUtility {
     private static final String CENTERS = "CENTERS";
     private static final String LOGIN_ATTEMPTS = "LOGIN_ATTEMPTS";
     public static final String STATUS = "STATUS";
-    private static SharedPreferences sharedPreferences;
 
     public static void setInitialValues(SharedPreferences sharedPreferences){
         saveString(sharedPreferences, "CC_NEW_PRINCIPAL_UNIT","DAY");
@@ -241,4 +240,9 @@ public class SharedPreferencesUtility {
     public static String getStatus(SharedPreferences sharedPreferences) {
         return getString(sharedPreferences, STATUS, "");
     }
+
+    public static void clear(SharedPreferences sharedPreferences) {
+        sharedPreferences.edit().clear().apply();
+    }
+
 }

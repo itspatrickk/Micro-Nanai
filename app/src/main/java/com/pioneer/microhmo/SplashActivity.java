@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
@@ -13,10 +14,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.PowerManager;
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -56,6 +60,19 @@ public class SplashActivity extends AppCompatActivity {
         handlerThread.start();
         Handler handler = new Handler(handlerThread.getLooper());
 
+
+//        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
+//            activityResultLauncher.launch(Manifest.permission.READ_SMS);
+//        }
+//        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.BROADCAST_SMS) != PackageManager.PERMISSION_GRANTED) {
+//            activityResultLauncher.launch(Manifest.permission.BROADCAST_SMS);
+//        }
+
+
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
+            activityResultLauncher.launch(Manifest.permission.RECEIVE_SMS);
+        }
 
         if (isRootedDevice()) {
             // Show alert dialog or toast
@@ -98,10 +115,13 @@ public class SplashActivity extends AppCompatActivity {
             }
             List<String> provinces = databaseHelper.getAllProvinces();
             Log.d("provinces", ""+provinces.size());
-            Toast.makeText(this, "UAT VERSION 1.12", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "UAT VERSION 1.15", Toast.LENGTH_LONG).show();
             //Toast.makeText(this, "TOTAL PROV SIZE " + provinces.size(), Toast.LENGTH_SHORT).show();
         });
 
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
+//            activityResultLauncher.launch(Manifest.permission.RECEIVE_SMS);
+//        }
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -125,8 +145,10 @@ public class SplashActivity extends AppCompatActivity {
 
 
                 if (isUserExist){
+                    Log.d(">>>>>>>>>>>AGENT STATUS" , "statss: " + status);
                     if (status.equalsIgnoreCase("INACTIVE")){
-                        showAlert3("Access has been revoked.");
+                        Log.d("HEREEE status>>>>>>>", "run:+ INCATIVe " );
+                        showInactiveUserDialog();
                         return;
                     }
                     startActivity(new Intent(SplashActivity.this, AccountActivity.class));//MainActivity.class))
@@ -137,15 +159,14 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, 3000);
 
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
-            activityResultLauncher.launch(Manifest.permission.READ_SMS);
-        }
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.BROADCAST_SMS) != PackageManager.PERMISSION_GRANTED) {
-            activityResultLauncher.launch(Manifest.permission.BROADCAST_SMS);
-        }
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
-            activityResultLauncher.launch(Manifest.permission.RECEIVE_SMS);
-        }
+
+
+
+
+//
+
+
+
     }
 
 
@@ -193,7 +214,18 @@ public class SplashActivity extends AppCompatActivity {
         String buildTags = Build.TAGS;
         return buildTags != null && buildTags.contains("test-keys");
     }
-
+    private void showInactiveUserDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Account Restricted")
+                .setMessage("Your account is inactive or resigned. Please contact support.")
+                .setCancelable(false)
+                .setPositiveButton("OK", (dialog, id) -> {
+                    databaseHelper.deleteAllData();
+                    Log.d("ALL DATA DELETED", "deleted all data to this");
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                })
+                .show();
+    }
     public void showAlert3(String message){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(message);

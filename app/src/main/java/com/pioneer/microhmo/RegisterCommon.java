@@ -88,7 +88,7 @@ public class RegisterCommon extends BaseActivity{
     Button page1CameraButton,page2CameraButton,addDependent, savePolicy;
 //    ImageView page1ImageView,page2ImageView;
 
-    EditText firstname, middlename,lastname, mobileno,pocNumber, acctOfficer , unitManager , Center , authRep ,relToMember , edtStreet , email , nationality , placeofBirth;
+    EditText firstname, middlename,lastname, mobileno,pocNumber, acctOfficer , unitManager , Center  ,relToMember , edtStreet , email , nationality , placeofBirth , authRepFname , authRepMname , authRepLname;
     //Spinner province ;
 
     Boolean isSagip = false;
@@ -458,10 +458,22 @@ public class RegisterCommon extends BaseActivity{
                 hideKeyboard(view);
             }
         });
-        authRep.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        authRepFname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View view, boolean b) {
-                hideKeyboard(view);
+            public void onFocusChange(View v, boolean hasFocus) {
+                hideKeyboard(v);
+            }
+        });
+        authRepMname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                hideKeyboard(v);
+            }
+        });
+        authRepLname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                hideKeyboard(v);
             }
         });
         relToMemberX.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -577,8 +589,12 @@ public class RegisterCommon extends BaseActivity{
         acctOfficer = findViewById(R.id.edtAccountOfficer);
         unitManager = findViewById(R.id.edtUnitManager);
         Center = findViewById(R.id.edtCenter);
-        authRep = findViewById(R.id.edtAuthRelative);
+      //  authRep = findViewById(R.id.edtAuthRelative);
       //  relToMember = findViewById(R.id.edtRelToMember);
+
+        authRepFname = findViewById(R.id.edtAuthRelativeFname);
+        authRepMname = findViewById(R.id.edtAuthRelativeMname);
+        authRepLname = findViewById(R.id.edtAuthRelativeLName);
 
         email = findViewById(R.id.email);
         placeofBirth = findViewById(R.id.placeOfBirth);
@@ -646,30 +662,38 @@ public class RegisterCommon extends BaseActivity{
 
         InputFilter[] allCaps = new InputFilter[]{new InputFilter.AllCaps(),filterFor};
 
-        InputFilter[] allCAps = new InputFilter[]{new InputFilter.AllCaps()};
+        InputFilter[] allCAps = new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(50)};
+        InputFilter[] allCaps100 = new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(100)};
+        InputFilter[] allCaps200 = new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(200)};
         firstname.setFilters(allCapsFilter);
         middlename.setFilters(middle);
         lastname.setFilters(allCapsFilter);
         suffix.setFilters(allCapsFilter);
         relToMemberX.setFilters(allCapsFilter);
         institutions.setFilters(allCapsFilter);
-        acctOfficer.setFilters(allCaps);
-        unitManager.setFilters(allCaps);
-        Center.setFilters(allCaps);
-        authRep.setFilters(allCaps);
+        acctOfficer.setFilters(allCaps200);
+        unitManager.setFilters(allCaps200);
+        Center.setFilters(allCaps200);
+        authRepFname.setFilters(allCaps);
+        authRepMname.setFilters(middle);
+        authRepLname.setFilters(allCaps);
 //        relToMember.setFilters(allCaps);
         province.setFilters(allCAps);
         city.setFilters(allCAps);
         brgy.setFilters(allCAps);
-        edtStreet.setFilters(allCAps);
-        nationality.setFilters(allCaps);
+        edtStreet.setFilters(allCaps100);
+        nationality.setFilters(allCAps);
         placeofBirth.setFilters(allCAps);
         email.setFilters(allCAps);
+        authRepFname.setFilters(allCAps);
+        authRepLname.setFilters(allCAps);
 
         addTextWatcher(acctOfficer);
         addTextWatcher(unitManager);
         addTextWatcher(Center);
-        addTextWatcher(authRep);
+        addTextWatcher(authRepFname);
+        addTextWatcher(authRepLname);
+        addTextWatcher(authRepMname);
 //        addTextWatcher(relToMember);
 
 //        pocNumber.setFilters(allCapsFilter);
@@ -978,7 +1002,14 @@ public class RegisterCommon extends BaseActivity{
         principal.setAcctOfficer(acctOfficer.getText().toString());
         principal.setUnitManager(unitManager.getText().toString());
         principal.setCenter(Center.getText().toString());
-        principal.setAuthRepresentative(authRep.getText().toString());
+       // principal.setAuthRepresentative(authRep.getText().toString());
+
+        principal.setAuthRepFName(authRepFname.getText().toString());
+        principal.setAuthRepMName(authRepMname.getText().toString());
+        principal.setAuthRepLName(authRepLname.getText().toString());
+
+
+
         principal.setRelToMember(relToMemberX.getText().toString());
         principal.setInstitution(institutions.getText().toString());
         principal.setProv(province.getText().toString());

@@ -1072,6 +1072,9 @@ public class RegisterActivity extends  RegisterCommon implements RecyclerViewInt
                     String anationality= "";
                     String aclienttype = "";
                     String aINSTITUTION= "";
+                    String aAuthRepFname = "";
+                    String aAuthRepMname = "";
+                    String aAuthRepLname = "";
 
                     try {
                         if (data != null && data.getStringExtra("firstname") != null
@@ -1102,6 +1105,9 @@ public class RegisterActivity extends  RegisterCommon implements RecyclerViewInt
                             aplaceofbirth = data.getStringExtra("PLACEOFBIRTH");
                             aclienttype = data.getStringExtra("CLIENTTYPE");
                             aINSTITUTION = data.getStringExtra("INSTITUTION");
+                            aAuthRepFname = data.getStringExtra("AUTH_REP_FIRST_NAME");
+                            aAuthRepMname = data.getStringExtra("AUTH_REP_MNAME") ;
+                            aAuthRepLname = data.getStringExtra("AUTH_REP_LNAME");
 
 
                             if (!isSpouseSelected){
@@ -1114,7 +1120,7 @@ public class RegisterActivity extends  RegisterCommon implements RecyclerViewInt
                         if (result.getResultCode() == REQUEST_CODE_ADD_MEMBER) {
                             Long id = Long.valueOf(members.size() + 1);
                             MemberInfo member = new MemberInfo(""+id, areltype, afirstname, amiddlename, alastname, asuffix,
-                                    adateofbirth, agender, acivilstat, amobileno, acardmember, "",astatus, areltype , aaccountOfficer , aunitManager , acenter ,aauthrep , areltomember , aprovince , acity , abrgy , astreet , aemail , aplaceofbirth,anationality , aclienttype ,aINSTITUTION);
+                                    adateofbirth, agender, acivilstat, amobileno, acardmember, "",astatus, areltype , aaccountOfficer , aunitManager , acenter ,aauthrep , areltomember , aprovince , acity , abrgy , astreet , aemail , aplaceofbirth,anationality , aclienttype ,aINSTITUTION , aAuthRepFname , aAuthRepMname , aAuthRepLname);
                             if (areltype.equalsIgnoreCase("SPOUSE") && isSpouseExist()){
                                 showAlert("Cannot add multiple spouse." );
                             }else {
@@ -1136,7 +1142,7 @@ public class RegisterActivity extends  RegisterCommon implements RecyclerViewInt
                             String key = data.getStringExtra("key");
                             Log.d("key", "key : " +key);
                             MemberInfo member = new MemberInfo(key, areltype, afirstname, amiddlename, alastname, asuffix,
-                                    adateofbirth, agender, acivilstat, amobileno, acardmember, "",astatus, areltype , aaccountOfficer , aunitManager , acenter , aauthrep , areltomember , aprovince , acity, abrgy , astreet ,aemail , aplaceofbirth,anationality , aclienttype , aINSTITUTION);
+                                    adateofbirth, agender, acivilstat, amobileno, acardmember, "",astatus, areltype , aaccountOfficer , aunitManager , acenter , aauthrep , areltomember , aprovince , acity, abrgy , astreet ,aemail , aplaceofbirth,anationality , aclienttype , aINSTITUTION , aAuthRepFname , aAuthRepMname , aAuthRepLname);
 
                             MemberInfo a;
                             for (Iterator<MemberInfo> iter = members.iterator(); iter.hasNext(); ) {
@@ -1205,7 +1211,9 @@ public class RegisterActivity extends  RegisterCommon implements RecyclerViewInt
         String accountOfficer  = principal.getAcctOfficer();
         String unitManagers  = principal.getUnitManager();
         String centers  = principal.getCenter();
-        String authRepresentatives  = principal.getAuthRepresentative();
+        String authRepFnames  = principal.getAuthRepFName();
+        String authRepMnames = principal.getAuthRepMName();
+        String authRepLNames = principal.getAuthRepLName();
         String relToMemberxxx  = principal.getRelToMember();
         if (principal.getClientType().isEmpty() || principal.getClientType() == null){
             radioCardChild.setError("Siguraduhin na ilagay ang Client Type ng Member");
@@ -1291,12 +1299,12 @@ public class RegisterActivity extends  RegisterCommon implements RecyclerViewInt
 //            nationality.requestFocus();
 //            return "Siguraduhin na ilagay ang Nationality ng Member";
 //        }
-//        if (principal.getNationality().startsWith("-")||principal.getNationality().startsWith(".") ||
-//                principal.getNationality().endsWith("-") || principal.getNationality().endsWith(".")) {
-//            unitManager.setError("Ang Nationality ay hindi maaaring magsimula o magtapos sa '-' o '.'");
-//            unitManager.requestFocus();
-//            return "Ang Nationality ay hindi maaaring magsimula o magtapos sa '-' o '.'";
-//        }
+        if (principal.getNationality().startsWith("-")||principal.getNationality().startsWith(".") ||
+                principal.getNationality().endsWith("-") || principal.getNationality().endsWith(".")) {
+            unitManager.setError("Ang Nationality ay hindi maaaring magsimula o magtapos sa '-' o '.'");
+            unitManager.requestFocus();
+            return "Ang Nationality ay hindi maaaring magsimula o magtapos sa '-' o '.'";
+        }
 
         if (principal.getCivilstat().isEmpty() || principal.getCivilstat() == null){
             civilstatusMarried.setError("Siguraduhin na ilagay ang Civil Status ng Member");
@@ -1366,18 +1374,32 @@ public class RegisterActivity extends  RegisterCommon implements RecyclerViewInt
             return "Ang Center ay hindi maaaring magsimula o magtapos sa '-' o '.'";
         }
 
-        if (authRepresentatives.isEmpty()){
-            authRep.setError("Siguraduhin na ilagay ang Authorized Representative  ng Member");
-            authRep.requestFocus();
+        if (authRepFnames.isEmpty()){
+            authRepFname.setError("Siguraduhin na ilagay ang Authorized Representative  ng Member");
+            authRepFname.requestFocus();
             return "Siguraduhin na ilagay ang Authorized Representative  ng Member";
         }
-        if (authRepresentatives.startsWith("-")||authRepresentatives.startsWith(".") ||
-                authRepresentatives.endsWith("-") || authRepresentatives.endsWith(".")) {
+        if (authRepFnames.startsWith("-")||authRepFnames.startsWith(".") ||
+                authRepFnames.endsWith("-") || authRepFnames.endsWith(".")) {
 
-            authRep.setError("Ang Authorized Representative ay hindi maaaring magsimula o magtapos sa '-' o '.'");
-            authRep.requestFocus();
+            authRepFname.setError("Ang Authorized Representative ay hindi maaaring magsimula o magtapos sa '-' o '.'");
+            authRepFname.requestFocus();
             return "Ang Authorized Representative ay hindi maaaring magsimula o magtapos sa '-' o '.'";
         }
+
+        if (authRepLNames.isEmpty()){
+            authRepLname.setError("Siguraduhin na ilagay ang Authorized Representative  ng Member");
+            authRepLname.requestFocus();
+            return "Siguraduhin na ilagay ang Authorized Representative  ng Member";
+        }
+        if (authRepLNames.startsWith("-")||authRepLNames.startsWith(".") ||
+                authRepLNames.endsWith("-") || authRepLNames.endsWith(".")) {
+
+            authRepLname.setError("Ang Authorized Representative ay hindi maaaring magsimula o magtapos sa '-' o '.'");
+            authRepLname.requestFocus();
+            return "Ang Authorized Representative ay hindi maaaring magsimula o magtapos sa '-' o '.'";
+        }
+
 
         if (relToMemberxxx.isEmpty()){
             relToMemberX.setError("Siguraduhin na ilagay ang Relasyon sa Miyembro ng Member");

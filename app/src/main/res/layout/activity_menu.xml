@@ -8,19 +8,19 @@
     android:orientation="vertical"
     tools:context=".MenuActivity">
 
-    <include layout="@layout/toolbar_home"/>
+<!--    <include layout="@layout/toolbar_home"/>-->
 
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="1dp"
         android:columnCount="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <Space
