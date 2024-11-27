@@ -1464,9 +1464,9 @@ public class RegisterActivity extends  RegisterCommon implements RecyclerViewInt
 
 
         //DELETE THIS IF THEY want is ref no is not the same with the captured pom
-        if (!pocMatched.isChecked()){
-            return "Siguraduhing may check ang Reference No. is correct.";
-        }
+//        if (!pocMatched.isChecked()){
+//            return "Siguraduhing may check ang Reference No. is correct.";
+//        }
 
         if (!dpaTag.isChecked()){
             return "Siguraduhing i-check ang Data Privacy Consent";
