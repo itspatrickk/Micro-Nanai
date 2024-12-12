@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -199,11 +201,15 @@ public class TransactionsActivity extends AppCompatActivity implements RecyclerV
             btnSend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    btnSend.setVisibility(View.GONE);
+                    if (isNetworkAvailable()) {
+                        btnSend.setVisibility(View.GONE);
 
-                    sendPolicy();
+                        sendPolicy();
+                        sendImages();
+                    } else {
 
-                    sendImages();
+                        showAlert("Siguraduhing may internet connection wifi/mobile data bago mag upload ng mga policies.");
+                    }
                 }
             });
 
@@ -778,4 +784,15 @@ public class TransactionsActivity extends AppCompatActivity implements RecyclerV
 
         queue.add(stringRequest);
     }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        }
+        return false;
+    }
+
 }

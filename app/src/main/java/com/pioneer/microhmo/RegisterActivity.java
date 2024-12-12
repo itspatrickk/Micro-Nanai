@@ -315,14 +315,16 @@ public class RegisterActivity extends  RegisterCommon implements RecyclerViewInt
                             Log.d("register", "raw : " + s);
                             if (!s.contains("LLMCA") || !s.contains("LRMCA")){
                                 isImage1Valid = false;
-                                showAlert("Hindi tama ang paraan ng iyong pag-upload ng larawan. Kuhanan nang MALINAW ang form mula sa Reference No. hanggang sa LLMCA at LRMCA.");
+                                //showAlert("Hindi tama ang paraan ng iyong pag-upload ng larawan. Kuhanan nang MALINAW ang form mula sa Reference No. hanggang sa LLMCA at LRMCA.");
+                                showAlert("Hindi tama ang paraan ng iyong pag-upload ng larawan. Kuhanan nang MALINAW ang form mula sa Reference No. sa itaas.");
                                 //frontphoto.delete();
 //                                page1ImageView.setVisibility(View.GONE);
                                 capturedRS1.setText("");
                             }else {
                                 PolicyInfo pol = getPolicyInfo();
                                 if (databaseHelper.isPocExists(refno, pol.getProduct1(), pol.getProduct2(), pol.getProduct3())){
-                                     showAlert("Ang Reference No: "+ refno+" ay na-enroll na. Siguraduhing walang kaparehong policy and naka-save,upload o synced.");
+                                     //showAlert("Ang Reference No: "+ refno+" ay na-enroll na. Siguraduhing walang kaparehong policy and naka-save,upload o synced.");
+                                     showAlert("Itong MI CARE Reference number "+refno+" ay na-enroll na. Siguraduhing walang kaparehong Policy ang naka-save, synced, upload, o submitted");
                                 } else {
                                     isImage1Valid = true;
                                     messageView.setText("");
@@ -1267,12 +1269,25 @@ public class RegisterActivity extends  RegisterCommon implements RecyclerViewInt
             return "Siguraduhin na ilagay ang First Name ng Member.";//""First name is required.";
         }
 
+        if (principal.getFname().startsWith("-")||principal.getFname().startsWith(".") ||
+                principal.getFname().endsWith("-") || principal.getFname().endsWith(".")) {
+            firstname.setError("Ang first name ay hindi maaaring magsimula o magtapos sa '-' o '.'");
+            firstname.requestFocus();
+            return "Ang first name ay hindi maaaring magsimula o magtapos sa '-' o '.'";
+        }
+
         if (principal.getLname().isEmpty()){
             lastname.setError("Siguraduhin na ilagay ang Last Name ng Member.");
             lastname.requestFocus();
             return "Siguraduhin na ilagay ang Last Name ng Member.";//""Last name is required.";
         }
 
+        if (principal.getLname().startsWith("-")||principal.getLname().startsWith(".") ||
+                principal.getLname().endsWith("-") || principal.getLname().endsWith(".")) {
+            lastname.setError("Ang last name ay hindi maaaring magsimula o magtapos sa '-' o '.'");
+            lastname.requestFocus();
+            return "Ang last name ay hindi maaaring magsimula o magtapos sa '-' o '.'";
+        }
 
         if (principal.getMobileno().length() != 11){
             mobileno.setError("Siguraduhin na ilagay ang Cellphone Number ng Member.");

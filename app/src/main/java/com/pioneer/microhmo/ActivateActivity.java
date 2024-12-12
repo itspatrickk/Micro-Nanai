@@ -12,6 +12,8 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.PersistableBundle;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
@@ -78,8 +80,6 @@ public class ActivateActivity extends AppCompatActivity {
 
     DatabaseHelper databaseHelper;
 
-    private CountDownTimer countDownTimer;
-    private long millisUntilFinished = 120000;
 
     String deviceId = "";
 
@@ -87,6 +87,8 @@ public class ActivateActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences ;
 
     String mobile = "";
+
+
 
 
     private final ActivityResultLauncher<String> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
@@ -120,19 +122,13 @@ public class ActivateActivity extends AppCompatActivity {
         onetimepin2 = findViewById(R.id.onetimepin2);
         onetimepin = findViewById(R.id.onetimepin);
         mobileNumber = findViewById(R.id.mobileNumber);
-
-
         btnActivate = findViewById(R.id.btnActivate);
         validatePin = findViewById(R.id.validatePin);
         setPinBtn = findViewById(R.id.setPin);
         resendOTP = findViewById(R.id.resendOTP);
-
 //        progressBar.setVisibility(View.GONE);
-
-
         messageView = findViewById(R.id.activate_message);
         messageView1 = findViewById(R.id.activate_message1);
-
         mobileNumber.requestFocus();
         InputMethodManager imm = getSystemService(InputMethodManager.class);
         imm.showSoftInput(mobileNumber, InputMethodManager.SHOW_IMPLICIT);
@@ -145,10 +141,7 @@ public class ActivateActivity extends AppCompatActivity {
 //            if (remainingTime > 0) {
 //                btnActivate.setText("Wait " + remainingTime / 1000 + " seconds");
 //            } else {
-//                btnActivate.setEnabled(true);
-//                btnActivate.setText("Activate");
-//            }
-//        });
+//
 
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             activityResultLauncher.launch(Manifest.permission.READ_PHONE_STATE);
@@ -188,14 +181,20 @@ public class ActivateActivity extends AppCompatActivity {
         resendOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                resendOTP.setVisibility(View.INVISIBLE);
-                mobile = mobileNumber.getText().toString();
-                if (mobile.length() == 9){
-                    mobile = "639"+mobile;//.substring(mobile.length()-10);
-                    resendOTPRequests( mobile);
+                // Disable the button for 5 seconds
+                resendOTP.setEnabled(false);
+               //resendOTP.setVisibility(View.GONE);
 
-                }else{
-                    btnActivate.setVisibility(View.VISIBLE);
+
+                // Re-enable the button after 5 seconds
+                new Handler(Looper.getMainLooper()).postDelayed(() ->  resendOTP.setEnabled(true) , 5000);
+
+                mobile = mobileNumber.getText().toString();
+                if (mobile.length() == 9) {
+                    mobile = "639" + mobile;
+                    resendOTPRequests(mobile);
+                } else {
+                    resendOTP.setVisibility(View.VISIBLE);
                     showAlert("Please check your mobile number.");
                 }
             }
@@ -241,39 +240,31 @@ public class ActivateActivity extends AppCompatActivity {
 
 
        //TODO CAPTCHA QUIZ
-
-
-        final HCaptcha hCaptcha = HCaptcha.getClient(this);
-
-
-        final String SITE_KEY = "45f604dc-36b6-4e52-a1ca-27fcd504ed58";
-
-
-        final HCaptchaConfig hCaptchaConfig = HCaptchaConfig.builder()
-                .siteKey(SITE_KEY)
-                .size(HCaptchaSize.NORMAL) // Compact size for smaller UI, use NORMAL if preferred
-                .theme(HCaptchaTheme.LIGHT) // Light theme, change to DARK if needed
-                .build();
-
-
-        hCaptcha.setup(hCaptchaConfig)
-                .addOnSuccessListener(new OnSuccessListener<HCaptchaTokenResponse>() {
-                    @Override
-                    public void onSuccess(HCaptchaTokenResponse hCaptchaTokenResponse) {
-                        // Retrieve the token upon success
-                        String userResponseToken = hCaptchaTokenResponse.getTokenResult();
-                        Log.d("HCAPTCHA", "hCaptcha success token: " + userResponseToken);
-
-                        // Proceed with verification or further actions using the token
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(HCaptchaException e) {
-                        // Log failure reasons for debugging
-                        Log.d("HCAPTCHA", "hCaptcha failed: " + e.getMessage() + " (" + e.getStatusCode() + ")");
-                        Intent intent = new Intent(ActivateActivity.this , MainActivity.class);
-                        startActivity(intent);
+//        final HCaptcha hCaptcha = HCaptcha.getClient(this);
+//        final String SITE_KEY = "45f604dc-36b6-4e52-a1ca-27fcd504ed58";
+//        final HCaptchaConfig hCaptchaConfig = HCaptchaConfig.builder()
+//                .siteKey(SITE_KEY)
+//                .size(HCaptchaSize.NORMAL) // Compact size for smaller UI, use NORMAL if preferred
+//                .theme(HCaptchaTheme.LIGHT) // Light theme, change to DARK if needed
+//                .build();
+//        hCaptcha.setup(hCaptchaConfig)
+//                .addOnSuccessListener(new OnSuccessListener<HCaptchaTokenResponse>() {
+//                    @Override
+//                    public void onSuccess(HCaptchaTokenResponse hCaptchaTokenResponse) {
+//                        // Retrieve the token upon success
+//                        String userResponseToken = hCaptchaTokenResponse.getTokenResult();
+//                        Log.d("HCAPTCHA", "hCaptcha success token: " + userResponseToken);
+//
+//                        // Proceed with verification or further actions using the token
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(HCaptchaException e) {
+//                        // Log failure reasons for debugging
+//                        Log.d("HCAPTCHA", "hCaptcha failed: " + e.getMessage() + " (" + e.getStatusCode() + ")");
+////                        Intent intent = new Intent(ActivateActivity.this , MainActivity.class);
+////                        startActivity(intent);
 //                        if (e.getStatusCode() == 30 || e.getStatusCode() == 15) { // 30 corresponds to "Challenge Closed"
 //                            Log.d("HCAPTCHA", "CAPTCHA dismissed by user. Retrying...");
 //                            Intent intent = new Intent(ActivateActivity.this , MainActivity.class);
@@ -282,11 +273,11 @@ public class ActivateActivity extends AppCompatActivity {
 //                        else {
 //                            Log.d("HCAPTCHA", "hCaptcha failed: " + e.getMessage() + " (" + e.getStatusCode() + ")");
 //                        }
-
-                    }
-                });
-
-        hCaptcha.verifyWithHCaptcha();
+//
+//                    }
+//                });
+//
+//        hCaptcha.verifyWithHCaptcha();
 
 
     }
@@ -442,6 +433,9 @@ public class ActivateActivity extends AppCompatActivity {
         queue.add(jsonObjectRequest);
     }
 
+    private void showToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
     public void updateInfo(final  String pin, String mobileno){
         Context context = getApplicationContext();
         RequestQueue queue = Volley.newRequestQueue(context);
@@ -646,9 +640,6 @@ public class ActivateActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         try {
                             JSONObject json = new JSONObject(response);
-
-
-
                             accessToken = json.getString("access_token");
 
 
@@ -727,11 +718,6 @@ public class ActivateActivity extends AppCompatActivity {
                             AgentInfo agent = gson.fromJson(response, AgentInfo.class);
 
                             Log.d("-----STATUS" , "status: " + agent.getStatus());
-
-
-
-
-
 
                             String message = "Magandang araw "+agent.getFullname()+
                                     ", ilagay ang OTP na pinadala sa iyong numero";
@@ -823,19 +809,10 @@ public class ActivateActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
-
                             // Check if OTP limit is exceeded
-
                             Gson gson = new Gson();
                             AgentInfo agent = gson.fromJson(response, AgentInfo.class);
-
                             Log.d("-----STATUS" , "status: " + agent.getStatus());
-
-
-
-
-
-
                             String message = "Magandang araw "+agent.getFullname()+
                                     ", ilagay ang OTP na pinadala sa iyong numero";
 
@@ -887,6 +864,8 @@ public class ActivateActivity extends AppCompatActivity {
                             if (statusCode == 429) {
                                 showAlert1("OTP request limit exceeded. Please try again in 2 minutes.");
 
+                            } else if (statusCode == 500) {
+                                showAlert("Ang Mobile Number na iyong binigay ay wala sa aming records. Siguraduhin na ikaw ay isang authorized MIA user. Makipag-ugnayan sa iyong PRO kung hindi makapag activate.");
                             } else {
                                 showAlert("An error occurred. Please try again later.");
                                 btnActivate.setVisibility(View.VISIBLE);
@@ -938,26 +917,33 @@ public class ActivateActivity extends AppCompatActivity {
     }
 
     private void startButtonCooldowns() {
- // Make sure it's visible
+        // Make sure it's visible
         resendOTP.setEnabled(false);
         resendOTP.setVisibility(View.VISIBLE);
         validatePin.setVisibility(View.GONE);
+
+        // Set the countdown timer to 120000 ms (120 seconds)
         new CountDownTimer(120000, 1000) {
 
             @SuppressLint("SetTextI18n")
             @Override
             public void onTick(long millisUntilFinished) {
-
-                resendOTP.setText("Try Again in " + millisUntilFinished / 1000 + " seconds");
+                if (millisUntilFinished > 1000) {
+                    resendOTP.setText("Try Again in " + millisUntilFinished / 1000 + " seconds");
+                } else {
+                    resendOTP.setText("Try Again in 1 second");
+                }
             }
 
             @Override
             public void onFinish() {
-
                 resendOTP.setEnabled(true);
+                resendOTP.setText("Resend OTP");
+                validatePin.setVisibility(View.VISIBLE);
             }
         }.start();
     }
+
 
 
     public void syncMatrix(){
@@ -1063,13 +1049,6 @@ public class ActivateActivity extends AppCompatActivity {
 
                                 databaseHelper.deletePolicies();
                                 databaseHelper.addPolicyList("Y", List.of(policies));
-//                                for (PolicyInfo policy : policies){
-////                                    if (policy.getPoc().equalsIgnoreCase("3476013"))
-////                                        Log.d("items", "policy :" + policy.getPremium());
-////                                    messageView.setText("Processing :" + policy.getPoc() + " : " + policy.getProduct());
-//                                    databaseHelper.addPolicy("Y", policy);
-//                                }
-
                             }
 
                             syncMembers(agentid);
