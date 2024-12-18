@@ -48,6 +48,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
@@ -69,7 +70,15 @@ public class RegisterCommon extends BaseActivity{
     TextView capturedRS2 ;
     public static String suffixlist[] = {"", "SR", "JR", "II", "III", "IV", "V"};
     public static String relList[] = {"SPOUSE","CHILD" , "PARENTS" , "GRANDPARENTS" , "OTHERS"};
-    public static String institution[] = {"CARD BANK INC." , "CARD SME BANK INC." , "CARD RIZAL BANK INC." , "CARD INC."};
+
+    private static final HashMap<String, String> institutionMap = new HashMap<>();
+    static {
+        institutionMap.put("CARD BANK INC.", "C0001");
+        institutionMap.put("CARD SME BANK INC.", "C0006");
+        institutionMap.put("CARD RIZAL BANK INC.", "C0007");
+        institutionMap.put("CARD INC.", "C0008");
+    }
+    public static String[] institution = {"CARD BANK INC." , "CARD SME BANK INC." , "CARD RIZAL BANK INC." , "CARD INC."};
     AutoCompleteTextView suffix , province , city , brgy , relToMemberX , institutions;
     RadioGroup radioStatus ;
     RadioGroup radioPaymentMode,gender, civilstatus, cardmember , radioGroupClientType;
@@ -526,6 +535,14 @@ public class RegisterCommon extends BaseActivity{
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 institutions.setError(null);
                 String item = adapterView.getItemAtPosition(i).toString();
+
+                String selectedItem = adapterView.getItemAtPosition(i).toString();
+
+                // Retrieve the corresponding code from the HashMap
+                String code = institutionMap.get(selectedItem);
+
+                // Display the selected name and code (for testing)
+                Log.d("Selected Institution", "Name: " + selectedItem + ", Code: " + code);
             }
         });
     }
@@ -986,7 +1003,9 @@ public class RegisterCommon extends BaseActivity{
 
 
         MemberInfo principal = new MemberInfo();
-
+        String selectedInstitution = institutions.getText().toString();
+        String institutionCode = institutionMap.get(selectedInstitution);
+        Log.d("InstitutionCOde", "setTransaction: " + institutionCode);
        // principal.setCardmember(setMember);
         principal.setPertype("PRINCIPAL");
         principal.setGender(genderselected);
@@ -1009,9 +1028,8 @@ public class RegisterCommon extends BaseActivity{
         principal.setAuthRepLName(authRepLname.getText().toString());
 
 
-
         principal.setRelToMember(relToMemberX.getText().toString());
-        principal.setInstitution(institutions.getText().toString());
+        principal.setInstitution(institutionCode);
         principal.setProv(province.getText().toString());
         principal.setCity(city.getText().toString());
         principal.setBrgy(brgy.getText().toString());
@@ -1031,13 +1049,13 @@ public class RegisterCommon extends BaseActivity{
         }
 
         if (radioCardPrincipal.isChecked()) {
-            principal.setClientType("CARD PRINCIPAL");
+            principal.setClientType("1");
         } else if (radioNonCardPrincipal.isChecked()) {
-            principal.setClientType("NON CARD PRINCIPAL");
+            principal.setClientType("2");
         } else if (radioNonCardSpouse.isChecked()){
-            principal.setClientType("NON CARD SPOUSE");
+            principal.setClientType("3");
         }else if (radioCardChild.isChecked()) {
-            principal.setClientType("NON CARD CHILD");
+            principal.setClientType("4");
         }else {
             principal.setClientType("");
         }

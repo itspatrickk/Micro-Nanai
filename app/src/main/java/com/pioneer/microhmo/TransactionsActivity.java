@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -362,27 +363,12 @@ public class TransactionsActivity extends AppCompatActivity implements RecyclerV
                     progressBar.setVisibility(View.INVISIBLE);
                 }
             }
-//            if (pol.getImage2stat().equalsIgnoreCase("N")){
-//                try {
-//                    File file = new File(pol.getImage2());
-//                    if (!file.exists())
-//                        databaseHelper.updateImage2Stat(pol.getId());
-//                    if (file.exists())
-//                        uploadImageFile(pol.getImage2(),
-//                            "uploadBack", pol.getId() , pol.getPoc());
-////                    Bitmap photo = BitmapFactory.decodeFile(pol.getImage2());
-////                    uploadImage(photo, uploadURL+"uploadBack/"+pol.getId()+"/"+pol.getPoc());
-//                }catch (Exception e){
-//                    progressBar.setVisibility(View.INVISIBLE);
-//                    e.printStackTrace();
-//                }
-//
-//            }
+
         }
 
         loadPending();
 
-        showAlertAction("Done sending transactions.");
+        //showAlertAction("Done sending transactions.");
 
     }
 
@@ -472,7 +458,12 @@ public class TransactionsActivity extends AppCompatActivity implements RecyclerV
                             progressBar.setVisibility(View.INVISIBLE);
                         }
 
+                        String agentid = SharedPreferencesUtility.getAgentId(sharedPreferences);
+                        syncPolicyWithParam(agentid);
                         sendImages();
+
+                        showAlertAction("Done sending transactions.");
+
 
                     }
                 },
@@ -511,6 +502,81 @@ public class TransactionsActivity extends AppCompatActivity implements RecyclerV
         queue.add(jsonArrayRequest);
     }
 
+
+    public void syncMembers(String agentid){
+        Context context = getApplicationContext();
+        RequestQueue queue = Volley.newRequestQueue(context);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Statics.SYNC_URL+"members/"+agentid,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+//                        Log.d("items", "response :" + response);
+                        try {
+                            response = new String(response.getBytes("ISO-8859-1"), "UTF-8");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        try {
+                            Gson gson = new Gson();
+                            String message = "Processing member records";
+
+
+                            Log.d("members", "Statics.SYNC_URL :" + Statics.SYNC_URL+"members/"+agentid);
+
+                            MemberInfo[] members = new Gson().fromJson(response, MemberInfo[].class);
+
+                            //Toast.makeText(context,  "Total members : " + members.length,Toast.LENGTH_LONG).show();
+                            if (members != null && members.length > 0){
+                                databaseHelper.deleteMembers();
+//                                for (MemberInfo member : members){
+////                                    Log.d("items", "member :" + member.getLname());
+//                                    databaseHelper.addMember(member, "Y");
+//                                }
+                                databaseHelper.addMemberList(List.of(members), "Y");
+                            }
+                        } catch (Exception e) {
+                            //Toast.makeText(context,  e.getMessage() + "\nPlease contact admin",Toast.LENGTH_LONG).show();
+                        }
+
+
+                        reload();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //Toast.makeText(context, error.getMessage(),Toast.LENGTH_LONG).show();
+                    }
+                })  {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<String, String>();
+                headers.put("Authorization", "Bearer "+accessToken);
+                return headers;
+            }
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+        };
+
+        queue.add(stringRequest);
+    }
+    void reload(){
+        List<MemberInfo> items = null;
+        try {
+            items = databaseHelper.getMembers("Y");
+            for (MemberInfo member:items){
+
+                Log.d("items", "policy :" + member.getPremium());
+                member.setCurrentstat(null);
+            }
+        }catch (Exception e){
+            items = new ArrayList<>();
+        }
+    }
     private void uploadImage(final Bitmap bitmap, String uploadURL){
 
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, uploadURL,
@@ -669,10 +735,9 @@ public class TransactionsActivity extends AppCompatActivity implements RecyclerV
                             }catch (Exception e){
                                 e.printStackTrace();
                             }
-//                    Toast.makeText(getApplicationContext(), "Upload rs image successfully.", Toast.LENGTH_LONG).show();
+
                         } else {
-                            // Handle error
-//                    Toast.makeText(getApplicationContext(), "Upload rs image failed.", Toast.LENGTH_LONG).show();
+
                         }
                     }
 
@@ -794,5 +859,53 @@ public class TransactionsActivity extends AppCompatActivity implements RecyclerV
         }
         return false;
     }
+    public void syncPolicyWithParam(String agentid){
+        Context context = getApplicationContext();
+        RequestQueue queue = Volley.newRequestQueue(context);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Statics.SYNC_URL+"policies/"+agentid,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            Gson gson = new Gson();
+                            String message = "Processing policy records";
 
+                            Log.d("Sales", "Statics.SYNC_URL :" + Statics.SYNC_URL+"policies/"+agentid);
+
+                            PolicyInfo[] policies = new Gson().fromJson(response, PolicyInfo[].class);
+
+                            //Toast.makeText(context,  "Total policies : " + policies.length,Toast.LENGTH_LONG).show();
+                            if (policies != null && policies.length > 0){
+
+                                databaseHelper.deletePolicies();
+                                Log.d("policies", "Inserting policy records");
+
+                                databaseHelper.addPolicyList("Y", List.of(policies));
+
+
+                                Log.d("policies", "DOne inserting policy records");
+                            }
+
+                            syncMembers(agentid);
+                        } catch (Exception e) {
+                            //Toast.makeText(context,  e.getMessage() + "\nPlease contact admin",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //Toast.makeText(context, error.getMessage(),Toast.LENGTH_LONG).show();
+                    }
+                })  {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<String, String>();
+                headers.put("Authorization", "Bearer "+accessToken);
+                return headers;
+            }
+        };
+
+        queue.add(stringRequest);
+    }
 }

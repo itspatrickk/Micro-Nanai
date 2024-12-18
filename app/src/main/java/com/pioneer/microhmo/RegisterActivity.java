@@ -305,22 +305,30 @@ public class RegisterActivity extends  RegisterCommon implements RecyclerViewInt
                                 TextBlock textBlock = textBlocks.get(textBlocks.keyAt(i));
                                 s = s+textBlock.getValue();
                             }
-//                            isImage1Valid = isRSValid(pocNumber.getText().toString(), s, RS1_LEFT_KEY, RS1_RIGHT_KEY);
                             String refno = getReferenceNumber(s);
-//                            showAlert("Info", "Ang inyong reference number ay " +refno);
-//                            pocNumber.setText(refno);
-//                            messageView.setText("Text : " + s);
+
+
+
+
+                            // Check if no text was detected
+                            if (textBlocks.size() == 0) {
+                                showAlert("Hindi tama ang paraan ng iyong pag-upload ng larawan. Kuhanan nang MALINAW ang form mula sa Reference No. sa itaas");
+                                return;
+                            }
 
                             Log.d("REFNO " , refno);
                             Log.d("register", "raw : " + s);
                             if (!s.contains("LLMCA") || !s.contains("LRMCA")){
                                 isImage1Valid = false;
-                                //showAlert("Hindi tama ang paraan ng iyong pag-upload ng larawan. Kuhanan nang MALINAW ang form mula sa Reference No. hanggang sa LLMCA at LRMCA.");
-                                showAlert("Hindi tama ang paraan ng iyong pag-upload ng larawan. Kuhanan nang MALINAW ang form mula sa Reference No. sa itaas.");
+                                showAlert("Hindi tama ang paraan ng iyong pag-upload ng larawan.Kuhanan nang MALINAW ang form mula sa Reference No. hanggang sa LLMCA at LRMCA");
+                               // showAlert("Hindi tama ang paraan ng iyong pag-upload ng larawan. Kuhanan nang MALINAW ang form mula sa Reference No. sa itaas.");
                                 //frontphoto.delete();
 //                                page1ImageView.setVisibility(View.GONE);
                                 capturedRS1.setText("");
-                            }else {
+                            } else if (s.isEmpty()) {
+                                showAlert("Hindi tama ang paraan ng iyong pag-upload ng larawan. Kuhanan nang MALINAW ang form mula sa Reference No. sa itaas");
+                                capturedRS1.setText("");
+                            } else {
                                 PolicyInfo pol = getPolicyInfo();
                                 if (databaseHelper.isPocExists(refno, pol.getProduct1(), pol.getProduct2(), pol.getProduct3())){
                                      //showAlert("Ang Reference No: "+ refno+" ay na-enroll na. Siguraduhing walang kaparehong policy and naka-save,upload o synced.");
@@ -347,6 +355,9 @@ public class RegisterActivity extends  RegisterCommon implements RecyclerViewInt
                         }finally {
                             textRecognizer.release();
                         }
+                    }else {
+                        showAlert("Hindi tama ang paraan ng iyong pag-upload ng larawan. Kuhanan nang MALINAW ang form mula sa Reference No. sa itaas");
+
                     }
                 }
             });

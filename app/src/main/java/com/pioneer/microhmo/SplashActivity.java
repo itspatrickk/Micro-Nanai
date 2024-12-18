@@ -115,7 +115,7 @@ public class SplashActivity extends AppCompatActivity {
             }
             List<String> provinces = databaseHelper.getAllProvinces();
             Log.d("provinces", ""+provinces.size());
-            Toast.makeText(this, "UAT VERSION 1.15", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "UAT VERSION 1.17", Toast.LENGTH_LONG).show();
             //Toast.makeText(this, "TOTAL PROV SIZE " + provinces.size(), Toast.LENGTH_SHORT).show();
         });
 

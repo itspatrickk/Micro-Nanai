@@ -22,12 +22,12 @@ public class Statics {
 
 
     //LOCALHOST not working in office check in ipconfig <CMD>
-   //"http://192.168.1.3:8000";
+  //"http://192.168.1.21:8000";
 
     //server
     //"http://172.21.1.145:7000";
 
-    "https://api2.pioneer.com.ph/dev-microhmo/2.0";
+   "https://api2.pioneer.com.ph/dev-microhmo/2.0";
 
 
     public static String CRED_URL =

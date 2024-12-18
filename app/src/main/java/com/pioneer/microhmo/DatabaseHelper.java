@@ -762,59 +762,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 }
             }
         }
-//
-//        SQLiteDatabase MyDatabase = this.getWritableDatabase();
-//        Cursor cursor = MyDatabase.rawQuery("Select poc, product1 ,product2, product3 from "+TABLE_POLICY+" where poc = ?", new String[]{pocno});
-//
-//        String product1 = "";
-//        String product2 = "";
-//        String product3 = "";
-//
-//        if (cursor.moveToFirst()) {
-//            do {
-//                //PolicyInfo(Long id, String product, String poc, String transdate, String effdate, String mistat, String paymode, String provoffice, String unit, String center)
-//                product1 = cursor.getString(1);
-//                product2 = cursor.getString(2);
-//                product3 = cursor.getString(3);
-//
-//                Log.d("isPocExists", "pocno :" +pocno);
-//                Log.d("isPocExists", "product1 :" +product1);
-//                Log.d("isPocExists", "product2 :" +product2);
-//                Log.d("isPocExists", "product3 :" +product3);
-//                Log.d("isPocExists", "pr1 :" +pr1);
-//                Log.d("isPocExists", "pr2 :" +pr2);
-//                Log.d("isPocExists", "pr3 :" +pr3);
-//
-//                if (pr1 != null && product1 != null && product1.length() > 5 && pr1.equalsIgnoreCase(product1)) return true;
-//                if (pr2 != null && product2 != null && product2.length() > 5 && pr2.equalsIgnoreCase(product2)) return true;
-//                if (pr3 != null && product3 != null && product3.length() > 5 ){
-////                    pr3.equalsIgnoreCase(product3)
-//                    if (pr3.contains("SAGIP") && product3.contains("SAGIP")){
-//                        return true;
-//                    }
-//                }
-//
-//            } while (cursor.moveToNext());
-////        }
-////            String product1 = "";
-////            String product2 = "";
-////            String product3 = "";
-////
-////            if (cursor != null)
-////                cursor.moveToFirst();
-////            //PolicyInfo(Long id, String product, String poc, String transdate, String effdate, String mistat, String paymode, String provoffice, String unit, String center)
-////            product1 = cursor.getString(0);
-////            product2 = cursor.getString(1);
-////            product3 = cursor.getString(2);
-////
-////            if (pr1 != null && product1 != null && product1.length() > 5 && pr1.equalsIgnoreCase(product1)) return true;
-////            if (pr2 != null && product2 != null && product2.length() > 5 && pr2.equalsIgnoreCase(product2)) return true;
-////            if (pr3 != null && product3 != null && product3.length() > 5 && pr3.equalsIgnoreCase(product3)) return true;
-//
-////            return false;
-//        }else {
-//            return false;
-//        }
+
         return false;
     }
 
@@ -854,48 +802,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return false;
         }
     }
-//
-//    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//    Date startDate = dateFormat.parse("2023-01-01");
-//    Date endDate = dateFormat.parse("2023-12-31");
-//
-//    String[] columns = {"id", "name", "date"};
-//    String selection = "date BETWEEN ? AND ?";
-//    String[] selectionArgs = {String.valueOf(startDate.getTime()), String.valueOf(endDate.getTime())};
-//    String sortOrder = "date DESC";
-//
-//    Cursor cursor = db.query("my_table", columns, selection, selectionArgs, null, null, sortOrder);
-//while (cursor.moveToNext()) {
-//        long id = cursor.getLong(cursor.getColumnIndex("id"));
-//        String name = cursor.getString(cursor.getColumnIndex("name"));
-//        long dateInMillis = cursor.getLong(cursor.getColumnIndex("date"));
-//        Date date = new Date(dateInMillis);
-//        Log.d(TAG, "id: " + id + ", name: " + name + ", date: " + date);
-//    }
-//cursor.close();
 
-//    // Get Contacts list by date
-//    public List<Contact> getContactsByDate(String mDate) {
-//        List<Contact> contactList = new ArrayList<>();
-//        // Select All Query
-//        String selectQuery = "SELECT  * FROM " + TABLE_CONTACTS + " WHERE " + KEY_DATE + " LIKE " + "'%" + mDate + "'";
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        Cursor cursor = db.rawQuery(selectQuery, null);
-//        // looping through all rows and adding to list
-//        if (cursor.moveToFirst()) {
-//            do {
-//                Contact contact = new Contact();
-//                contact.setID(Integer.parseInt(cursor.getString(0)));
-//                contact.setName(cursor.getString(1));
-//                contact.setPhoneNumber(cursor.getString(2));
-//                contact.setDate(cursor.getString(3));
-//                // Adding contact to list
-//                contactList.add(contact);
-//            } while (cursor.moveToNext());
-//        }
-//        // return contact list
-//        return contactList;
-//    }
 public void addAddressList(List<Address_> addressList ) {
 //        MyDatabase.execSQL("create Table " + TABLE_MEMBERS + "(GENID INTEGER PRIMARY KEY AUTOINCREMENT, id TEXT, pertype TEXT, fname TEXT, mname TEXT, " +
 //                "lname TEXT, suffix TEXT, dob TEXT, gender TEXT, civilstat TEXT, mobileno TEXT, cardmember TEXT," +

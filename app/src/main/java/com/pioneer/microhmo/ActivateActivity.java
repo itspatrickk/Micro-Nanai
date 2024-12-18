@@ -168,7 +168,7 @@ public class ActivateActivity extends AppCompatActivity {
                // btnActivate.setVisibility(View.INVISIBLE);
                  mobile = mobileNumber.getText().toString();
                  if (mobile.length() == 9){
-                     mobile = "639"+mobile;//.substring(mobile.length()-10);
+                     mobile = "09"+mobile;//.substring(mobile.length()-10);
                      activateAccount( mobile);
 
                  }else{
@@ -191,7 +191,7 @@ public class ActivateActivity extends AppCompatActivity {
 
                 mobile = mobileNumber.getText().toString();
                 if (mobile.length() == 9) {
-                    mobile = "639" + mobile;
+                    mobile = "09" + mobile;
                     resendOTPRequests(mobile);
                 } else {
                     resendOTP.setVisibility(View.VISIBLE);
@@ -240,44 +240,45 @@ public class ActivateActivity extends AppCompatActivity {
 
 
        //TODO CAPTCHA QUIZ
-//        final HCaptcha hCaptcha = HCaptcha.getClient(this);
-//        final String SITE_KEY = "45f604dc-36b6-4e52-a1ca-27fcd504ed58";
-//        final HCaptchaConfig hCaptchaConfig = HCaptchaConfig.builder()
-//                .siteKey(SITE_KEY)
-//                .size(HCaptchaSize.NORMAL) // Compact size for smaller UI, use NORMAL if preferred
-//                .theme(HCaptchaTheme.LIGHT) // Light theme, change to DARK if needed
-//                .build();
-//        hCaptcha.setup(hCaptchaConfig)
-//                .addOnSuccessListener(new OnSuccessListener<HCaptchaTokenResponse>() {
-//                    @Override
-//                    public void onSuccess(HCaptchaTokenResponse hCaptchaTokenResponse) {
-//                        // Retrieve the token upon success
-//                        String userResponseToken = hCaptchaTokenResponse.getTokenResult();
-//                        Log.d("HCAPTCHA", "hCaptcha success token: " + userResponseToken);
-//
-//                        // Proceed with verification or further actions using the token
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(HCaptchaException e) {
-//                        // Log failure reasons for debugging
-//                        Log.d("HCAPTCHA", "hCaptcha failed: " + e.getMessage() + " (" + e.getStatusCode() + ")");
-////                        Intent intent = new Intent(ActivateActivity.this , MainActivity.class);
-////                        startActivity(intent);
-//                        if (e.getStatusCode() == 30 || e.getStatusCode() == 15) { // 30 corresponds to "Challenge Closed"
-//                            Log.d("HCAPTCHA", "CAPTCHA dismissed by user. Retrying...");
-//                            Intent intent = new Intent(ActivateActivity.this , MainActivity.class);
-//                            startActivity(intent);
-//                        }
-//                        else {
-//                            Log.d("HCAPTCHA", "hCaptcha failed: " + e.getMessage() + " (" + e.getStatusCode() + ")");
-//                        }
-//
-//                    }
-//                });
-//
-//        hCaptcha.verifyWithHCaptcha();
+
+        final HCaptcha hCaptcha = HCaptcha.getClient(this);
+        final String SITE_KEY = "45f604dc-36b6-4e52-a1ca-27fcd504ed58";
+        final HCaptchaConfig hCaptchaConfig = HCaptchaConfig.builder()
+                .siteKey(SITE_KEY)
+                .size(HCaptchaSize.NORMAL) // Compact size for smaller UI, use NORMAL if preferred
+                .theme(HCaptchaTheme.LIGHT) // Light theme, change to DARK if needed
+                .build();
+        hCaptcha.setup(hCaptchaConfig)
+                .addOnSuccessListener(new OnSuccessListener<HCaptchaTokenResponse>() {
+                    @Override
+                    public void onSuccess(HCaptchaTokenResponse hCaptchaTokenResponse) {
+                        // Retrieve the token upon success
+                        String userResponseToken = hCaptchaTokenResponse.getTokenResult();
+                        Log.d("HCAPTCHA", "hCaptcha success token: " + userResponseToken);
+
+                        // Proceed with verification or further actions using the token
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(HCaptchaException e) {
+                        // Log failure reasons for debugging
+                        Log.d("HCAPTCHA", "hCaptcha failed: " + e.getMessage() + " (" + e.getStatusCode() + ")");
+//                        Intent intent = new Intent(ActivateActivity.this , MainActivity.class);
+//                        startActivity(intent);
+                        if (e.getStatusCode() == 30 || e.getStatusCode() == 15) { // 30 corresponds to "Challenge Closed"
+                            Log.d("HCAPTCHA", "CAPTCHA dismissed by user. Retrying...");
+                            Intent intent = new Intent(ActivateActivity.this , MainActivity.class);
+                            startActivity(intent);
+                        }
+                        else {
+                            Log.d("HCAPTCHA", "hCaptcha failed: " + e.getMessage() + " (" + e.getStatusCode() + ")");
+                        }
+
+                    }
+                });
+
+        hCaptcha.verifyWithHCaptcha();
 
 
     }
@@ -445,6 +446,7 @@ public class ActivateActivity extends AppCompatActivity {
             requestBody.put("pin", pin);
             requestBody.put("mobileno", mobileno);
             String agentid = SharedPreferencesUtility.getAgentSeqno(sharedPreferences);
+            Log.d("AGENT ID", "updateInfo: " + agentid);
             requestBody.put("agentid", agentid);
             // Get device model
             String deviceModel = Build.MODEL;
@@ -452,6 +454,7 @@ public class ActivateActivity extends AppCompatActivity {
             String androidVersion = "Android "+ Build.VERSION.RELEASE;
             // Get device brand
             String deviceBrand = Build.BRAND;
+            Log.d("device id", "device id: " + deviceId);
             // Get device ID
             requestBody.put("deviceid", deviceId);
             ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
@@ -475,7 +478,7 @@ public class ActivateActivity extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-
+                        Log.d("ssss", "onResponse Update: " + response);
                     }
                 },
                 new Response.ErrorListener() {
@@ -864,7 +867,7 @@ public class ActivateActivity extends AppCompatActivity {
                             if (statusCode == 429) {
                                 showAlert1("OTP request limit exceeded. Please try again in 2 minutes.");
 
-                            } else if (statusCode == 500) {
+                            } else if (statusCode == 500 || statusCode == 404) {
                                 showAlert("Ang Mobile Number na iyong binigay ay wala sa aming records. Siguraduhin na ikaw ay isang authorized MIA user. Makipag-ugnayan sa iyong PRO kung hindi makapag activate.");
                             } else {
                                 showAlert("An error occurred. Please try again later.");

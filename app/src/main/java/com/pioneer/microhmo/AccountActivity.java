@@ -348,6 +348,7 @@ public class AccountActivity extends AppCompatActivity {
                             SharedPreferencesUtility.saveCenters(sharedPreferences, agent.getCenters());
                             SharedPreferencesUtility.saveStatus(sharedPreferences, agent.getStatus());
                         } catch (Exception e) {
+                            Log.d("ERROR", "onResponse: " + e.getLocalizedMessage());
                         }
                     }
                 },
