@@ -1,11 +1,14 @@
 package com.pioneer.microhmo;
 
+import static com.pioneer.microhmo.util.Statics.uploadURL;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -344,7 +347,7 @@ public class TransactionsActivity extends AppCompatActivity implements RecyclerV
             Log.d("items", "getImage2 :" + pol.getImage2() );
 
 
-            Log.d("items", "url :" + Statics.uploadURL+"uploadFront/"+pol.getId()+"/"+pol.getPoc());
+            Log.d("items", "url :" + uploadURL+"uploadFront/"+pol.getId()+"/"+pol.getPoc());
 
             databaseHelper.updateCurrStat(pol.getId(), "Uploading");
 
@@ -356,8 +359,8 @@ public class TransactionsActivity extends AppCompatActivity implements RecyclerV
                     if (file.exists())
                         uploadImageFile(pol.getImage1(),
                              "uploadFront", pol.getId(), pol.getPoc() );
-//                    Bitmap photo = BitmapFactory.decodeFile(pol.getImage1());
-//                    uploadImage(photo, uploadURL + "uploadFront/" + pol.getId() + "/" + pol.getPoc());
+                    Bitmap photo = BitmapFactory.decodeFile(pol.getImage1());
+                    uploadImage(photo, uploadURL + "uploadFront/" + pol.getId() + "/" + pol.getPoc());
                 }catch (Exception e){
                     e.printStackTrace();
                     progressBar.setVisibility(View.INVISIBLE);
@@ -585,36 +588,41 @@ public class TransactionsActivity extends AppCompatActivity implements RecyclerV
                     public void onResponse(NetworkResponse response) {
 //                        Toast.makeText(getApplicationContext(), "Sending done.", Toast.LENGTH_SHORT).show();
 
-                        Log.d("ressssssoo",new String(response.data));
+                        Log.d(">>>>> response ",new String(response.data));
+                        Log.d(">>>>> gbucket " , "response: " + response.data);
                         rQueue.getCache().clear();
-//                        try {
-//                            JSONObject jsonObject = new JSONObject(new String(response.data));
-//                            Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-//
-//                            jsonObject.toString().replace("\\\\","");
-//
-//                            if (jsonObject.getString("status").equals("true")) {
-//
-//                                arraylist = new ArrayList<HashMap<String, String>>();
-//                                JSONArray dataArray = jsonObject.getJSONArray("data");
-//
-//                                String url = "";
-//                                for (int i = 0; i < dataArray.length(); i++) {
-//                                    JSONObject dataobj = dataArray.getJSONObject(i);
-//                                    url = dataobj.optString("pathToFile");
-//                                }
-//                                //Picasso.get().load(url).into(imageView);
-//                            }
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
+                        try {
+                            JSONObject jsonObject = new JSONObject(new String(response.data));
+                            Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+
+                            jsonObject.toString().replace("\\\\","");
+
+                            if (jsonObject.getString("status").equals("true")) {
+
+                                arraylist = new ArrayList<HashMap<String, String>>();
+                                JSONArray dataArray = jsonObject.getJSONArray("data");
+
+                                String url = "";
+                                for (int i = 0; i < dataArray.length(); i++) {
+                                    JSONObject dataobj = dataArray.getJSONObject(i);
+                                    url = dataobj.optString("pathToFile");
+                                }
+                                //Picasso.get().load(url).into(imageView);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                        error.printStackTrace();
+                        if (error.networkResponse != null && error.networkResponse.data != null) {
+                            Log.e("ERROR BUCKET", new String(error.networkResponse.data));
+                        } else {
+                            Log.e("ERROR BUCKET", "onErrorResponse: " + error.getMessage().toString());
+                        }
                     }
                 }) {
 
@@ -634,14 +642,14 @@ public class TransactionsActivity extends AppCompatActivity implements RecyclerV
 //            /*
 //             *pass files using below method
 //             * */
-//            @Override
-//            protected Map<String, DataPart> getByteData() {
-//                Map<String, DataPart> params = new HashMap<>();
-//                long imagename = System.currentTimeMillis();
-//                String filename = imagename + ".png";
-//                params.put("filename", new DataPart(filename, getFileDataFromDrawable(bitmap)));
-//                return params;
-//            }
+            @Override
+            protected Map<String, DataPart> getByteData() {
+                Map<String, DataPart> params = new HashMap<>();
+                long imagename = System.currentTimeMillis();
+                String filename = imagename + ".png";
+                params.put("file", new DataPart(filename, getFileDataFromDrawable(bitmap)));
+                return params;
+          }
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
@@ -700,7 +708,7 @@ public class TransactionsActivity extends AppCompatActivity implements RecyclerV
 
 // Create Retrofit instance
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Statics.uploadURL) // Replace with your base URL
+                        .baseUrl(uploadURL) // Replace with your base URL
                         .client(client)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
