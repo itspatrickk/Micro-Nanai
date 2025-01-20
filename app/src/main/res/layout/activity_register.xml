@@ -742,7 +742,7 @@
                 style="@style/TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Authorized Representative Middle Name" />
+                android:text="Authorized Representative Middle Initial" />
 
             <EditText
                 android:id="@+id/edtAuthRelativeMname"

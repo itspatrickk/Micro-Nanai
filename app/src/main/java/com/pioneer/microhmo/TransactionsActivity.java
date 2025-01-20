@@ -209,7 +209,11 @@ public class TransactionsActivity extends AppCompatActivity implements RecyclerV
                         btnSend.setVisibility(View.GONE);
 
                         sendPolicy();
-                        sendImages();
+                       // sendImages();
+
+
+//                        String agentid = SharedPreferencesUtility.getAgentId(sharedPreferences);
+//                        syncPolicyWithParam(agentid);
                     } else {
 
                         showAlert("Siguraduhing may internet connection wifi/mobile data bago mag upload ng mga policies.");
@@ -217,13 +221,13 @@ public class TransactionsActivity extends AppCompatActivity implements RecyclerV
                 }
             });
 
-            //sendImagesBtn.setText("SEND " + imageList.size() + " RECORDS IMAGES");
-//            sendImagesBtn.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    resendPendingImages();
-//                }
-//            });
+            sendImagesBtn.setText("SEND " + imageList.size() + " RECORDS IMAGES");
+            sendImagesBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    resendPendingImages();
+                }
+            });
         }
     }
 // TODO HERE TO SEND IN STAGING
@@ -232,15 +236,15 @@ public class TransactionsActivity extends AppCompatActivity implements RecyclerV
         if (accessToken == null){
             setToken();
         }
-        if (accessToken == null){
-            setToken();
-        }
-        if (accessToken == null){
-            setToken();
-        }
-        if (accessToken == null){
-            setToken();
-        }
+//        if (accessToken == null){
+//            setToken();
+//        }
+//        if (accessToken == null){
+//            setToken();
+//        }
+//        if (accessToken == null){
+//            setToken();
+//        }
 
         List<Transaction> transList = generatePayload();
         if (!sending) {
@@ -335,9 +339,9 @@ public class TransactionsActivity extends AppCompatActivity implements RecyclerV
         imageList = databaseHelper.getPendingPolicyImages();
         setToken();
         if (accessToken == null) setToken();
-        if (accessToken == null) setToken();
-        if (accessToken == null) setToken();
-        if (accessToken == null) setToken();
+//        if (accessToken == null) setToken();
+//        if (accessToken == null) setToken();
+//        if (accessToken == null) setToken();
         for (PolicyInfo pol:imageList){
 
             Log.d("items", "getImage1stat :" + pol.getImage1stat() );
@@ -360,7 +364,7 @@ public class TransactionsActivity extends AppCompatActivity implements RecyclerV
                         uploadImageFile(pol.getImage1(),
                              "uploadFront", pol.getId(), pol.getPoc() );
                     Bitmap photo = BitmapFactory.decodeFile(pol.getImage1());
-                    uploadImage(photo, uploadURL + "uploadFront/" + pol.getId() + "/" + pol.getPoc());
+//                      uploadImage(photo, uploadURL + "uploadFront/" + pol.getId() + "/" + pol.getPoc());
                 }catch (Exception e){
                     e.printStackTrace();
                     progressBar.setVisibility(View.INVISIBLE);
@@ -371,7 +375,7 @@ public class TransactionsActivity extends AppCompatActivity implements RecyclerV
 
         loadPending();
 
-        //showAlertAction("Done sending transactions.");
+//        showAlertAction("Done sending transactions for images.");
 
     }
 
@@ -461,8 +465,7 @@ public class TransactionsActivity extends AppCompatActivity implements RecyclerV
                             progressBar.setVisibility(View.INVISIBLE);
                         }
 
-                        String agentid = SharedPreferencesUtility.getAgentId(sharedPreferences);
-                        syncPolicyWithParam(agentid);
+
                         sendImages();
 
                         showAlertAction("Done sending transactions.");
@@ -474,18 +477,38 @@ public class TransactionsActivity extends AppCompatActivity implements RecyclerV
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // Handle error
-//                        showAlert(errorMsg);
-                        for (Transaction pol:list) {
+                        for (Transaction pol : list) {
                             databaseHelper.updateCurrStat(pol.getPolicy().getId(), "Queue");
                         }
                         showAlert("Transaction(s) added to queue, please check connection then resend.");
-                        Log.d("error http request: " , error.toString()  );
+
+                        // Log detailed error information
+                        Log.d("HTTP Error Request", "Error: " + error.toString());
+
                         if (error.networkResponse != null) {
                             int statusCode = error.networkResponse.statusCode;
-                            Log.d("Error Status Code: ", String.valueOf(statusCode));
-                            Log.d("Error Response Data: ", new String(error.networkResponse.data));
+                            String responseBody = new String(error.networkResponse.data);
+                            Log.d("Error Status Code", String.valueOf(statusCode));
+                            Log.d("Error Response Data", responseBody);
+
+                            try {
+                                // Parse response data for detailed error message
+                                JSONObject errorJson = new JSONObject(responseBody);
+                                String errorMessage = errorJson.optString("message", "No detailed message");
+                                Log.d("Parsed Error Message", errorMessage);
+                            } catch (JSONException e) {
+                                Log.e("Error Parsing JSON", e.toString());
+                            }
                         } else {
-                            Log.d("Error: ", "No network response, possible connection issue.");
+                            Log.d("Error", "No network response, possible connection issue.");
+                        }
+
+                        if (error.getCause() != null) {
+                            Log.d("Error Cause", error.getCause().toString());
+                        }
+
+                        if (error.getMessage() != null) {
+                            Log.d("Error Message", error.getMessage());
                         }
                     }
                 })  {
@@ -609,6 +632,12 @@ public class TransactionsActivity extends AppCompatActivity implements RecyclerV
                                 }
                                 //Picasso.get().load(url).into(imageView);
                             }
+
+                            String agentid = SharedPreferencesUtility.getAgentId(sharedPreferences);
+                            syncPolicyWithParam(agentid);
+
+                            showAlertAction("Done sending transactions for images.");
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -743,6 +772,10 @@ public class TransactionsActivity extends AppCompatActivity implements RecyclerV
                             }catch (Exception e){
                                 e.printStackTrace();
                             }
+                            String agentid = SharedPreferencesUtility.getAgentId(sharedPreferences);
+                            syncPolicyWithParam(agentid);
+
+                            showAlertAction("Done sending transactions for images.");
 
                         } else {
 

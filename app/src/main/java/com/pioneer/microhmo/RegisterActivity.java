@@ -332,7 +332,7 @@ public class RegisterActivity extends  RegisterCommon implements RecyclerViewInt
                                 PolicyInfo pol = getPolicyInfo();
                                 if (databaseHelper.isPocExists(refno, pol.getProduct1(), pol.getProduct2(), pol.getProduct3())){
                                      //showAlert("Ang Reference No: "+ refno+" ay na-enroll na. Siguraduhing walang kaparehong policy and naka-save,upload o synced.");
-                                     showAlert("Itong MI CARE Reference number "+refno+" ay na-enroll na. Siguraduhing walang kaparehong Policy ang naka-save, synced, upload, o submitted");
+                                     showAlert("Itong KayaMed Reference number "+refno+" ay na-enroll na. Siguraduhing walang kaparehong Policy ang naka-save, synced, upload, o submitted");
                                 } else {
                                     isImage1Valid = true;
                                     messageView.setText("");
@@ -1313,6 +1313,16 @@ public class RegisterActivity extends  RegisterCommon implements RecyclerViewInt
             dateOfBirth.requestFocus();
             return "Siguraduhin na ilagay ang Kapanganakan ng Member.";
         }
+        int userAge = Integer.parseInt(age.getText().toString());
+
+        if (userAge >= 66 && userAge <= 70 && statusselected.equalsIgnoreCase("NEW")){
+
+            return "Maaring Renewal ang gamitin sa iyong Status";
+        }
+
+        if (userAge >= 70){
+            return "Ang  edad na " + userAge + " ay Overage na para sa "+policy.getMistat()+" Member at hindi na maaring i-enroll.";
+        }
 
 //        if (principal.getPlaceOfBirth().isEmpty()){
 //            placeofBirth.setError("Siguraduhin na ilagay ang Place of Birth ng Member");
@@ -1498,17 +1508,8 @@ public class RegisterActivity extends  RegisterCommon implements RecyclerViewInt
             return "Siguraduhing i-check ang Data Privacy Consent";
         }
 
-        int userAge = Integer.parseInt(age.getText().toString());
-
-        if (userAge >= 66 && userAge <= 70 && statusselected.equalsIgnoreCase("NEW")){
-
-            return "Maaring Renewal ang gamitin sa iyong Status";
-        }
 
 
-        if (userAge >= 70){
-            return "Ang iyong edad na " + userAge + " ay lagpas na ";
-        }
 
 
 

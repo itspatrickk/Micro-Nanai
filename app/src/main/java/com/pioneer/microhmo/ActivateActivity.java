@@ -24,6 +24,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,6 +77,7 @@ public class ActivateActivity extends AppCompatActivity {
 
     EditText otp, mobileNumber,onetimepin, onetimepin2;
     TextView messageView, messageView1;
+    ProgressBar progressBar;
     private TimerViewModel timerViewModel;
 
     DatabaseHelper databaseHelper;
@@ -110,7 +112,7 @@ public class ActivateActivity extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(this);
         sharedPreferences = getSharedPreferences(MainActivity.SHARED_PREFERENCE_ID, Context.MODE_PRIVATE);
 
-//        progressBar = findViewById(R.id.progressBar);
+    progressBar = findViewById(R.id.progressBar);
         validateDiv = findViewById(R.id.validateDiv);
         activateDiv = findViewById(R.id.activateDiv);
         setPinDiv = findViewById(R.id.setPinDiv);
@@ -168,9 +170,12 @@ public class ActivateActivity extends AppCompatActivity {
                // btnActivate.setVisibility(View.INVISIBLE);
                  mobile = mobileNumber.getText().toString();
                  if (mobile.length() == 9){
-                     mobile = "09"+mobile;//.substring(mobile.length()-10);
-                     activateAccount( mobile);
 
+                     showAlertForSendNewSms("Pinadalhan ka namin ng ONE-TIME PIN (OTP). Maari mo bang i-type ang natanggap na OTP?" );
+//                     mobile = "09"+mobile;//.substring(mobile.length()-10);
+//                     activateAccount( mobile);
+//                     btnActivate.setEnabled(false);
+//                     progressBar.setVisibility(View.VISIBLE);
                  }else{
                      btnActivate.setVisibility(View.VISIBLE);
                      showAlert("Please check your mobile number.");
@@ -191,8 +196,11 @@ public class ActivateActivity extends AppCompatActivity {
 
                 mobile = mobileNumber.getText().toString();
                 if (mobile.length() == 9) {
-                    mobile = "09" + mobile;
-                    resendOTPRequests(mobile);
+                     mobile = "09" + mobile;
+//                    resendOTPRequests(mobile);
+//                    progressBar.setVisibility(View.VISIBLE);
+
+                    showAlertForReSendNewSms("Did not receive an OTP at "+mobile+" ? CLICK HERE TO RESEND");
                 } else {
                     resendOTP.setVisibility(View.VISIBLE);
                     showAlert("Please check your mobile number.");
@@ -239,7 +247,7 @@ public class ActivateActivity extends AppCompatActivity {
         });
 
 
-       //TODO CAPTCHA QUIZ
+       //                                TODO CAPTCHA QUIZ
 
         final HCaptcha hCaptcha = HCaptcha.getClient(this);
         final String SITE_KEY = "45f604dc-36b6-4e52-a1ca-27fcd504ed58";
@@ -309,6 +317,8 @@ public class ActivateActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 //                        Toast.makeText(context, error.getMessage(),Toast.LENGTH_LONG).show();
+
+                        Log.d("TAG", "onErrorResponse: " + error.getMessage());
                         showAlert("Siguraduhing may internet connection wifi/mobile data bago mag activate sa app.");
                         btnActivate.setVisibility(View.VISIBLE);
                     }
@@ -516,6 +526,44 @@ public class ActivateActivity extends AppCompatActivity {
 
     }
 
+
+    public void showAlertForSendNewSms(String message ){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("Please check error");
+        builder.setMessage(message);
+        mobile = mobileNumber.getText().toString();
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mobile = "09"+mobile;//.substring(mobile.length()-10);
+                activateAccount( mobile);
+                btnActivate.setEnabled(false);
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
+
+    public void showAlertForReSendNewSms(String message ){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("Please check error");
+        builder.setMessage(message);
+        mobile = mobileNumber.getText().toString();
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mobile = "09" + mobile;
+                resendOTPRequests(mobile);
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
     public void showAlert1(String message){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 //        builder.setTitle("Please check error");
@@ -592,7 +640,7 @@ public class ActivateActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 //                        Toast.makeText(context, error.getMessage(),Toast.LENGTH_LONG).show();
-
+                        Log.d("ERROR CRED", "onErrorResponse: " + error.getMessage());
                         showAlert("Siguraduhing may internet connection wifi/mobile data bago mag activate sa app.");
 
                         btnActivate.setVisibility(View.VISIBLE);
@@ -744,13 +792,14 @@ public class ActivateActivity extends AppCompatActivity {
 
                             InputMethodManager imm = getSystemService(InputMethodManager.class);
                             imm.showSoftInput(otp, InputMethodManager.SHOW_IMPLICIT);
+                            progressBar.setVisibility(View.GONE);
 
                         } catch (Exception e) {
 
                             if (response.equalsIgnoreCase("AGENT STATUS INACTIVE")){
                                 showInactiveUserDialog();
                             }else {
-                                showAlert("Ang Mobile Number na iyong binigay ay wala sa aming records. Siguraduhin na ikaw ay isang authorized MIA user. Makipag-ugnayan sa iyong PRO kung hindi makapag activate.");
+                                showAlert("Ang Mobile Number na iyong binigay ay wala sa aming records. Siguraduhin na ikaw ay isang authorized MIA user. Makipag-ugnayan sa iyong CASS kung hindi makapag activate.");
 
                             }
 
@@ -835,7 +884,7 @@ public class ActivateActivity extends AppCompatActivity {
 
                             otp.requestFocus();
 
-
+                            progressBar.setVisibility(View.GONE);
                             InputMethodManager imm = getSystemService(InputMethodManager.class);
                             imm.showSoftInput(otp, InputMethodManager.SHOW_IMPLICIT);
 
@@ -844,7 +893,7 @@ public class ActivateActivity extends AppCompatActivity {
                             if (response.equalsIgnoreCase("AGENT STATUS INACTIVE")){
                                 showInactiveUserDialog();
                             }else {
-                                showAlert("Ang Mobile Number na iyong binigay ay wala sa aming records. Siguraduhin na ikaw ay isang authorized MIA user. Makipag-ugnayan sa iyong PRO kung hindi makapag activate.");
+                                showAlert("Ang Mobile Number na iyong binigay ay wala sa aming records. Siguraduhin na ikaw ay isang authorized MIA user. Makipag-ugnayan sa iyong CASS kung hindi makapag activate.");
 
                             }
 
@@ -868,7 +917,7 @@ public class ActivateActivity extends AppCompatActivity {
                                 showAlert1("OTP request limit exceeded. Please try again in 2 minutes.");
 
                             } else if (statusCode == 500 || statusCode == 404) {
-                                showAlert("Ang Mobile Number na iyong binigay ay wala sa aming records. Siguraduhin na ikaw ay isang authorized MIA user. Makipag-ugnayan sa iyong PRO kung hindi makapag activate.");
+                                showAlert("Ang Mobile Number na iyong binigay ay wala sa aming records. Siguraduhin na ikaw ay isang authorized MIA user. Makipag-ugnayan sa iyong CASS kung hindi makapag activate.");
                             } else {
                                 showAlert("An error occurred. Please try again later.");
                                 btnActivate.setVisibility(View.VISIBLE);

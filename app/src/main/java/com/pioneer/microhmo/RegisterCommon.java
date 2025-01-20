@@ -76,7 +76,7 @@ public class RegisterCommon extends BaseActivity{
         institutionMap.put("CARD BANK INC.", "C0001");
         institutionMap.put("CARD SME BANK INC.", "C0006");
         institutionMap.put("CARD RIZAL BANK INC.", "C0007");
-        institutionMap.put("CARD INC.", "C0008");
+        institutionMap.put("CARD INC.", "CI0008");
     }
     public static String[] institution = {"CARD BANK INC." , "CARD SME BANK INC." , "CARD RIZAL BANK INC." , "CARD INC."};
     AutoCompleteTextView suffix , province , city , brgy , relToMemberX , institutions;
@@ -941,7 +941,7 @@ public class RegisterCommon extends BaseActivity{
 
         PolicyInfo policy = new PolicyInfo();
 //        policy.setCenter(center);
-        policy.setProduct1("MI CARE");
+        policy.setProduct1("KayaMed");
         policy.setUnit(unit);
         policy.setPoc(pocNumber.getText().toString().trim());
 //        if (checkCardCare.isChecked()){
@@ -1005,7 +1005,7 @@ public class RegisterCommon extends BaseActivity{
         MemberInfo principal = new MemberInfo();
         String selectedInstitution = institutions.getText().toString();
         String institutionCode = institutionMap.get(selectedInstitution);
-        Log.d("InstitutionCOde", "setTransaction: " + institutionCode);
+       // Log.d("InstitutionCOde", "setTransaction: " + institutionCode);
        // principal.setCardmember(setMember);
         principal.setPertype("PRINCIPAL");
         principal.setGender(genderselected);
@@ -1088,7 +1088,7 @@ public class RegisterCommon extends BaseActivity{
         PolicyInfo policy = new PolicyInfo();
 
 
-        policy.setProduct1("MI CARE");
+        policy.setProduct1("KayaMed");
         policy.setProduct2(null);
         policy.setProduct3(null);
 //        if (checkCardCare.isChecked()) {

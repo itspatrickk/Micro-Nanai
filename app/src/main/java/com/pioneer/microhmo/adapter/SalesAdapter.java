@@ -21,6 +21,7 @@ public class SalesAdapter extends RecyclerView.Adapter<SalesViewHolder> implemen
 
     String UPLOADING_STATUS = "Uploading";
     String QUEUE_STATUS = "Queue";
+    String POM_EXIST = "POM already exist";
 
     private final RecyclerViewInterface recyclerViewInterface;
     Context context;
