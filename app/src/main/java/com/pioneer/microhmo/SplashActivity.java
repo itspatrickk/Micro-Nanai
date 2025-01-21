@@ -115,7 +115,7 @@ public class SplashActivity extends AppCompatActivity {
             }
             List<String> provinces = databaseHelper.getAllProvinces();
             Log.d("provinces", ""+provinces.size());
-            Toast.makeText(this, "UAT VERSION 1.21", Toast.LENGTH_LONG).show();
+           // Toast.makeText(this, "UAT VERSION 1.21", Toast.LENGTH_LONG).show();
             //Toast.makeText(this, "TOTAL PROV SIZE " + provinces.size(), Toast.LENGTH_SHORT).show();
         });
 
@@ -129,12 +129,12 @@ public class SplashActivity extends AppCompatActivity {
 //                startActivity(new Intent(SplashActivity.this, CameraActivity.class));
                 Boolean isUserExist = false;
                 String status = "";
-
+                int attempt = 0;
                 try {
                     SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.SHARED_PREFERENCE_ID, Context.MODE_PRIVATE);
                     isUserExist = SharedPreferencesUtility.isUserExist(sharedPreferences);
                     status = SharedPreferencesUtility.getStatus(sharedPreferences);
-
+                     attempt = SharedPreferencesUtility.getAttemptCount(sharedPreferences);
                     Log.d("AGENT STATUS" , "statss: " + status);
 
                 }catch (Exception e){
@@ -145,12 +145,21 @@ public class SplashActivity extends AppCompatActivity {
 
 
                 if (isUserExist){
+
+                    if ( attempt > 2) {
+                        showAlert1();
+                        return;
+                    }
+
+
                     Log.d(">>>>>>>>>>>AGENT STATUS" , "statss: " + status);
+
                     if (status.equalsIgnoreCase("INACTIVE")){
                         Log.d("HEREEE status>>>>>>>", "run:+ INCATIVe " );
                         showInactiveUserDialog();
                         return;
                     }
+
                     startActivity(new Intent(SplashActivity.this, AccountActivity.class));//MainActivity.class))
                 }else {
                     startActivity(new Intent(SplashActivity.this, MainActivity.class));//MainActivity.class));
@@ -242,5 +251,20 @@ public class SplashActivity extends AppCompatActivity {
         dialog.show();
 
     }
+
+    private void showAlert1() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Account Restricted")
+                .setMessage("Account locked, please reset your account")
+                .setCancelable(false)
+                .setPositiveButton("OK", (dialog, id) -> {
+                    SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.SHARED_PREFERENCE_ID, Context.MODE_PRIVATE);
+                    SharedPreferencesUtility.clear(sharedPreferences);
+
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                })
+                .show();
+    }
+
 
 }

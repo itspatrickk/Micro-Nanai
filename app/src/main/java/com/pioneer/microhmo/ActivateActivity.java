@@ -716,7 +716,8 @@ public class ActivateActivity extends AppCompatActivity {
 //                        Toast.makeText(context, error.getMessage(),Toast.LENGTH_LONG).show();
 
                         showAlert("Siguraduhing may internet connection wifi/mobile data bago mag activate sa app.");
-
+                        progressBar.setVisibility(View.GONE);
+                        btnActivate.setEnabled(true);
                         btnActivate.setVisibility(View.VISIBLE);
                     }
 
@@ -800,7 +801,8 @@ public class ActivateActivity extends AppCompatActivity {
                                 showInactiveUserDialog();
                             }else {
                                 showAlert("Ang Mobile Number na iyong binigay ay wala sa aming records. Siguraduhin na ikaw ay isang authorized MIA user. Makipag-ugnayan sa iyong CASS kung hindi makapag activate.");
-
+                                progressBar.setVisibility(View.GONE);
+                                btnActivate.setEnabled(true);
                             }
 
 //                            activateDiv.setVisibility(View.VISIBLE);
@@ -825,6 +827,8 @@ public class ActivateActivity extends AppCompatActivity {
                             } else {
                                 showAlert("An error occurred. Please try again later.");
                                 btnActivate.setVisibility(View.VISIBLE);
+                                progressBar.setVisibility(View.GONE);
+                                btnActivate.setEnabled(true);
                             }
                         } else {
                             Log.d("ERROR-------", "onErrorResponse: Network response is null");
@@ -894,7 +898,7 @@ public class ActivateActivity extends AppCompatActivity {
                                 showInactiveUserDialog();
                             }else {
                                 showAlert("Ang Mobile Number na iyong binigay ay wala sa aming records. Siguraduhin na ikaw ay isang authorized MIA user. Makipag-ugnayan sa iyong CASS kung hindi makapag activate.");
-
+                                progressBar.setVisibility(View.GONE);
                             }
 
                             activateDiv.setVisibility(View.VISIBLE);
@@ -917,10 +921,14 @@ public class ActivateActivity extends AppCompatActivity {
                                 showAlert1("OTP request limit exceeded. Please try again in 2 minutes.");
 
                             } else if (statusCode == 500 || statusCode == 404) {
+                                progressBar.setVisibility(View.GONE);
+                                btnActivate.setEnabled(true);
                                 showAlert("Ang Mobile Number na iyong binigay ay wala sa aming records. Siguraduhin na ikaw ay isang authorized MIA user. Makipag-ugnayan sa iyong CASS kung hindi makapag activate.");
                             } else {
                                 showAlert("An error occurred. Please try again later.");
                                 btnActivate.setVisibility(View.VISIBLE);
+                                progressBar.setVisibility(View.GONE);
+                                btnActivate.setEnabled(true);
                             }
                         } else {
                             Log.d("ERROR-------", "onErrorResponse: Network response is null");
