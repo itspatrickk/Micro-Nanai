@@ -11,7 +11,8 @@ public class Statics {
 
          //NEW UAT
       "Basic bFBHYWxkWnhyb0VsY0hLSVZmcUpwcFFfbFU0YTp0RFd5T2pPZU1YZHFaZkhsYWhMZzhEWGhnaTNkcVZuOHZnaXYyT3lpTjI4YQ==";
-
+    // PROD
+    //"Basic cWhIaGVCN0ZrOGR4NDFVVldwUGtkSGxGVjhVYTpDb042YkFiOU4wRW5RN0dsN0FmOFhzek1qR2tKUmpFeGlfQzZlYmw0cFpFYQ==";
     public static String BASE_URL =
             //prod
         // "https://apiprod.pioneer.com.ph/hodu/nan.ai/v1.0";
@@ -29,12 +30,16 @@ public class Statics {
     // NEW API
     "https://api-dev.pioneer.com.ph/hodu/nanaihmo/v1";
 
+
+    //prod
+    //"https://apiprod.pioneer.com.ph/hodu/nanaihmo/v1";
+
     public static String CRED_URL =
     //"https://api.asgardeo.io/t/pioneer/oauth2/token?grant_type=client_credentials";
     //"https://api2.pioneer.com.ph/token?grant_type=client_credentials";
 
     "https://api-dev.pioneer.com.ph/hodu/token/v1.0/oauth2/token?grant_type=client_credentials";
-
+     // "https://apiprod.pioneer.com.ph/hodu/token/v1.0/oauth2/token?grant_type=client_credentials";
 
    // public static String SEND_URL = BASE_URL + "/api/v1/nanai-hmo/app/save/";
     public static String SEND_URL = BASE_URL + "/api/v1/nanai-hmo/app/register";
@@ -47,7 +52,7 @@ public class Statics {
     public static String VALIDATE_URL = BASE_URL + "/api/v1/nanai-hmo/app/validateOtp";
     public static String SYNC_URL =  BASE_URL + "/api/v1/nanai-hmo/app/";
 
-
+    public static boolean isLoggedIn = false;
 
     //LOCAL CONNECTION
     public static String BASE_URL_HMO = "http://192.168.1.3:7000";

@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_plain"
     android:orientation="vertical"
-    tools:context=".ViewActivity">
+    tools:context=".ViewActivity"
+    android:fitsSystemWindows="true">
 
     <include layout="@layout/toolbar_view"/>
     <ScrollView

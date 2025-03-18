@@ -1,30 +1,37 @@
 package com.pioneer.microhmo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.pioneer.microhmo.util.Statics;
+
 public class BaseActivity extends AppCompatActivity {
 
-    private static final long TIMEOUT = 15 * 60 * 1000; // 15 minutes in milliseconds
-    // For testing purposes, you can use the following line for 5 seconds timeout
-    //private static final long TIMEOUT = 5 * 60 * 100; // 5 seconds
-    private Handler handler = new Handler();
+    private static final int INACTIVITY_MINUTES = 1;
+    private static final long TIMEOUT = INACTIVITY_MINUTES * 60 * 1000;
 
-    private Runnable logoutRunnable = new Runnable() {
-        @Override
-        public void run() {
-            logoutUser();
-        }
-    };
+    private Handler handler;
+    private Runnable logoutRunnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("----------------AutoLogout", "Initiated");
+        Log.d("AutoLogout", "onCreate");
+
+        handler = new Handler();
+        logoutRunnable = () -> {
+            if (Statics.isLoggedIn) {
+                logoutUser();
+            }
+        };
     }
 
     @Override
@@ -32,6 +39,13 @@ public class BaseActivity extends AppCompatActivity {
         super.onResume();
         Log.d("AutoLogout", "onResume");
         resetLogoutTimer();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        Log.d("AutoLogout", "Touch detected");
+        resetLogoutTimer();
+        return super.onTouchEvent(event);
     }
 
     @Override
@@ -44,7 +58,6 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public void onUserInteraction() {
         super.onUserInteraction();
-        Log.d("AutoLogout", "User interaction detected");
         resetLogoutTimer();
     }
 
@@ -54,17 +67,32 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void logoutUser() {
-        Log.d("AutoLogout", "Logging out user");
-        // Implement your logout logic here
-        Intent intent = new Intent(this, AccountActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish(); // Close current activity
+        Toast.makeText(this, "You have been inactive for " + INACTIVITY_MINUTES + " minutes", Toast.LENGTH_SHORT).show();
+        Log.d("AutoLogout", "User logged out due to inactivity");
+
+        if (!isScreenActive(this)) {
+            Intent intent = new Intent(this, AccountActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    private boolean isScreenActive(Context context) {
+        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        return powerManager != null && (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP
+                ? powerManager.isInteractive()
+                : powerManager.isScreenOn());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacks(logoutRunnable);
     }
 
     @Override
     public void onBackPressed() {
-        // Disable the back button functionality
-        // Remove the super.onBackPressed() line to disable the back button completely
+        // Back button disabled
     }
 }

@@ -82,6 +82,8 @@ public class RegisterActivity extends  RegisterCommon implements RecyclerViewInt
 
     private Retrofit retrofit;
     private AutoCompleteTextView province;
+
+
     // Spinner element
     Spinner spinner;// = (Spinner) findViewById(R.id.center);
     String username = "nanai";
@@ -96,7 +98,7 @@ public class RegisterActivity extends  RegisterCommon implements RecyclerViewInt
         membershipselected = "No";
         requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
         setContentView(R.layout.activity_register);
-
+        Statics.isLoggedIn = false;
         spinner = (Spinner) findViewById(R.id.center);
         province = findViewById(R.id.province);
 

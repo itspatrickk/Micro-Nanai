@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CameraActivity"
-    tools:ignore="MissingClass">
+    tools:ignore="MissingClass"
+    android:fitsSystemWindows="true">
 
     <androidx.camera.view.PreviewView
         android:layout_width="match_parent"

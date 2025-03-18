@@ -2,6 +2,7 @@ package com.pioneer.microhmo;
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.IntentSenderRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -30,6 +32,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.Task;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.appupdate.AppUpdateOptions;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.gson.Gson;
 import com.pioneer.microhmo.objects.AgentInfo;
 import com.pioneer.microhmo.objects.Matrix;
@@ -43,6 +52,7 @@ import java.util.Map;
 
 public class MenuActivity extends BaseActivity {
 
+    private int RC_APP_UPDATE = 999;
     ImageButton enrollButton, supportButton, salesButton, syncButton;
 
     ImageView logoutBtn;
@@ -95,7 +105,11 @@ public class MenuActivity extends BaseActivity {
 //                startActivity(intent);
                // updateLimits();
                 //updateCenter();
-                Toast.makeText(MenuActivity.this, "TEST---", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MenuActivity.this, "TEST---", Toast.LENGTH_SHORT).show();
+
+
+                Toast.makeText(MenuActivity.this, "Checking for updates...", Toast.LENGTH_SHORT).show();
+                checkUpdate();
             }
         });
         salesButton.setOnClickListener(new View.OnClickListener() {
@@ -112,6 +126,8 @@ public class MenuActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+
+
 
 
 //        logoutBtn.setOnClickListener(new View.OnClickListener() {
@@ -131,6 +147,59 @@ public class MenuActivity extends BaseActivity {
 //            }
 //        });
     }
+    private final ActivityResultLauncher<IntentSenderRequest> updateLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartIntentSenderForResult(),
+                    result -> {
+                        if (result.getResultCode() != RESULT_OK) {
+                            Toast.makeText(MenuActivity.this, "Update failed!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
+    public void checkUpdate() {
+        AppUpdateManager appUpdateManager = AppUpdateManagerFactory.create(this);
+        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
+
+        appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
+                try {
+                    Log.w("checkInAppUpdate", "updateAvailability");
+                    try {
+                        appUpdateManager.startUpdateFlowForResult(
+                                // Pass the intent that is returned by 'getAppUpdateInfo()'.
+                                appUpdateInfo,
+                                // an activity result launcher registered via registerForActivityResult
+                                updateLauncher,
+                                // Or pass 'AppUpdateType.FLEXIBLE' to newBuilder() for
+                                // flexible updates.
+                                AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE).build());
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, "Error starting update: " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                }
+            } else {
+                Toast.makeText(this, "No update available", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private final AppUpdateOptions appUpdateOptions = new AppUpdateOptions() {
+        @Override
+        public int appUpdateType() {
+            return AppUpdateType.FLEXIBLE;
+        }
+
+        @Override
+        public boolean allowAssetPackDeletion() {
+            return false;
+        }
+    };
+
+
 
     public void updateLimits(){
         Context context = getApplicationContext();

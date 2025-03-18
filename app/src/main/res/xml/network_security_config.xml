@@ -2,7 +2,7 @@
 <network-security-config>
     <domain-config>
         <domain includeSubdomains="true">api2.pioneer.com.ph</domain>
-<!--        <domain includeSubdomains="true">api-dev.pioneer.com.ph</domain>-->
+<!--        <domain includeSubdomains="true">apiprod.pioneer.com.ph</domain>-->
         <domain-config cleartextTrafficPermitted="true">
             <domain includeSubdomains="true">localhost</domain>
         </domain-config>
@@ -17,6 +17,9 @@
         </domain-config>
         <domain-config cleartextTrafficPermitted="true">
             <domain includeSubdomains="true">api-dev.pioneer.com.ph</domain>
+        </domain-config>
+        <domain-config cleartextTrafficPermitted="true">
+            <domain includeSubdomains="true">apiprod.pioneer.com.ph</domain>
         </domain-config>
         <domain-config cleartextTrafficPermitted="true">
             <domain includeSubdomains="true">192.168.1.22</domain>

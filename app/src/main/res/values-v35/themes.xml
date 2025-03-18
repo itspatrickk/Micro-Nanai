@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+
     <style name="Theme.Tatai" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/pioneer_blue</item>
@@ -11,16 +12,19 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
         <!-- Customize your theme here. -->
     </style>
 
     <!-- SplashScreen -->
     <style name="SplashScreen" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorOnPrimary</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
 
     <style name="NoTitleBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorOnPrimary</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
 
     <style name="MyEditTextstyle">
@@ -28,15 +32,18 @@
         <item name="android:background">@drawable/blue_border</item>
         <item name="android:layout_marginTop">5dp</item>
         <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
 
     <style name="PrefixTextAppearance" parent="TextAppearance.Design.Hint">
         <item name="android:textSize">25dp</item>
         <item name="android:textColor">@color/primary</item>
         <item name="android:background">@drawable/blue_border</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
     <style name="TextLabel" parent="TextAppearance.Design.Hint">
         <item name="android:textSize">25dp</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
 
 
@@ -45,6 +52,7 @@
         <item name="android:background">@drawable/blue_button</item>
         <item name="android:layout_marginTop">5dp</item>
         <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
 
     <style name="EditTextstyle">
@@ -54,6 +62,7 @@
         <item name="android:paddingLeft">10dp</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:textSize">25dp</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
 
 
@@ -61,6 +70,7 @@
         <item name="android:textColor">@color/primary</item>
         <item name="android:textSize">20dp</item>
         <item name="android:layout_marginTop">10dp</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
 
     <style name="TextViewEntry">
@@ -70,14 +80,16 @@
         <item name="android:layout_height">50dp</item>
         <item name="android:paddingLeft">20dp</item>
         <item name="android:radius">10dp</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
     <style name="TextViewEntrySpinner">
         <item name="android:textColor">@color/primary</item>
         <item name="android:textSize">25dp</item>
-<!--        <item name="android:layout_marginBottom">5dp</item>-->
-<!--        <item name="android:layout_height">50dp</item>-->
-<!--        <item name="android:paddingLeft">20dp</item>-->
-<!--        <item name="android:radius">10dp</item>-->
+        <!--        <item name="android:layout_marginBottom">5dp</item>-->
+        <!--        <item name="android:layout_height">50dp</item>-->
+        <!--        <item name="android:paddingLeft">20dp</item>-->
+        <!--        <item name="android:radius">10dp</item>-->
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
 
 
@@ -87,26 +99,31 @@
         <item name="android:layout_marginBottom">10dp</item>
         <item name="fontWeight">600</item>
         <item name="android:textSize">22dp</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
 
     <style name="Radiostyle">
         <item name="android:textSize">18dp</item>
         <item name="android:layout_marginTop">5dp</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
 
     <style name="CustomRadioTheme" parent="Widget.AppCompat.CompoundButton.RadioButton">
         <item name="android:colorControlNormal">#7a7a7a</item>
         <item name="android:colorControlActivated">#FF9800</item>
         <item name="android:colorControlHighlight">#FF9800</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
 
     <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/pioneer_blue</item>
         <item name="android:textColor">@color/white</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
     <style name="CustomPopupMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
         <item name="android:popupBackground">@color/pioneer_green</item>
         <item name="android:textColor">@color/white</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
 
 
@@ -118,5 +135,6 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
     </style>
 </resources>

@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/mhi_background"
     android:orientation="vertical"
-    tools:context=".MenuActivity">
+    tools:context=".MenuActivity"
+    android:fitsSystemWindows="true">
 
 <!--    <include layout="@layout/toolbar_home"/>-->
 

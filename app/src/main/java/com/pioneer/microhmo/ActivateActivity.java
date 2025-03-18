@@ -37,6 +37,7 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -168,6 +169,7 @@ public class ActivateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                // btnActivate.setVisibility(View.INVISIBLE);
+                btnActivate.setEnabled(false);
                  mobile = mobileNumber.getText().toString();
                  if (mobile.length() == 9){
 
@@ -178,6 +180,7 @@ public class ActivateActivity extends AppCompatActivity {
 //                     progressBar.setVisibility(View.VISIBLE);
                  }else{
                      btnActivate.setVisibility(View.VISIBLE);
+                     btnActivate.setEnabled(true);
                      showAlert("Please check your mobile number.");
                  }
             }
@@ -535,10 +538,11 @@ public class ActivateActivity extends AppCompatActivity {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                mobile = "09"+mobile;//.substring(mobile.length()-10);
-                activateAccount( mobile);
                 btnActivate.setEnabled(false);
                 progressBar.setVisibility(View.VISIBLE);
+                mobile = "09"+mobile;//.substring(mobile.length()-10);
+                activateAccount( mobile);
+
             }
         });
         AlertDialog dialog = builder.create();
@@ -674,7 +678,11 @@ public class ActivateActivity extends AppCompatActivity {
                 return headers;
             }
         };
-
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                10000, // Timeout in milliseconds (10s)
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, // Number of retries
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
         queue.add(stringRequest);
     }
 
@@ -916,6 +924,7 @@ public class ActivateActivity extends AppCompatActivity {
 
                             Log.d("ERROR-------", "Status Code: " + statusCode);
                             Log.d("ERROR-------", "Error Data: " + errorData);
+                            
 
                             if (statusCode == 429) {
                                 showAlert1("OTP request limit exceeded. Please try again in 2 minutes.");
@@ -951,7 +960,11 @@ public class ActivateActivity extends AppCompatActivity {
                 return headers;
             }
         };
-
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
         queue.add(stringRequest);
     }
 

@@ -39,6 +39,7 @@ import com.pioneer.microhmo.objects.PolicyInfo;
 import com.pioneer.microhmo.objects.Transaction;
 import com.pioneer.microhmo.util.CommonUtil;
 import com.pioneer.microhmo.util.SharedPreferencesUtility;
+import com.pioneer.microhmo.util.Statics;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -65,7 +66,6 @@ public class RegisterCommon extends BaseActivity{
     String sagipFamilyCode = "SF";
     String sagipIndividualCode = "SI";
     String sagipPlatinumCode= "SP";
-
     TextView capturedRS1 ;
     TextView capturedRS2 ;
     public static String suffixlist[] = {"", "SR", "JR", "II", "III", "IV", "V"};
